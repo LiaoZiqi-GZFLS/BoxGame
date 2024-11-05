@@ -2,7 +2,7 @@ package com.example.boxgame;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
+//import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -18,7 +18,7 @@ public class BoxGameController extends Application {
     private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
     private Player player;
     private Box box;
-    private int[] Position = {2, 2};
+    private final int[] Position = {2, 2};
 
     @Override
     public void start(Stage primaryStage) {
@@ -100,19 +100,6 @@ public class BoxGameController extends Application {
 
         // 检查是否推箱子
         if (newX == box.getX() && newY == box.getY()) {
-            int boxNewX = box.getX() + dx;
-            int boxNewY = box.getY() + dy;
-
-            // 检查箱子是否越界
-            if (boxNewX < 0 || boxNewX >= GRID_COUNT || boxNewY < 0 || boxNewY >= GRID_COUNT) {
-                return;
-            }
-
-            // 检查箱子是否移动到墙上
-            if (grid[boxNewX][boxNewY].getFill() == Color.BLACK) {
-                return;
-            }
-
             // 移动箱子
             grid[box.getOldX()][box.getOldY()].setFill(Color.LIGHTGRAY);
             box.move(dx, dy);
