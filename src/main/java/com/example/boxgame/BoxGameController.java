@@ -18,6 +18,7 @@ public class BoxGameController extends Application {
     private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
     private Player player;
     private Box box;
+    private int[] Position = {2, 2};
 
     @Override
     public void start(Stage primaryStage) {
@@ -76,7 +77,8 @@ public class BoxGameController extends Application {
 
         // 将玩家和箱子添加到网格中
         grid[player.getX()][player.getY()].setFill(Color.BLUE);
-        grid[box.getX()][box.getY()].setFill(Color.GREEN);
+        grid[box.getX()][box.getY()].setFill(Color.GRAY);
+        grid[Position[0]][Position[1]].setFill(Color.GREEN);
     }
 
     private void movePlayer(int dx, int dy) {
@@ -92,6 +94,9 @@ public class BoxGameController extends Application {
         if (grid[newX][newY].getFill() == Color.BLACK) {
             return;
         }
+
+        //刷新目标点
+        grid[Position[0]][Position[1]].setFill(Color.GREEN);
 
         // 检查是否推箱子
         if (newX == box.getX() && newY == box.getY()) {
@@ -111,7 +116,7 @@ public class BoxGameController extends Application {
             // 移动箱子
             grid[box.getOldX()][box.getOldY()].setFill(Color.LIGHTGRAY);
             box.move(dx, dy);
-            grid[box.getX()][box.getY()].setFill(Color.GREEN);
+            grid[box.getX()][box.getY()].setFill(Color.GRAY);
         }
 
         // 移动玩家
@@ -127,7 +132,7 @@ public class BoxGameController extends Application {
     private boolean checkWinCondition() {
         // 假设目标位置是一个二维数组，表示每个箱子应该在的位置
         int[][] targetPositions = {
-                {2, 2} // 箱子1的目标位置
+                Position // 箱子1的目标位置
         };
 
         for (int[] targetPosition : targetPositions) {
