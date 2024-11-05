@@ -19,6 +19,7 @@ public class BoxGameController extends Application {
     private Player player;
     private Box box;
     private final int[] Position = {2, 2};
+    private int step = 0;
 
     @Override
     public void start(Stage primaryStage) {
@@ -61,12 +62,13 @@ public class BoxGameController extends Application {
                 break;
         }
 
-        // 检查箱子是否需要移动
-        checkAndMoveBox();
-
         // 检查是否胜利
         if (checkWinCondition()) {
             alert("Congratulations! You win!");
+        }
+        //步数检测
+        if(step > GRID_SIZE) {
+            alert("Game Over","You lost!");
         }
     }
 
@@ -82,6 +84,7 @@ public class BoxGameController extends Application {
     }
 
     private void movePlayer(int dx, int dy) {
+        step++;
         int newX = player.getX() + dx;
         int newY = player.getY() + dy;
 
@@ -107,13 +110,9 @@ public class BoxGameController extends Application {
         }
 
         // 移动玩家
-        grid[player.getOldX()][player.getOldY()].setFill(Color.LIGHTGRAY);
         player.move(dx, dy);
+        grid[player.getOldX()][player.getOldY()].setFill(Color.LIGHTGRAY);
         grid[player.getX()][player.getY()].setFill(Color.BLUE);
-    }
-
-    private void checkAndMoveBox() {
-        // 这个方法已经在 handleKeyPress 中处理
     }
 
     private boolean checkWinCondition() {
@@ -134,6 +133,13 @@ public class BoxGameController extends Application {
     private void alert(String message) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Game Finished!");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    private void alert(String title,String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
