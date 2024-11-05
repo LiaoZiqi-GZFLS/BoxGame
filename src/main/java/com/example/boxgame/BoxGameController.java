@@ -15,7 +15,7 @@ public class BoxGameController extends Application {
 
     private static final int GRID_SIZE = 30;
     private static final int GRID_COUNT = 10;
-    private Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
+    private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
     private Player player;
     private Box box;
 
@@ -39,9 +39,7 @@ public class BoxGameController extends Application {
 
         initializeGame();
 
-        scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            handleKeyPress(event);
-        });
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, this::handleKeyPress);
     }
 
     private void handleKeyPress(KeyEvent event) {
@@ -129,11 +127,11 @@ public class BoxGameController extends Application {
     private boolean checkWinCondition() {
         // 假设目标位置是一个二维数组，表示每个箱子应该在的位置
         int[][] targetPositions = {
-                {4, 4} // 箱子1的目标位置
+                {2, 2} // 箱子1的目标位置
         };
 
-        for (int i = 0; i < targetPositions.length; i++) {
-            if (box.getX() != targetPositions[i][0] || box.getY() != targetPositions[i][1]) {
+        for (int[] targetPosition : targetPositions) {
+            if (box.getX() != targetPosition[0] || box.getY() != targetPosition[1]) {
                 return false;
             }
         }
