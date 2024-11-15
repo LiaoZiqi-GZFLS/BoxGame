@@ -20,6 +20,7 @@ public class BoxGameController extends Application {
     private Box box;
     private final int[] Position = {2, 2};
     private int step = 0;
+    private boolean check = true;
 
     @Override
     public void start(Stage primaryStage) {
@@ -63,13 +64,16 @@ public class BoxGameController extends Application {
         }
 
         // 检查是否胜利
-        if (checkWinCondition()) {
+        if (checkWinCondition()&&check) {
             alert("Congratulations! You win!");
+            check = false;
         }
         //步数检测
-        if(step > GRID_SIZE) {
+        if(step > GRID_SIZE&&check) {
             alert("Game Over","You lost!");
+            check = false;
         }
+
     }
 
     private void initializeGame() {
@@ -112,6 +116,8 @@ public class BoxGameController extends Application {
         // 移动玩家
         player.move(dx, dy);
         grid[player.getOldX()][player.getOldY()].setFill(Color.LIGHTGRAY);
+        grid[Position[0]][Position[1]].setFill(Color.GREEN);//重绘
+        grid[box.getX()][box.getY()].setFill(Color.GRAY);//重绘
         grid[player.getX()][player.getY()].setFill(Color.BLUE);
     }
 
