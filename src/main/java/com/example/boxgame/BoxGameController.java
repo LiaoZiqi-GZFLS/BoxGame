@@ -18,7 +18,7 @@ public class BoxGameController extends Application {
     private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
     private Player player;
     private Box box;
-    private final int[] Position = {2, 2};
+    private final int[][] Position = {{2,2}};
     private int step = 0;
     private boolean check = true;
 
@@ -84,7 +84,7 @@ public class BoxGameController extends Application {
         // 将玩家和箱子添加到网格中
         grid[player.getX()][player.getY()].setFill(Color.BLUE);
         grid[box.getX()][box.getY()].setFill(Color.GRAY);
-        grid[Position[0]][Position[1]].setFill(Color.GREEN);
+        grid[Position[0][0]][Position[0][1]].setFill(Color.GREEN);
     }
 
     private void movePlayer(int dx, int dy) {
@@ -103,7 +103,7 @@ public class BoxGameController extends Application {
         }
 
         //刷新目标点
-        grid[Position[0]][Position[1]].setFill(Color.GREEN);
+        grid[Position[0][0]][Position[0][1]].setFill(Color.GREEN);
 
         // 检查是否推箱子
         if (newX == box.getX() && newY == box.getY()) {
@@ -116,21 +116,24 @@ public class BoxGameController extends Application {
         // 移动玩家
         player.move(dx, dy);
         grid[player.getOldX()][player.getOldY()].setFill(Color.LIGHTGRAY);
-        grid[Position[0]][Position[1]].setFill(Color.GREEN);//重绘
+        grid[Position[0][0]][Position[0][1]].setFill(Color.GREEN);//重绘
         grid[box.getX()][box.getY()].setFill(Color.GRAY);//重绘
         grid[player.getX()][player.getY()].setFill(Color.BLUE);
     }
 
     private boolean checkWinCondition() {
         // 假设目标位置是一个二维数组，表示每个箱子应该在的位置
-        int[][] targetPositions = {
+        int[][][] targetPositions = {
                 Position // 箱子1的目标位置
         };
 
-        for (int[] targetPosition : targetPositions) {
-            if (box.getX() != targetPosition[0] || box.getY() != targetPosition[1]) {
-                return false;
+        for (int[][] targetPosition : targetPositions) {
+            for(int[] target : targetPosition) {
+                if (box.getX() != target[0] || box.getY() != target[1]) {
+                    return false;
+                }
             }
+
         }
 
         return true;
