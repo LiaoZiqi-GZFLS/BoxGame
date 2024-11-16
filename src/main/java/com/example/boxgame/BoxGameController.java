@@ -10,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import org.jetbrains.annotations.NotNull;
 
 public class BoxGameController extends Application {
 
@@ -45,7 +46,7 @@ public class BoxGameController extends Application {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, this::handleKeyPress);
     }
 
-    private void handleKeyPress(KeyEvent event) {
+    private void handleKeyPress(@NotNull KeyEvent event) {
         switch (event.getCode()) {
             case UP:
                 movePlayer(0, -1);
@@ -69,7 +70,7 @@ public class BoxGameController extends Application {
             check = false;
         }
         //步数检测
-        if(step > GRID_SIZE&&check) {
+        if(step > 30&&check) {
             alert("Game Over","You lost!");
             check = false;
         }
@@ -107,6 +108,14 @@ public class BoxGameController extends Application {
 
         // 检查是否推箱子
         if (newX == box.getX() && newY == box.getY()) {
+            // 检查是否越界
+            if (newX+dx < 0 || newX+dx >= GRID_COUNT || newY+dy < 0 || newY+dy >= GRID_COUNT) {
+                return;
+            }
+            // 检查是否移动到墙上
+            if (grid[newX+dx][newY+dy].getFill() == Color.BLACK) {
+                return;
+            }
             // 移动箱子
             grid[box.getOldX()][box.getOldY()].setFill(Color.LIGHTGRAY);
             box.move(dx, dy);
