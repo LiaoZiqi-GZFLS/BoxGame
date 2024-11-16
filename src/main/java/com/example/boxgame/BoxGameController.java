@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class BoxGameController extends Application {
 
-    private static final int GRID_SIZE = 30;
+    private static final int GRID_SIZE = 50;
     private static final int GRID_COUNT = 10;
     private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
     private Player player;
@@ -40,6 +40,9 @@ public class BoxGameController extends Application {
         primaryStage.setTitle("Sokoban Game");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        // 禁止用户调整窗口大小
+        primaryStage.setResizable(false);
 
         initializeGame();
 
