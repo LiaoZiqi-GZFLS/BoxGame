@@ -62,6 +62,7 @@ public class BoxGameApplication extends Application {
     }
 
     private void handleKeyPress(@NotNull KeyEvent event) {
+        //System.out.println(event.getCode());
         switch (event.getCode()) {
             case UP:
                 movePlayer(0, -1);
@@ -103,7 +104,7 @@ public class BoxGameApplication extends Application {
     private void initializeGame() {
         //初始化地图
         char[][] _map = map.getMap();
-
+        //System.out.println("Initial game...");
         for (int i = 0; i < GRID_COUNT; i++) {
             for (int j = 0; j < GRID_COUNT; j++) {
                 //grid[i][j] = new Rectangle(GRID_SIZE, GRID_SIZE, GroundColor);
@@ -132,14 +133,19 @@ public class BoxGameApplication extends Application {
         }
 
 
-        // 将玩家和箱子添加到网格中
-        grid[player.getX()][player.getY()].setFill(PlayerColor);
-        for(Box box : boxes) {
-            grid[box.getX()][box.getY()].setFill(BoxColor);
-        }
+        // 将玩家和箱子和目标点添加到网格中
+        Refresh();
+    }
+
+    private void Refresh() {
+        // 将玩家和箱子和目标点添加到网格中
         for(int[] targetPosition : Position ) {
             grid[targetPosition[0]][targetPosition[1]].setFill(PositionColor);
         }
+        for(Box box : boxes) {
+            grid[box.getX()][box.getY()].setFill(BoxColor);
+        }
+        grid[player.getX()][player.getY()].setFill(PlayerColor);
     }
 
     private void movePlayer(int dx, int dy) {
@@ -186,13 +192,7 @@ public class BoxGameApplication extends Application {
         // 移动玩家
         player.move(dx, dy);
         grid[player.getOldX()][player.getOldY()].setFill(GroundColor);
-        for(int[] targetPosition : Position ) {
-            grid[targetPosition[0]][targetPosition[1]].setFill(PositionColor);//重绘
-        }
-        for(Box box : boxes) {
-            grid[box.getX()][box.getY()].setFill(BoxColor);//重绘
-        }
-        grid[player.getX()][player.getY()].setFill(PlayerColor);
+        Refresh();
     }
 
     private boolean checkWinCondition() {
