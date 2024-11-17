@@ -12,6 +12,12 @@ public class Box {
         this.oldX = x;
         this.oldY = y;
     }
+    public Box(){
+        this.x = 0;
+        this.y = 0;
+        this.oldX = x;
+        this.oldY = y;
+    }
 
     public int getX() {
         return x;

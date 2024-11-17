@@ -18,8 +18,10 @@ public class BoxGameController extends Application {
     private static final int GRID_COUNT = 10;
     private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
     private Player player;
-    private Box box;
-    private final int[][] Position = {{2,2}};
+    private final int[] playerPosition = {3, 3};
+    private final int[][] Position = {{2,2},{5,7}};
+    private final int[][] boxsPosition = {{4,4},{3,6}};
+    private final Box[] boxes = new Box[boxsPosition.length];
     private int step = 0;
     private boolean check = true;
 
@@ -81,14 +83,21 @@ public class BoxGameController extends Application {
     }
 
     private void initializeGame() {
-        // 假设玩家起始位置在(3,3)，箱子在(4,4)
-        player = new Player(3, 3);
-        box = new Box(4, 4);
+        // 假设玩家在起始位置，箱子在起始位置
+        player = new Player(playerPosition[0], playerPosition[1]);
+        for (int i = 0; i < boxes.length; i++) {
+            boxes[i] = new Box(boxsPosition[i][0], boxsPosition[i][1]);
+        }
+
 
         // 将玩家和箱子添加到网格中
         grid[player.getX()][player.getY()].setFill(Color.BLUE);
-        grid[box.getX()][box.getY()].setFill(Color.GRAY);
-        grid[Position[0][0]][Position[0][1]].setFill(Color.GREEN);
+        for(Box box : boxes) {
+            grid[box.getX()][box.getY()].setFill(Color.GRAY);
+        }
+        for(int[] targetPosition : Position ) {
+            grid[targetPosition[0]][targetPosition[1]].setFill(Color.GREEN);
+        }
     }
 
     private void movePlayer(int dx, int dy) {
@@ -107,29 +116,42 @@ public class BoxGameController extends Application {
         }
 
         //刷新目标点
-        grid[Position[0][0]][Position[0][1]].setFill(Color.GREEN);
+        for(int[] targetPosition : Position ) {
+            grid[targetPosition[0]][targetPosition[1]].setFill(Color.GREEN);
+        }
 
         // 检查是否推箱子
-        if (newX == box.getX() && newY == box.getY()) {
-            // 检查是否越界
-            if (newX+dx < 0 || newX+dx >= GRID_COUNT || newY+dy < 0 || newY+dy >= GRID_COUNT) {
-                return;
+        for(Box box : boxes) {
+            if (newX == box.getX() && newY == box.getY()) {
+                // 检查是否越界
+                if (newX+dx < 0 || newX+dx >= GRID_COUNT || newY+dy < 0 || newY+dy >= GRID_COUNT) {
+                    return;
+                }
+                // 检查是否移动到墙上
+                if (grid[newX+dx][newY+dy].getFill() == Color.BLACK) {
+                    return;
+                }
+                // 检查是否移动到箱子上
+                if (grid[newX+dx][newY+dy].getFill() == Color.GRAY) {
+                    return;
+                }
+                // 移动箱子
+                grid[box.getOldX()][box.getOldY()].setFill(Color.LIGHTGRAY);
+                box.move(dx, dy);
+                grid[box.getX()][box.getY()].setFill(Color.GRAY);
             }
-            // 检查是否移动到墙上
-            if (grid[newX+dx][newY+dy].getFill() == Color.BLACK) {
-                return;
-            }
-            // 移动箱子
-            grid[box.getOldX()][box.getOldY()].setFill(Color.LIGHTGRAY);
-            box.move(dx, dy);
-            grid[box.getX()][box.getY()].setFill(Color.GRAY);
         }
+
 
         // 移动玩家
         player.move(dx, dy);
         grid[player.getOldX()][player.getOldY()].setFill(Color.LIGHTGRAY);
-        grid[Position[0][0]][Position[0][1]].setFill(Color.GREEN);//重绘
-        grid[box.getX()][box.getY()].setFill(Color.GRAY);//重绘
+        for(int[] targetPosition : Position ) {
+            grid[targetPosition[0]][targetPosition[1]].setFill(Color.GREEN);//重绘
+        }
+        for(Box box : boxes) {
+            grid[box.getX()][box.getY()].setFill(Color.GRAY);//重绘
+        }
         grid[player.getX()][player.getY()].setFill(Color.BLUE);
     }
 
@@ -138,17 +160,25 @@ public class BoxGameController extends Application {
         int[][][] targetPositions = {
                 Position // 箱子1的目标位置
         };
-
+        int num = 0;
         for (int[][] targetPosition : targetPositions) {
             for(int[] target : targetPosition) {
-                if (box.getX() != target[0] || box.getY() != target[1]) {
-                    return false;
+                here:
+                for(Box box : boxes) {
+                    if (box.getX() == target[0] && box.getY() == target[1]) {
+                        num++;
+                        break here;
+                    }
                 }
+
             }
 
         }
-
-        return true;
+        if(num== boxsPosition.length){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private void alert(String message) {
