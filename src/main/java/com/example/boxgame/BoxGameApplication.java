@@ -23,7 +23,7 @@ public class BoxGameApplication extends Application {
     private int[][] Position = {{2,2},{5,7}};
     private int[][] boxesPosition = {{4,4},{3,6}};
     private final Box[] boxes = new Box[boxesPosition.length];
-    private int N = 0;
+    private final int N = 4;
     private int step = 0;
     private boolean check = true;
 
@@ -77,7 +77,7 @@ public class BoxGameApplication extends Application {
             check = false;
         }
         //步数检测
-        if(step > 30&&check) {
+        if(step > 50&&check) {
             alert("Game Over","You lost!");
             check = false;
         }
@@ -142,11 +142,6 @@ public class BoxGameApplication extends Application {
         // 检查是否移动到墙上
         if (grid[newX][newY].getFill() == Color.LIGHTGRAY) {
             return;
-        }
-
-        //刷新目标点
-        for(int[] targetPosition : Position ) {
-            grid[targetPosition[0]][targetPosition[1]].setFill(Color.LIGHTGREEN);
         }
 
         // 检查是否推箱子

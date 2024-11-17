@@ -94,11 +94,13 @@ public class Map {
             }
         }
         int[][] ints = new int[num][2];
+        int n=0;
         for(int i=0;i<10;i++){
             for(int j=0;j<10;j++){
                 if(map0[i][j]=='B'||map0[i][j]=='@'){
-                    ints[--num][0]=j;
-                    ints[num][1]=i;
+                    ints[n][0]=j;
+                    ints[n][1]=i;
+                    n++;
                 }
             }
         }
@@ -114,11 +116,13 @@ public class Map {
             }
         }
         int[][] ints = new int[num][2];
+        int n=0;
         for(int i=0;i<10;i++){
             for(int j=0;j<10;j++){
                 if(map0[i][j]=='T'||map0[i][j]=='@'||map0[i][j]=='?'){
-                    ints[--num][0]=j;
-                    ints[num][1]=i;
+                    ints[n][0]=j;
+                    ints[n][1]=i;
+                    n++;
                 }
             }
         }
