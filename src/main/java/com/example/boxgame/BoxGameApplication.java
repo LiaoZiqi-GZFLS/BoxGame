@@ -97,14 +97,14 @@ public class BoxGameApplication extends Application {
                 if(_map[i][j]=='.') {
                     grid[j][i].setFill(Color.WHITE);
                 }
-                if(_map[i][j]=='P'||_map[i][j]=='?') {
-                    grid[j][i].setFill(Color.LIGHTBLUE);
+                if(_map[i][j]=='T') {
+                    grid[j][i].setFill(Color.LIGHTGREEN);
                 }
                 if(_map[i][j]=='B'||_map[i][j]=='@') {
                     grid[j][i].setFill(Color.ORANGE);
                 }
-                if(_map[i][j]=='T') {
-                    grid[j][i].setFill(Color.LIGHTGREEN);
+                if(_map[i][j]=='P'||_map[i][j]=='?') {
+                    grid[j][i].setFill(Color.LIGHTBLUE);
                 }
             }
         }
