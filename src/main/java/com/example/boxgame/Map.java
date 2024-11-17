@@ -55,7 +55,7 @@ public class Map {
     private final char[][][] map = {
             map1, map2, map3, map4, map5,
     };
-    public void initMap(int n) {
+    public Map(int n) {
         for(int i = 0; i < 10; i++) {
             Arrays.fill(map0[i], '.');
         }

@@ -16,14 +16,14 @@ public class BoxGameApplication extends Application {
 
     private static final int GRID_SIZE = 50;
     private static final int GRID_COUNT = 10;
+    private static final int N = 3;
     private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
-    private final Map map = new Map();
+    private final Map map = new Map(N);
     private Player player;
-    private int[] playerPosition = {3, 3};
-    private int[][] Position = {{2,2},{5,7}};
-    private int[][] boxesPosition = {{4,4},{3,6}};
+    private final int[] playerPosition = map.getPlayerPosition();
+    private final int[][] Position = map.getPosition();
+    private final int[][] boxesPosition = map.getBoxesPosition();
     private final Box[] boxes = new Box[boxesPosition.length];
-    private final int N = 4;
     private int step = 0;
     private boolean check = true;
 
@@ -86,11 +86,8 @@ public class BoxGameApplication extends Application {
 
     private void initializeGame() {
         //初始化地图
-        map.initMap(N);
-        playerPosition = map.getPlayerPosition();
-        boxesPosition = map.getBoxesPosition();
-        Position = map.getPosition();
         char[][] _map = map.getMap();
+
         for (int i = 0; i < GRID_COUNT; i++) {
             for (int j = 0; j < GRID_COUNT; j++) {
                 //grid[i][j] = new Rectangle(GRID_SIZE, GRID_SIZE, Color.WHITE);
@@ -145,26 +142,29 @@ public class BoxGameApplication extends Application {
         }
 
         // 检查是否推箱子
-        for(Box box : boxes) {
-            if (newX == box.getX() && newY == box.getY()) {
-                // 检查是否越界
-                if (newX+dx < 0 || newX+dx >= GRID_COUNT || newY+dy < 0 || newY+dy >= GRID_COUNT) {
-                    return;
+        if(grid[newX][newY].getFill() == Color.ORANGE) {
+            for(Box box : boxes) {
+                if (newX == box.getX() && newY == box.getY()) {
+                    // 检查是否越界
+                    if (newX+dx < 0 || newX+dx >= GRID_COUNT || newY+dy < 0 || newY+dy >= GRID_COUNT) {
+                        return;
+                    }
+                    // 检查是否移动到墙上
+                    if (grid[newX+dx][newY+dy].getFill() == Color.LIGHTGRAY) {
+                        return;
+                    }
+                    // 检查是否移动到箱子上
+                    if (grid[newX+dx][newY+dy].getFill() == Color.ORANGE) {
+                        return;
+                    }
+                    // 移动箱子
+                    box.move(dx, dy);
+                    grid[box.getOldX()][box.getOldY()].setFill(Color.WHITE);
+                    grid[box.getX()][box.getY()].setFill(Color.ORANGE);
                 }
-                // 检查是否移动到墙上
-                if (grid[newX+dx][newY+dy].getFill() == Color.LIGHTGRAY) {
-                    return;
-                }
-                // 检查是否移动到箱子上
-                if (grid[newX+dx][newY+dy].getFill() == Color.ORANGE) {
-                    return;
-                }
-                // 移动箱子
-                box.move(dx, dy);
-                grid[box.getOldX()][box.getOldY()].setFill(Color.WHITE);
-                grid[box.getX()][box.getY()].setFill(Color.ORANGE);
             }
         }
+
 
 
         // 移动玩家
