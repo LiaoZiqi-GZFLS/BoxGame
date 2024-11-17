@@ -12,16 +12,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import org.jetbrains.annotations.NotNull;
 
-public class BoxGameController extends Application {
+public class BoxGameApplication extends Application {
 
     private static final int GRID_SIZE = 50;
     private static final int GRID_COUNT = 10;
     private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
+    private final Map map = new Map();
     private Player player;
-    private final int[] playerPosition = {3, 3};
-    private final int[][] Position = {{2,2},{5,7}};
-    private final int[][] boxsPosition = {{4,4},{3,6}};
-    private final Box[] boxes = new Box[boxsPosition.length];
+    private int[] playerPosition = {3, 3};
+    private int[][] Position = {{2,2},{5,7}};
+    private int[][] boxesPosition = {{4,4},{3,6}};
+    private final Box[] boxes = new Box[boxesPosition.length];
+    private int N = 0;
     private int step = 0;
     private boolean check = true;
 
@@ -32,7 +34,7 @@ public class BoxGameController extends Application {
 
         for (int i = 0; i < GRID_COUNT; i++) {
             for (int j = 0; j < GRID_COUNT; j++) {
-                Rectangle rect = new Rectangle(GRID_SIZE, GRID_SIZE, Color.LIGHTGRAY);
+                Rectangle rect = new Rectangle(GRID_SIZE, GRID_SIZE, Color.WHITE);
                 gridPane.add(rect, i, j);
                 grid[i][j] = rect; // 初始化 grid 数组
             }
@@ -83,20 +85,47 @@ public class BoxGameController extends Application {
     }
 
     private void initializeGame() {
+        //初始化地图
+        map.initMap(N);
+        playerPosition = map.getPlayerPosition();
+        boxesPosition = map.getBoxesPosition();
+        Position = map.getPosition();
+        char[][] _map = map.getMap();
+        for (int i = 0; i < GRID_COUNT; i++) {
+            for (int j = 0; j < GRID_COUNT; j++) {
+                //grid[i][j] = new Rectangle(GRID_SIZE, GRID_SIZE, Color.WHITE);
+                if(_map[i][j]=='#') {
+                    grid[j][i].setFill(Color.LIGHTGRAY);
+                }
+                if(_map[i][j]=='.') {
+                    grid[j][i].setFill(Color.WHITE);
+                }
+                if(_map[i][j]=='P'||_map[i][j]=='?') {
+                    grid[j][i].setFill(Color.LIGHTBLUE);
+                }
+                if(_map[i][j]=='B'||_map[i][j]=='@') {
+                    grid[j][i].setFill(Color.ORANGE);
+                }
+                if(_map[i][j]=='T') {
+                    grid[j][i].setFill(Color.LIGHTGREEN);
+                }
+            }
+        }
+
         // 假设玩家在起始位置，箱子在起始位置
         player = new Player(playerPosition[0], playerPosition[1]);
         for (int i = 0; i < boxes.length; i++) {
-            boxes[i] = new Box(boxsPosition[i][0], boxsPosition[i][1]);
+            boxes[i] = new Box(boxesPosition[i][0], boxesPosition[i][1]);
         }
 
 
         // 将玩家和箱子添加到网格中
-        grid[player.getX()][player.getY()].setFill(Color.BLUE);
+        grid[player.getX()][player.getY()].setFill(Color.LIGHTBLUE);
         for(Box box : boxes) {
-            grid[box.getX()][box.getY()].setFill(Color.GRAY);
+            grid[box.getX()][box.getY()].setFill(Color.ORANGE);
         }
         for(int[] targetPosition : Position ) {
-            grid[targetPosition[0]][targetPosition[1]].setFill(Color.GREEN);
+            grid[targetPosition[0]][targetPosition[1]].setFill(Color.LIGHTGREEN);
         }
     }
 
@@ -111,13 +140,13 @@ public class BoxGameController extends Application {
         }
 
         // 检查是否移动到墙上
-        if (grid[newX][newY].getFill() == Color.BLACK) {
+        if (grid[newX][newY].getFill() == Color.LIGHTGRAY) {
             return;
         }
 
         //刷新目标点
         for(int[] targetPosition : Position ) {
-            grid[targetPosition[0]][targetPosition[1]].setFill(Color.GREEN);
+            grid[targetPosition[0]][targetPosition[1]].setFill(Color.LIGHTGREEN);
         }
 
         // 检查是否推箱子
@@ -128,31 +157,31 @@ public class BoxGameController extends Application {
                     return;
                 }
                 // 检查是否移动到墙上
-                if (grid[newX+dx][newY+dy].getFill() == Color.BLACK) {
+                if (grid[newX+dx][newY+dy].getFill() == Color.LIGHTGRAY) {
                     return;
                 }
                 // 检查是否移动到箱子上
-                if (grid[newX+dx][newY+dy].getFill() == Color.GRAY) {
+                if (grid[newX+dx][newY+dy].getFill() == Color.ORANGE) {
                     return;
                 }
                 // 移动箱子
-                grid[box.getOldX()][box.getOldY()].setFill(Color.LIGHTGRAY);
                 box.move(dx, dy);
-                grid[box.getX()][box.getY()].setFill(Color.GRAY);
+                grid[box.getOldX()][box.getOldY()].setFill(Color.WHITE);
+                grid[box.getX()][box.getY()].setFill(Color.ORANGE);
             }
         }
 
 
         // 移动玩家
         player.move(dx, dy);
-        grid[player.getOldX()][player.getOldY()].setFill(Color.LIGHTGRAY);
+        grid[player.getOldX()][player.getOldY()].setFill(Color.WHITE);
         for(int[] targetPosition : Position ) {
-            grid[targetPosition[0]][targetPosition[1]].setFill(Color.GREEN);//重绘
+            grid[targetPosition[0]][targetPosition[1]].setFill(Color.LIGHTGREEN);//重绘
         }
         for(Box box : boxes) {
-            grid[box.getX()][box.getY()].setFill(Color.GRAY);//重绘
+            grid[box.getX()][box.getY()].setFill(Color.ORANGE);//重绘
         }
-        grid[player.getX()][player.getY()].setFill(Color.BLUE);
+        grid[player.getX()][player.getY()].setFill(Color.LIGHTBLUE);
     }
 
     private boolean checkWinCondition() {
@@ -174,11 +203,7 @@ public class BoxGameController extends Application {
             }
 
         }
-        if(num== boxsPosition.length){
-            return true;
-        }else{
-            return false;
-        }
+        return (num == boxesPosition.length);
     }
 
     private void alert(String message) {

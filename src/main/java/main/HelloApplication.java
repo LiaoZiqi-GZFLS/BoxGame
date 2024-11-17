@@ -1,4 +1,4 @@
-package com.example.boxgame;
+package main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
