@@ -17,7 +17,7 @@ public class BoxGameApplication extends Application {
 
     private static final int GRID_SIZE = 50;
     private static final int GRID_COUNT = 10;
-    private static final int N = 3;
+    private static final int N = 4;
     private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
     private final Map map = new Map(N);
     private Player player;
