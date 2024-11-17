@@ -1,6 +1,7 @@
 package com.example.boxgame;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 //import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -26,6 +27,7 @@ public class BoxGameApplication extends Application {
     private final Box[] boxes = new Box[boxesPosition.length];
     private int step = 0;
     private boolean check = true;
+    private boolean check2 = true;
     private final Color PlayerColor = Color.LIGHTBLUE;
     private final Color BoxColor = Color.ORANGE;
     private final Color PositionColor = Color.LIGHTGREEN;
@@ -36,6 +38,7 @@ public class BoxGameApplication extends Application {
     public void start(Stage primaryStage) {
         GridPane gridPane = new GridPane();
         gridPane.setGridLinesVisible(true);
+        gridPane.setPadding(new Insets(1, 1, 1, 1)); // 为GridPane添加内边距
 
         for (int i = 0; i < GRID_COUNT; i++) {
             for (int j = 0; j < GRID_COUNT; j++) {
@@ -81,9 +84,15 @@ public class BoxGameApplication extends Application {
             alert("Congratulations! You win!");
             check = false;
         }
+        //检测是否完成
+        if (checkWinCondition()&&check2&&!check) {
+            alert("Game Over","You finished the game!");
+            check = false;
+        }
         //步数检测
         if(step > 100&&check) {
-            alert("Game Over","Too much steps: You lost!");
+            alert("Game Over","You lost!");
+            alert("Reason: Too many steps!");
             check = false;
         }
 
