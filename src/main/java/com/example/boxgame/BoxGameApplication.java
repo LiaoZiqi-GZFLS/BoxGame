@@ -26,6 +26,11 @@ public class BoxGameApplication extends Application {
     private final Box[] boxes = new Box[boxesPosition.length];
     private int step = 0;
     private boolean check = true;
+    private final Color PlayerColor = Color.LIGHTBLUE;
+    private final Color BoxColor = Color.ORANGE;
+    private final Color PositionColor = Color.LIGHTGREEN;
+    private final Color GroundColor = Color.WHITE;
+    private final Color WallColor = Color.LIGHTGRAY;
 
     @Override
     public void start(Stage primaryStage) {
@@ -34,7 +39,7 @@ public class BoxGameApplication extends Application {
 
         for (int i = 0; i < GRID_COUNT; i++) {
             for (int j = 0; j < GRID_COUNT; j++) {
-                Rectangle rect = new Rectangle(GRID_SIZE, GRID_SIZE, Color.WHITE);
+                Rectangle rect = new Rectangle(GRID_SIZE, GRID_SIZE, GroundColor);
                 gridPane.add(rect, i, j);
                 grid[i][j] = rect; // 初始化 grid 数组
             }
@@ -90,21 +95,21 @@ public class BoxGameApplication extends Application {
 
         for (int i = 0; i < GRID_COUNT; i++) {
             for (int j = 0; j < GRID_COUNT; j++) {
-                //grid[i][j] = new Rectangle(GRID_SIZE, GRID_SIZE, Color.WHITE);
+                //grid[i][j] = new Rectangle(GRID_SIZE, GRID_SIZE, GroundColor);
                 if(_map[i][j]=='#') {
-                    grid[j][i].setFill(Color.LIGHTGRAY);
+                    grid[j][i].setFill(WallColor);
                 }
                 if(_map[i][j]=='.') {
-                    grid[j][i].setFill(Color.WHITE);
+                    grid[j][i].setFill(GroundColor);
                 }
                 if(_map[i][j]=='T') {
-                    grid[j][i].setFill(Color.LIGHTGREEN);
+                    grid[j][i].setFill(PositionColor);
                 }
                 if(_map[i][j]=='B'||_map[i][j]=='@') {
-                    grid[j][i].setFill(Color.ORANGE);
+                    grid[j][i].setFill(BoxColor);
                 }
                 if(_map[i][j]=='P'||_map[i][j]=='?') {
-                    grid[j][i].setFill(Color.LIGHTBLUE);
+                    grid[j][i].setFill(PlayerColor);
                 }
             }
         }
@@ -117,12 +122,12 @@ public class BoxGameApplication extends Application {
 
 
         // 将玩家和箱子添加到网格中
-        grid[player.getX()][player.getY()].setFill(Color.LIGHTBLUE);
+        grid[player.getX()][player.getY()].setFill(PlayerColor);
         for(Box box : boxes) {
-            grid[box.getX()][box.getY()].setFill(Color.ORANGE);
+            grid[box.getX()][box.getY()].setFill(BoxColor);
         }
         for(int[] targetPosition : Position ) {
-            grid[targetPosition[0]][targetPosition[1]].setFill(Color.LIGHTGREEN);
+            grid[targetPosition[0]][targetPosition[1]].setFill(PositionColor);
         }
     }
 
@@ -137,12 +142,12 @@ public class BoxGameApplication extends Application {
         }
 
         // 检查是否移动到墙上
-        if (grid[newX][newY].getFill() == Color.LIGHTGRAY) {
+        if (grid[newX][newY].getFill() == WallColor) {
             return;
         }
 
         // 检查是否推箱子
-        if(grid[newX][newY].getFill() == Color.ORANGE) {
+        if(grid[newX][newY].getFill() == BoxColor) {
             for(Box box : boxes) {
                 if (newX == box.getX() && newY == box.getY()) {
                     // 检查是否越界
@@ -150,17 +155,17 @@ public class BoxGameApplication extends Application {
                         return;
                     }
                     // 检查是否移动到墙上
-                    if (grid[newX+dx][newY+dy].getFill() == Color.LIGHTGRAY) {
+                    if (grid[newX+dx][newY+dy].getFill() == WallColor) {
                         return;
                     }
                     // 检查是否移动到箱子上
-                    if (grid[newX+dx][newY+dy].getFill() == Color.ORANGE) {
+                    if (grid[newX+dx][newY+dy].getFill() == BoxColor) {
                         return;
                     }
                     // 移动箱子
                     box.move(dx, dy);
-                    grid[box.getOldX()][box.getOldY()].setFill(Color.WHITE);
-                    grid[box.getX()][box.getY()].setFill(Color.ORANGE);
+                    grid[box.getOldX()][box.getOldY()].setFill(GroundColor);
+                    grid[box.getX()][box.getY()].setFill(BoxColor);
                 }
             }
         }
@@ -169,14 +174,14 @@ public class BoxGameApplication extends Application {
 
         // 移动玩家
         player.move(dx, dy);
-        grid[player.getOldX()][player.getOldY()].setFill(Color.WHITE);
+        grid[player.getOldX()][player.getOldY()].setFill(GroundColor);
         for(int[] targetPosition : Position ) {
-            grid[targetPosition[0]][targetPosition[1]].setFill(Color.LIGHTGREEN);//重绘
+            grid[targetPosition[0]][targetPosition[1]].setFill(PositionColor);//重绘
         }
         for(Box box : boxes) {
-            grid[box.getX()][box.getY()].setFill(Color.ORANGE);//重绘
+            grid[box.getX()][box.getY()].setFill(BoxColor);//重绘
         }
-        grid[player.getX()][player.getY()].setFill(Color.LIGHTBLUE);
+        grid[player.getX()][player.getY()].setFill(PlayerColor);
     }
 
     private boolean checkWinCondition() {
