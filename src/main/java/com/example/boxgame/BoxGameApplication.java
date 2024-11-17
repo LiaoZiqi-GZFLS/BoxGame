@@ -79,19 +79,20 @@ public class BoxGameApplication extends Application {
                 break;
         }
 
-        // 检查是否胜利
-        if (checkWinCondition()&&check) {
-            alert("Congratulations! You win!");
-            check = false;
-        }
         //检测是否完成
         if (checkWinCondition()&&check2&&!check) {
             alert("Game Over","You finished the game!");
+            alert("Waring: Too many steps!");
+            check2 = false;
+        }
+        // 检查是否胜利
+        if (checkWinCondition()&&check) {
+            alert("Victory","Congratulations! You win!");
             check = false;
         }
         //步数检测
         if(step > 100&&check) {
-            alert("Game Over","You lost!");
+            alert("Failure","You lost!");
             alert("Reason: Too many steps!");
             check = false;
         }
@@ -201,11 +202,10 @@ public class BoxGameApplication extends Application {
         int num = 0;
         for (int[][] targetPosition : targetPositions) {
             for(int[] target : targetPosition) {
-                here:
                 for(Box box : boxes) {
                     if (box.getX() == target[0] && box.getY() == target[1]) {
                         num++;
-                        break here;
+                        break;
                     }
                 }
 
@@ -217,7 +217,7 @@ public class BoxGameApplication extends Application {
 
     private void alert(String message) {
         Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Game Finished!");
+        alert.setTitle("Game exited!");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
