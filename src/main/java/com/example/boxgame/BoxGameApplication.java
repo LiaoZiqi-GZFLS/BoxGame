@@ -77,7 +77,7 @@ public class BoxGameApplication extends Application {
             check = false;
         }
         //步数检测
-        if(step > 50&&check) {
+        if(step > 100&&check) {
             alert("Game Over","You lost!");
             check = false;
         }
