@@ -80,9 +80,10 @@ public class BoxGameApplication extends Application {
         }
 
         //检测是否完成
-        if (checkWinCondition()&&check2&&!check) {
+        if (step > 100&&checkWinCondition()&&check2&&!check) {
             alert("Game Over","You finished the game!");
             alert("Waring: Too many steps!");
+            check = false;
             check2 = false;
         }
         // 检查是否胜利
