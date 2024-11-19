@@ -195,6 +195,9 @@ public class BoxGameApplication extends Application {
         for(Box box : boxes) {
             grid[box.getX()][box.getY()].setFill(BoxColor);
         }
+        for(Wall wall : walls) {
+            grid[wall.getX()][wall.getY()].setFill(WallColor);
+        }
         grid[player.getX()][player.getY()].setFill(PlayerColor);
     }
 
