@@ -30,6 +30,7 @@ public class BoxGameApplication extends Application {
     private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
     private final Map map = new Map(N);
     private char[][] _map;
+    private char[][] p_map;
     private Player player;
     private final int[] playerPosition = map.getPlayerPosition();
     private final int[][] Position = map.getPosition();
@@ -80,22 +81,24 @@ public class BoxGameApplication extends Application {
         switch (event.getCode()) {
             case UP:
                 movePlayer(0, -1);
+                Backup();
                 break;
             case DOWN:
                 movePlayer(0, 1);
+                Backup();
                 break;
             case LEFT:
                 movePlayer(-1, 0);
+                Backup();
                 break;
             case RIGHT:
                 movePlayer(1, 0);
+                Backup();
                 break;
             default:
                 break;
         }
 
-        //Backup
-        _map = Map.getMap0(grid);
         //检测条件
         checkCondition();
     }
@@ -139,27 +142,33 @@ public class BoxGameApplication extends Application {
         Refresh();
     }
 
+    private void Backup(){
+        //Backup
+        p_map = _map.clone();
+        _map = Map.getMap0(grid);
+    }
+
     private void undoGame() {
-        Map tMap = new Map(_map);
+        Map tMap = new Map(p_map);
         int[] t_playerPosition = tMap.getPlayerPosition();
         int[][] t_boxesPosition = tMap.getBoxesPosition();
         int[][] t_wallPosition = tMap.getWallPosition();
         for (int i = 0; i < GRID_COUNT; i++) {
             for (int j = 0; j < GRID_COUNT; j++) {
 
-                if(_map[i][j]=='#') {
+                if(p_map[i][j]=='#') {
                     grid[j][i].setFill(WallColor);
                 }
-                if(_map[i][j]=='.') {
+                if(p_map[i][j]=='.') {
                     grid[j][i].setFill(GroundColor);
                 }
-                if(_map[i][j]=='T') {
+                if(p_map[i][j]=='T') {
                     grid[j][i].setFill(PositionColor);
                 }
-                if(_map[i][j]=='B'||_map[i][j]=='@') {
+                if(p_map[i][j]=='B'||_map[i][j]=='@') {
                     grid[j][i].setFill(BoxColor);
                 }
-                if(_map[i][j]=='P'||_map[i][j]=='?') {
+                if(p_map[i][j]=='P'||_map[i][j]=='?') {
                     grid[j][i].setFill(PlayerColor);
                 }
             }
