@@ -248,8 +248,6 @@ public class BoxGameApplication extends Application {
                     }
                     // 移动箱子
                     box.move(dx, dy);
-                    //grid[box.getOldX()][box.getOldY()].setFill(GroundColor);
-                    //grid[box.getX()][box.getY()].setFill(BoxColor);
                 }
             }
         }
