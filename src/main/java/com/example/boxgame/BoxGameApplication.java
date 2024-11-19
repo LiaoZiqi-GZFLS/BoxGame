@@ -24,7 +24,9 @@ public class BoxGameApplication extends Application {
     private final int[] playerPosition = map.getPlayerPosition();
     private final int[][] Position = map.getPosition();
     private final int[][] boxesPosition = map.getBoxesPosition();
+    private final int[][] wallPosition = map.getWallPosition();
     private final Box[] boxes = new Box[boxesPosition.length];
+    private final Wall[] walls = new Wall[wallPosition.length];
     private int step = 0;
     private boolean check = true;
     private boolean check2 = true;
@@ -130,6 +132,9 @@ public class BoxGameApplication extends Application {
         player = new Player(playerPosition[0], playerPosition[1]);
         for (int i = 0; i < boxes.length; i++) {
             boxes[i] = new Box(boxesPosition[i][0], boxesPosition[i][1]);
+        }
+        for(int i = 0; i < walls.length; i++) {
+            walls[i] = new Wall(wallPosition[i][0], wallPosition[i][1]);
         }
 
 
