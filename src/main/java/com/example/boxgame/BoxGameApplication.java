@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 //import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -15,11 +16,20 @@ import org.jetbrains.annotations.NotNull;
 
 public class BoxGameApplication extends Application {
 
-    private static final int GRID_SIZE = 50;
-    private static final int GRID_COUNT = 10;
-    private static final int N = 4;
+    public static final int GRID_SIZE = 50;
+    public static final int GRID_COUNT = 10;
+    public static final int STROKE_SIZE = 1;
+    public static final int PUDDING_SIZE = 7;
+    public static final int N = 4;
+    public static final Color PlayerColor = Color.LIGHTBLUE;
+    public static final Color BoxColor = Color.ORANGE;
+    public static final Color PositionColor = Color.LIGHTGREEN;
+    public static final Color GroundColor = Color.WHITE;
+    public static final Color WallColor = Color.LIGHTGRAY;
+    public static final Color StrokeColor = Color.GREY;
     private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
     private final Map map = new Map(N);
+    private char[][] _map;
     private Player player;
     private final int[] playerPosition = map.getPlayerPosition();
     private final int[][] Position = map.getPosition();
@@ -30,27 +40,24 @@ public class BoxGameApplication extends Application {
     private int step = 0;
     private boolean check = true;
     private boolean check2 = true;
-    private final Color PlayerColor = Color.LIGHTBLUE;
-    private final Color BoxColor = Color.ORANGE;
-    private final Color PositionColor = Color.LIGHTGREEN;
-    private final Color GroundColor = Color.WHITE;
-    private final Color WallColor = Color.LIGHTGRAY;
 
     @Override
     public void start(Stage primaryStage) {
         GridPane gridPane = new GridPane();
         gridPane.setGridLinesVisible(true);
-        gridPane.setPadding(new Insets(1, 1, 1, 1)); // 为GridPane添加内边距
+        gridPane.setPadding(new Insets(PUDDING_SIZE, PUDDING_SIZE, PUDDING_SIZE, PUDDING_SIZE)); // 为GridPane添加内边距
 
         for (int i = 0; i < GRID_COUNT; i++) {
             for (int j = 0; j < GRID_COUNT; j++) {
                 Rectangle rect = new Rectangle(GRID_SIZE, GRID_SIZE, GroundColor);
+                rect.setStroke(StrokeColor);
+                rect.setStrokeWidth(STROKE_SIZE);
                 gridPane.add(rect, i, j);
                 grid[i][j] = rect; // 初始化 grid 数组
             }
         }
 
-        Scene scene = new Scene(gridPane, GRID_COUNT * GRID_SIZE, GRID_COUNT * GRID_SIZE);
+        Scene scene = new Scene(gridPane, GRID_COUNT * (GRID_SIZE+STROKE_SIZE)+STROKE_SIZE+PUDDING_SIZE*2, GRID_COUNT * (GRID_SIZE+STROKE_SIZE)+STROKE_SIZE+PUDDING_SIZE*2);
         primaryStage.setTitle("Sokoban Game");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -65,6 +72,11 @@ public class BoxGameApplication extends Application {
 
     private void handleKeyPress(@NotNull KeyEvent event) {
         //System.out.println(event.getCode());
+        // 检查是否按下了Ctrl+Z
+        if (event.isControlDown() && event.getCode() == KeyCode.Z) {
+            undoGame();
+        }
+        //移动操作
         switch (event.getCode()) {
             case UP:
                 movePlayer(0, -1);
@@ -82,30 +94,15 @@ public class BoxGameApplication extends Application {
                 break;
         }
 
-        //检测是否完成
-        if (step > 100&&checkWinCondition()&&check2&&!check) {
-            alert("Game Over","You finished the game!");
-            alert("Waring: Too many steps!");
-            check = false;
-            check2 = false;
-        }
-        // 检查是否胜利
-        if (checkWinCondition()&&check) {
-            alert("Victory","Congratulations! You win!");
-            check = false;
-        }
-        //步数检测
-        if(step > 100&&check) {
-            alert("Failure","You lost!");
-            alert("Reason: Too many steps!");
-            check = false;
-        }
-
+        //Backup
+        _map = Map.getMap0(grid);
+        //检测条件
+        checkCondition();
     }
 
     private void initializeGame() {
         //初始化地图
-        char[][] _map = map.getMap();
+        _map = map.getMap();
         //System.out.println("Initial game...");
         for (int i = 0; i < GRID_COUNT; i++) {
             for (int j = 0; j < GRID_COUNT; j++) {
@@ -137,6 +134,54 @@ public class BoxGameApplication extends Application {
             walls[i] = new Wall(wallPosition[i][0], wallPosition[i][1]);
         }
 
+
+        // 将玩家和箱子和目标点添加到网格中
+        Refresh();
+    }
+
+    private void undoGame() {
+        Map tMap = new Map(_map);
+        int[] t_playerPosition = map.getPlayerPosition();
+        int[][] t_boxesPosition = tMap.getBoxesPosition();
+        int[][] t_wallPosition = tMap.getWallPosition();
+        for (int i = 0; i < GRID_COUNT; i++) {
+            for (int j = 0; j < GRID_COUNT; j++) {
+
+                if(_map[i][j]=='#') {
+                    grid[j][i].setFill(WallColor);
+                }
+                if(_map[i][j]=='.') {
+                    grid[j][i].setFill(GroundColor);
+                }
+                if(_map[i][j]=='T') {
+                    grid[j][i].setFill(PositionColor);
+                }
+                if(_map[i][j]=='B'||_map[i][j]=='@') {
+                    grid[j][i].setFill(BoxColor);
+                }
+                if(_map[i][j]=='P'||_map[i][j]=='?') {
+                    grid[j][i].setFill(PlayerColor);
+                }
+            }
+        }
+
+        // 假设玩家在起始位置，箱子在起始位置
+        player.setX(t_playerPosition[0]);
+        player.setY(t_playerPosition[1]);
+        player.setOldX(player.getX());
+        player.setOldY(player.getY());
+        for (int i = 0; i < boxes.length; i++) {
+            boxes[i].setX(t_boxesPosition[i][0]);
+            boxes[i].setY(t_boxesPosition[i][1]);
+            boxes[i].setOldX(boxes[i].getX());
+            boxes[i].setOldY(boxes[i].getY());
+        }
+        for(int i = 0; i < walls.length; i++) {
+            walls[i].setX(t_wallPosition[i][0]);
+            walls[i].setY(t_wallPosition[i][1]);
+            walls[i].setOldX(walls[i].getX());
+            walls[i].setOldY(walls[i].getY());
+        }
 
         // 将玩家和箱子和目标点添加到网格中
         Refresh();
@@ -198,6 +243,27 @@ public class BoxGameApplication extends Application {
         player.move(dx, dy);
         grid[player.getOldX()][player.getOldY()].setFill(GroundColor);
         Refresh();
+    }
+
+    private void checkCondition(){
+        //检测是否完成
+        if (step > 100&&checkWinCondition()&&check2&&!check) {
+            alert("Game Over","You finished the game!");
+            alert("Waring: Too many steps!");
+            check = false;
+            check2 = false;
+        }
+        // 检查是否胜利
+        if (checkWinCondition()&&check) {
+            alert("Victory","Congratulations! You win!");
+            check = false;
+        }
+        //步数检测
+        if(step > 100&&check) {
+            alert("Failure","You lost!");
+            alert("Reason: Too many steps!");
+            check = false;
+        }
     }
 
     private boolean checkWinCondition() {

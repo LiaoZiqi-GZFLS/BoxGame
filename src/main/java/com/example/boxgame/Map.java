@@ -1,6 +1,12 @@
 package com.example.boxgame;
 
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+
+import java.awt.*;
 import java.util.Arrays;
+
+import static com.example.boxgame.BoxGameApplication.*;
 
 public class Map {
     //墙：#
@@ -10,7 +16,7 @@ public class Map {
     //目标：T
     //玩家在目标上：?
     //箱子在目标上：@
-    private final char[][] map0 = new char[10][10];
+    private final char[][] map0 = new char[GRID_COUNT][GRID_COUNT];
     private final char[][] map1 = {
             "######".toCharArray(),
             "#P...#".toCharArray(),
@@ -56,27 +62,48 @@ public class Map {
             map1, map2, map3, map4, map5,
     };
     public Map(int n) {
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < GRID_COUNT; i++) {
             Arrays.fill(map0[i], '.');
         }
-        if(map[n].length <= 10 && map[n][0].length <= 10) {
-            int y=5-map[n].length/2-map[n].length%2;
-            int x=5-map[n][0].length/2-map[n][0].length%2;
+        if(map[n].length <= GRID_COUNT && map[n][0].length <= GRID_COUNT) {
+            int y=GRID_COUNT/2-map[n].length/2-map[n].length%2;
+            int x=GRID_COUNT/2-map[n][0].length/2-map[n][0].length%2;
             for (int i = 0; i < map[n].length; i++) {
                 for (int j = 0; j < map[n][0].length; j++) {
                     map0[i+y][j+x] = map[n][i][j];
                 }
             }
         }else{
-            int y=map[n].length/2-5;
-            int x=map[n][0].length/2-5;
-            for(int i = 0; i < 10; i++){
-                for(int j = 0; j < 10; j++){
+            int y=map[n].length/2-GRID_COUNT/2;
+            int x=map[n][0].length/2-GRID_COUNT/2;
+            for(int i = 0; i < GRID_COUNT; i++){
+                for(int j = 0; j < GRID_COUNT; j++){
                     map0[i][j] = map[n][i+y][j+x];
                 }
             }
         }
-
+    }
+    public Map(char[][] _map_) {
+        for(int i = 0; i < GRID_COUNT; i++) {
+            Arrays.fill(map0[i], '.');
+        }
+        if(_map_.length <= GRID_COUNT && _map_[0].length <= GRID_COUNT) {
+            int y=GRID_COUNT/2-_map_.length/2-_map_.length%2;
+            int x=GRID_COUNT/2-_map_[0].length/2-_map_[0].length%2;
+            for (int i = 0; i < _map_.length; i++) {
+                for (int j = 0; j < _map_[0].length; j++) {
+                    map0[i+y][j+x] = _map_[i][j];
+                }
+            }
+        }else{
+            int y=_map_.length/2-GRID_COUNT/2;
+            int x=_map_[0].length/2-GRID_COUNT/2;
+            for(int i = 0; i < GRID_COUNT; i++){
+                for(int j = 0; j < GRID_COUNT; j++){
+                    map0[i][j] = _map_[i+y][j+x];
+                }
+            }
+        }
     }
     public char[][] getMap() {
         return map0;
@@ -84,8 +111,8 @@ public class Map {
     public int[] getPlayerPosition(){
         int x=-1;
         int y=-1;
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
+        for(int i=0;i<GRID_COUNT;i++){
+            for(int j=0;j<GRID_COUNT;j++){
                 if(map0[i][j]=='P'||map0[i][j]=='?'){
                     x=j;
                     y=i;
@@ -97,8 +124,8 @@ public class Map {
     }
     public int[][] getBoxesPosition(){
         int num=0;
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
+        for(int i=0;i<GRID_COUNT;i++){
+            for(int j=0;j<GRID_COUNT;j++){
                 if(map0[i][j]=='B'||map0[i][j]=='@'){
                     num++;
                 }
@@ -106,8 +133,8 @@ public class Map {
         }
         int[][] ints = new int[num][2];
         int n=0;
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
+        for(int i=0;i<GRID_COUNT;i++){
+            for(int j=0;j<GRID_COUNT;j++){
                 if(map0[i][j]=='B'||map0[i][j]=='@'){
                     ints[n][0]=j;
                     ints[n][1]=i;
@@ -119,8 +146,8 @@ public class Map {
     }
     public int[][] getPosition(){
         int num=0;
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
+        for(int i=0;i<GRID_COUNT;i++){
+            for(int j=0;j<GRID_COUNT;j++){
                 if(map0[i][j]=='T'||map0[i][j]=='@'||map0[i][j]=='?'){
                     num++;
                 }
@@ -128,8 +155,8 @@ public class Map {
         }
         int[][] ints = new int[num][2];
         int n=0;
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
+        for(int i=0;i<GRID_COUNT;i++){
+            for(int j=0;j<GRID_COUNT;j++){
                 if(map0[i][j]=='T'||map0[i][j]=='@'||map0[i][j]=='?'){
                     ints[n][0]=j;
                     ints[n][1]=i;
@@ -141,8 +168,8 @@ public class Map {
     }
     public int[][] getWallPosition(){
         int num=0;
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
+        for(int i=0;i<GRID_COUNT;i++){
+            for(int j=0;j<GRID_COUNT;j++){
                 if(map0[i][j]=='#'){
                     num++;
                 }
@@ -150,8 +177,8 @@ public class Map {
         }
         int[][] ints = new int[num][2];
         int n=0;
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
+        for(int i=0;i<GRID_COUNT;i++){
+            for(int j=0;j<GRID_COUNT;j++){
                 if(map0[i][j]=='#'){
                     ints[n][0]=j;
                     ints[n][1]=i;
@@ -160,5 +187,37 @@ public class Map {
             }
         }
         return ints;
+    }
+    public static char[][] getMap0(Rectangle[][] grid){
+        char[][] backupMap = new char[GRID_COUNT][GRID_COUNT];
+        Rectangle rect1 = new Rectangle(GRID_SIZE, GRID_SIZE, GroundColor);
+        Rectangle rect2 = new Rectangle(GRID_SIZE, GRID_SIZE, PlayerColor);
+        Rectangle rect3 = new Rectangle(GRID_SIZE, GRID_SIZE, BoxColor);
+        Rectangle rect4 = new Rectangle(GRID_SIZE, GRID_SIZE, PositionColor);
+        Paint fill1 = rect1.getFill();
+        Paint fill2 = rect2.getFill();
+        Paint fill3 = rect3.getFill();
+        Paint fill4 = rect4.getFill();
+        for(int i=0;i<GRID_COUNT;i++){
+            for(int j=0;j<GRID_COUNT;j++){
+                Paint fill = grid[j][i].getFill();
+                if(fill==fill1){
+                    backupMap[i][j] = '.';
+                }
+                else if(fill==fill2){
+                    backupMap[i][j] = 'P';
+                }
+                else if(fill==fill3){
+                    backupMap[i][j] = 'B';
+                }
+                else if(fill==fill4){
+                    backupMap[i][j] = 'T';
+                }
+                else{
+                    backupMap[i][j] = '.';
+                }
+            }
+        }
+        return backupMap;
     }
 }

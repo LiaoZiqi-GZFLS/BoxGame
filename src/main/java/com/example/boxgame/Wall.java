@@ -28,6 +28,21 @@ public class Wall {
     public int getOldY() {
         return oldY;
     }
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setOldX(int oldX) {
+        this.oldX = oldX;
+    }
+
+    public void setOldY(int oldY) {
+        this.oldY = oldY;
+    }
 
     public void move(int dx, int dy) {
         oldX = x;

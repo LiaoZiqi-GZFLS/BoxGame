@@ -11,6 +11,7 @@ module com.example.boxgame {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires annotations;
+    requires java.desktop;
 
     opens com.example.boxgame to javafx.fxml;
     exports com.example.boxgame;
