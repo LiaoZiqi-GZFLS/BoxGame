@@ -194,10 +194,12 @@ public class Map {
         Rectangle rect2 = new Rectangle(GRID_SIZE, GRID_SIZE, PlayerColor);
         Rectangle rect3 = new Rectangle(GRID_SIZE, GRID_SIZE, BoxColor);
         Rectangle rect4 = new Rectangle(GRID_SIZE, GRID_SIZE, PositionColor);
+        Rectangle rect5 = new Rectangle(GRID_SIZE, GRID_SIZE, WallColor);
         Paint fill1 = rect1.getFill();
         Paint fill2 = rect2.getFill();
         Paint fill3 = rect3.getFill();
         Paint fill4 = rect4.getFill();
+        Paint fill5 = rect5.getFill();
         for(int i=0;i<GRID_COUNT;i++){
             for(int j=0;j<GRID_COUNT;j++){
                 Paint fill = grid[j][i].getFill();
@@ -213,10 +215,56 @@ public class Map {
                 else if(fill==fill4){
                     backupMap[i][j] = 'T';
                 }
+                else if(fill==fill5){
+                    backupMap[i][j] = '#';
+                }
                 else{
                     backupMap[i][j] = '.';
                 }
             }
+        }
+        return backupMap;
+    }
+    public static char[][] getMap0(Rectangle[][] grid, int[][] P_T, int[][] B_T){
+        char[][] backupMap = new char[GRID_COUNT][GRID_COUNT];
+        Rectangle rect1 = new Rectangle(GRID_SIZE, GRID_SIZE, GroundColor);
+        Rectangle rect2 = new Rectangle(GRID_SIZE, GRID_SIZE, PlayerColor);
+        Rectangle rect3 = new Rectangle(GRID_SIZE, GRID_SIZE, BoxColor);
+        Rectangle rect4 = new Rectangle(GRID_SIZE, GRID_SIZE, PositionColor);
+        Rectangle rect5 = new Rectangle(GRID_SIZE, GRID_SIZE, WallColor);
+        Paint fill1 = rect1.getFill();
+        Paint fill2 = rect2.getFill();
+        Paint fill3 = rect3.getFill();
+        Paint fill4 = rect4.getFill();
+        Paint fill5 = rect5.getFill();
+        for(int i=0;i<GRID_COUNT;i++){
+            for(int j=0;j<GRID_COUNT;j++){
+                Paint fill = grid[j][i].getFill();
+                if(fill==fill1){
+                    backupMap[i][j] = '.';
+                }
+                else if(fill==fill2){
+                    backupMap[i][j] = 'P';
+                }
+                else if(fill==fill3){
+                    backupMap[i][j] = 'B';
+                }
+                else if(fill==fill4){
+                    backupMap[i][j] = 'T';
+                }
+                else if(fill==fill5){
+                    backupMap[i][j] = '#';
+                }
+                else{
+                    backupMap[i][j] = '.';
+                }
+            }
+        }
+        for(int i=0;i<P_T.length;i++){
+            backupMap[P_T[i][0]][P_T[i][1]] = '?';
+        }
+        for(int i=0;i<B_T.length;i++){
+            backupMap[B_T[i][0]][B_T[i][1]] = '@';
         }
         return backupMap;
     }
