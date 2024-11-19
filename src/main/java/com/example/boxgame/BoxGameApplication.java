@@ -141,7 +141,7 @@ public class BoxGameApplication extends Application {
 
     private void undoGame() {
         Map tMap = new Map(_map);
-        int[] t_playerPosition = map.getPlayerPosition();
+        int[] t_playerPosition = tMap.getPlayerPosition();
         int[][] t_boxesPosition = tMap.getBoxesPosition();
         int[][] t_wallPosition = tMap.getWallPosition();
         for (int i = 0; i < GRID_COUNT; i++) {
@@ -189,6 +189,11 @@ public class BoxGameApplication extends Application {
 
     private void Refresh() {
         // 将玩家和箱子和目标点添加到网格中
+        for(int i = 0; i < GRID_COUNT; i++) {
+            for(int j = 0; j < GRID_COUNT; j++) {
+                grid[j][i].setFill(GroundColor);
+            }
+        }
         for(int[] targetPosition : Position ) {
             grid[targetPosition[0]][targetPosition[1]].setFill(PositionColor);
         }
@@ -234,8 +239,8 @@ public class BoxGameApplication extends Application {
                     }
                     // 移动箱子
                     box.move(dx, dy);
-                    grid[box.getOldX()][box.getOldY()].setFill(GroundColor);
-                    grid[box.getX()][box.getY()].setFill(BoxColor);
+                    //grid[box.getOldX()][box.getOldY()].setFill(GroundColor);
+                    //grid[box.getX()][box.getY()].setFill(BoxColor);
                 }
             }
         }
@@ -244,7 +249,7 @@ public class BoxGameApplication extends Application {
 
         // 移动玩家
         player.move(dx, dy);
-        grid[player.getOldX()][player.getOldY()].setFill(GroundColor);
+        //grid[player.getOldX()][player.getOldY()].setFill(GroundColor);
         Refresh();
     }
 
