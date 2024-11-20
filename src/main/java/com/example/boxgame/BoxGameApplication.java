@@ -79,19 +79,19 @@ public class BoxGameApplication extends Application {
         }
         //移动操作
         switch (event.getCode()) {
-            case UP:
+            case UP, KeyCode.W:
                 movePlayer(0, -1);
                 Backup();
                 break;
-            case DOWN:
+            case DOWN, KeyCode.S:
                 movePlayer(0, 1);
                 Backup();
                 break;
-            case LEFT:
+            case LEFT, KeyCode.A:
                 movePlayer(-1, 0);
                 Backup();
                 break;
-            case RIGHT:
+            case RIGHT, KeyCode.D:
                 movePlayer(1, 0);
                 Backup();
                 break;
