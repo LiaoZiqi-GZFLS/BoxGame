@@ -163,7 +163,6 @@ public class BoxGameApplication extends Application {
         step = 0;
         check = true;
         check2 = true;
-
         //初始化地图
         _map = map.getMap();
 
