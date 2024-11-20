@@ -178,6 +178,9 @@ public class BoxGameApplication extends Application {
 
         // 将玩家和箱子和目标点添加到网格中
         renderGame(new Map(_map));
+
+        //备份
+        Backup();
     }
 
     private void Backup(){
