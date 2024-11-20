@@ -103,72 +103,28 @@ public class BoxGameApplication extends Application {
         checkCondition();
     }
 
-    private void initializeGame() {
+    private void renderGame(Map tMap){
         //初始化地图
-        _map = map.getMap();
-        //System.out.println("Initial game...");
-        for (int i = 0; i < GRID_COUNT; i++) {
-            for (int j = 0; j < GRID_COUNT; j++) {
-                //grid[i][j] = new Rectangle(GRID_SIZE, GRID_SIZE, GroundColor);
-                if(_map[i][j]=='#') {
-                    grid[j][i].setFill(WallColor);
-                }
-                if(_map[i][j]=='.') {
-                    grid[j][i].setFill(GroundColor);
-                }
-                if(_map[i][j]=='T') {
-                    grid[j][i].setFill(PositionColor);
-                }
-                if(_map[i][j]=='B'||_map[i][j]=='@') {
-                    grid[j][i].setFill(BoxColor);
-                }
-                if(_map[i][j]=='P'||_map[i][j]=='?') {
-                    grid[j][i].setFill(PlayerColor);
-                }
-            }
-        }
-
-        // 假设玩家在起始位置，箱子在起始位置
-        player = new Player(playerPosition[0], playerPosition[1]);
-        for (int i = 0; i < boxes.length; i++) {
-            boxes[i] = new Box(boxesPosition[i][0], boxesPosition[i][1]);
-        }
-        for(int i = 0; i < walls.length; i++) {
-            walls[i] = new Wall(wallPosition[i][0], wallPosition[i][1]);
-        }
-
-
-        // 将玩家和箱子和目标点添加到网格中
-        Refresh();
-    }
-
-    private void Backup(){
-        //Backup
-        p_map = _map.clone();
-        _map = Map.getMap0(grid);
-    }
-
-    private void undoGame() {
-        Map tMap = new Map(p_map);
+        char[][] t_map = tMap.getMap();
         int[] t_playerPosition = tMap.getPlayerPosition();
         int[][] t_boxesPosition = tMap.getBoxesPosition();
         int[][] t_wallPosition = tMap.getWallPosition();
         for (int i = 0; i < GRID_COUNT; i++) {
             for (int j = 0; j < GRID_COUNT; j++) {
 
-                if(p_map[i][j]=='#') {
+                if(t_map[i][j]=='#') {
                     grid[j][i].setFill(WallColor);
                 }
-                if(p_map[i][j]=='.') {
+                if(t_map[i][j]=='.') {
                     grid[j][i].setFill(GroundColor);
                 }
-                if(p_map[i][j]=='T') {
+                if(t_map[i][j]=='T') {
                     grid[j][i].setFill(PositionColor);
                 }
-                if(p_map[i][j]=='B'||_map[i][j]=='@') {
+                if(t_map[i][j]=='B'||_map[i][j]=='@') {
                     grid[j][i].setFill(BoxColor);
                 }
-                if(p_map[i][j]=='P'||_map[i][j]=='?') {
+                if(t_map[i][j]=='P'||_map[i][j]=='?') {
                     grid[j][i].setFill(PlayerColor);
                 }
             }
@@ -194,6 +150,35 @@ public class BoxGameApplication extends Application {
 
         // 将玩家和箱子和目标点添加到网格中
         Refresh();
+    }
+
+    private void initializeGame() {
+        //初始化地图
+        _map = map.getMap();
+
+
+        // 假设玩家在起始位置，箱子在起始位置
+        player = new Player(playerPosition[0], playerPosition[1]);
+        for (int i = 0; i < boxes.length; i++) {
+            boxes[i] = new Box(boxesPosition[i][0], boxesPosition[i][1]);
+        }
+        for(int i = 0; i < walls.length; i++) {
+            walls[i] = new Wall(wallPosition[i][0], wallPosition[i][1]);
+        }
+
+
+        // 将玩家和箱子和目标点添加到网格中
+        renderGame(new Map(_map));
+    }
+
+    private void Backup(){
+        //Backup
+        p_map = _map.clone();
+        _map = Map.getMap0(grid);
+    }
+
+    private void undoGame() {
+        renderGame(new Map(p_map));
     }
 
     private void Refresh() {

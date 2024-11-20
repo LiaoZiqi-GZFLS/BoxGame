@@ -61,6 +61,29 @@ public class Map {
     private final char[][][] map = {
             map1, map2, map3, map4, map5,
     };
+    public Map() {
+        int n=N;
+        for(int i = 0; i < GRID_COUNT; i++) {
+            Arrays.fill(map0[i], '.');
+        }
+        if(map[n].length <= GRID_COUNT && map[n][0].length <= GRID_COUNT) {
+            int y=GRID_COUNT/2-map[n].length/2-map[n].length%2;
+            int x=GRID_COUNT/2-map[n][0].length/2-map[n][0].length%2;
+            for (int i = 0; i < map[n].length; i++) {
+                for (int j = 0; j < map[n][0].length; j++) {
+                    map0[i+y][j+x] = map[n][i][j];
+                }
+            }
+        }else{
+            int y=map[n].length/2-GRID_COUNT/2;
+            int x=map[n][0].length/2-GRID_COUNT/2;
+            for(int i = 0; i < GRID_COUNT; i++){
+                for(int j = 0; j < GRID_COUNT; j++){
+                    map0[i][j] = map[n][i+y][j+x];
+                }
+            }
+        }
+    }
     public Map(int n) {
         for(int i = 0; i < GRID_COUNT; i++) {
             Arrays.fill(map0[i], '.');
