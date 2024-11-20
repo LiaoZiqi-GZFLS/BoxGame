@@ -74,9 +74,15 @@ public class BoxGameApplication extends Application {
     private void handleKeyPress(@NotNull KeyEvent event) {
         //System.out.println(event.getCode());
         // 检查是否按下了Ctrl+Z
-        if (event.isControlDown() && event.getCode() == KeyCode.Z) {
-            undoGame();
+        if(event.isControlDown()){
+            if (event.getCode() == KeyCode.Z) {
+                undoGame();
+            }
+            if (event.getCode() == KeyCode.I) {
+                initializeGame();
+            }
         }
+
         //移动操作
         switch (event.getCode()) {
             case UP, KeyCode.W:
@@ -153,9 +159,12 @@ public class BoxGameApplication extends Application {
     }
 
     private void initializeGame() {
+        //初始化数据
+        step = 0;
+        check = true;
+        check2 = true;
         //初始化地图
         _map = map.getMap();
-
 
         // 假设玩家在起始位置，箱子在起始位置
         player = new Player(playerPosition[0], playerPosition[1]);
@@ -165,7 +174,6 @@ public class BoxGameApplication extends Application {
         for(int i = 0; i < walls.length; i++) {
             walls[i] = new Wall(wallPosition[i][0], wallPosition[i][1]);
         }
-
 
         // 将玩家和箱子和目标点添加到网格中
         renderGame(new Map(_map));
