@@ -23,6 +23,7 @@ public class BoxGameApplication extends Application {
     public static final int STROKE_SIZE = 1;
     public static final int PUDDING_SIZE = 7;
     public static final int N = 4;
+    public static final int M = 0;
     public static final Color PlayerColor = Color.LIGHTBLUE;
     public static final Color BoxColor = Color.ORANGE;
     public static final Color PositionColor = Color.LIGHTGREEN;
@@ -92,19 +93,19 @@ public class BoxGameApplication extends Application {
         //移动操作
         switch (event.getCode()) {
             case UP, KeyCode.W:
-                movePlayer(0, -1);
+                movePlayer(0, -1, M);
                 Backup();
                 break;
             case DOWN, KeyCode.S:
-                movePlayer(0, 1);
+                movePlayer(0, 1, M);
                 Backup();
                 break;
             case LEFT, KeyCode.A:
-                movePlayer(-1, 0);
+                movePlayer(-1, 0, M);
                 Backup();
                 break;
             case RIGHT, KeyCode.D:
-                movePlayer(1, 0);
+                movePlayer(1, 0, M);
                 Backup();
                 break;
             default:
@@ -247,48 +248,53 @@ public class BoxGameApplication extends Application {
         grid[player.getX()][player.getY()].setFill(PlayerColor);
     }
 
-    private void movePlayer(int dx, int dy) {
+    private void movePlayer(int dx, int dy, int method) {
         step++;
-        int newX = player.getX() + dx;
-        int newY = player.getY() + dy;
+        if(method==0){
+            int newX = player.getX() + dx;
+            int newY = player.getY() + dy;
 
-        // 检查是否越界
-        if (newX < 0 || newX >= GRID_COUNT || newY < 0 || newY >= GRID_COUNT) {
-            return;
-        }
+            // 检查是否越界
+            if (newX < 0 || newX >= GRID_COUNT || newY < 0 || newY >= GRID_COUNT) {
+                step--;
+                return;
+            }
 
-        // 检查是否移动到墙上
-        if (grid[newX][newY].getFill() == WallColor) {
-            return;
-        }
+            // 检查是否移动到墙上
+            if (grid[newX][newY].getFill() == WallColor) {
+                step--;
+                return;
+            }
 
-        // 检查是否推箱子
-        if(grid[newX][newY].getFill() == BoxColor) {
-            for(Box box : boxes) {
-                if (newX == box.getX() && newY == box.getY()) {
-                    // 检查是否越界
-                    if (newX+dx < 0 || newX+dx >= GRID_COUNT || newY+dy < 0 || newY+dy >= GRID_COUNT) {
-                        return;
+            // 检查是否推箱子
+            if(grid[newX][newY].getFill() == BoxColor) {
+                for(Box box : boxes) {
+                    if (newX == box.getX() && newY == box.getY()) {
+                        // 检查是否越界
+                        if (newX+dx < 0 || newX+dx >= GRID_COUNT || newY+dy < 0 || newY+dy >= GRID_COUNT) {
+                            step--;
+                            return;
+                        }
+                        // 检查是否移动到墙上
+                        if (grid[newX+dx][newY+dy].getFill() == WallColor) {
+                            step--;
+                            return;
+                        }
+                        // 检查是否移动到箱子上
+                        if (grid[newX+dx][newY+dy].getFill() == BoxColor) {
+                            step--;
+                            return;
+                        }
+                        // 移动箱子
+                        box.move(dx, dy);
                     }
-                    // 检查是否移动到墙上
-                    if (grid[newX+dx][newY+dy].getFill() == WallColor) {
-                        return;
-                    }
-                    // 检查是否移动到箱子上
-                    if (grid[newX+dx][newY+dy].getFill() == BoxColor) {
-                        return;
-                    }
-                    // 移动箱子
-                    box.move(dx, dy);
                 }
             }
+
+            // 移动玩家
+            player.move(dx, dy);
         }
 
-
-
-        // 移动玩家
-        player.move(dx, dy);
-        //grid[player.getOldX()][player.getOldY()].setFill(GroundColor);
         Refresh();
     }
 
