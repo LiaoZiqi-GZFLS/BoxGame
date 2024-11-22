@@ -14,6 +14,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 public class BoxGameApplication extends Application {
 
     public static final int GRID_SIZE = 50;
@@ -36,8 +38,12 @@ public class BoxGameApplication extends Application {
     private final int[][] Position = map.getPosition();
     private final int[][] boxesPosition = map.getBoxesPosition();
     private final int[][] wallPosition = map.getWallPosition();
+    private final Target[] targets = new Target[Position.length];
     private final Box[] boxes = new Box[boxesPosition.length];
     private final Wall[] walls = new Wall[wallPosition.length];
+    private ArrayList<Target> targetsList = new ArrayList<>();
+    private ArrayList<Box> boxesList = new ArrayList<Box>();
+    private ArrayList<Wall> wallsList = new ArrayList<Wall>();
     private int step = 0;
     private boolean check = true;
     private boolean check2 = true;
@@ -113,6 +119,7 @@ public class BoxGameApplication extends Application {
         //初始化地图
         char[][] t_map = tMap.getMap();
         int[] t_playerPosition = tMap.getPlayerPosition();
+        int[][] t_Position = tMap.getPosition();
         int[][] t_boxesPosition = tMap.getBoxesPosition();
         int[][] t_wallPosition = tMap.getWallPosition();
         for (int i = 0; i < GRID_COUNT; i++) {
@@ -146,14 +153,34 @@ public class BoxGameApplication extends Application {
             boxes[i].setY(t_boxesPosition[i][1]);
             boxes[i].setOldX(boxes[i].getX());
             boxes[i].setOldY(boxes[i].getY());
+            //ArrayList Version
+            boxesList.get(i).setX(t_boxesPosition[i][0]);
+            boxesList.get(i).setY(t_boxesPosition[i][1]);
+            boxesList.get(i).setOldX(boxesList.get(i).getX());
+            boxesList.get(i).setOldY(boxesList.get(i).getY());
         }
         for(int i = 0; i < walls.length; i++) {
             walls[i].setX(t_wallPosition[i][0]);
             walls[i].setY(t_wallPosition[i][1]);
             walls[i].setOldX(walls[i].getX());
             walls[i].setOldY(walls[i].getY());
+            //ArrayList Version
+            wallsList.get(i).setX(t_wallPosition[i][0]);
+            wallsList.get(i).setY(t_wallPosition[i][1]);
+            wallsList.get(i).setOldX(wallsList.get(i).getX());
+            wallsList.get(i).setOldY(wallsList.get(i).getY());
         }
-
+        for(int i = 0; i < targets.length; i++) {
+            targets[i].setX(t_Position[i][0]);
+            targets[i].setY(t_Position[i][1]);
+            targets[i].setOldX(targets[i].getX());
+            targets[i].setOldY(targets[i].getY());
+            //ArrayList Version
+            targetsList.get(i).setX(t_Position[i][0]);
+            targetsList.get(i).setY(t_Position[i][1]);
+            targetsList.get(i).setOldX(targetsList.get(i).getX());
+            targetsList.get(i).setOldY(targetsList.get(i).getY());
+        }
         // 将玩家和箱子和目标点添加到网格中
         Refresh();
     }
@@ -171,11 +198,16 @@ public class BoxGameApplication extends Application {
         player = new Player(playerPosition[0], playerPosition[1]);
         for (int i = 0; i < boxes.length; i++) {
             boxes[i] = new Box(boxesPosition[i][0], boxesPosition[i][1]);
+            boxesList.add(new Box(boxesPosition[i][0], boxesPosition[i][1]));
         }
         for(int i = 0; i < walls.length; i++) {
             walls[i] = new Wall(wallPosition[i][0], wallPosition[i][1]);
+            wallsList.add(new Wall(wallPosition[i][0], wallPosition[i][1]));
         }
-
+        for(int i = 0; i < targets.length; i++) {
+            targets[i] = new Target(Position[i][0], Position[i][1]);
+            targetsList.add(new Target(Position[i][0], Position[i][1]));
+        }
         // 将玩家和箱子和目标点添加到网格中
         renderGame(new Map(_map));
 
@@ -202,6 +234,9 @@ public class BoxGameApplication extends Application {
         }
         for(int[] targetPosition : Position ) {
             grid[targetPosition[0]][targetPosition[1]].setFill(PositionColor);
+        }
+        for(Target target : targets) {
+            grid[target.getX()][target.getY()].setFill(PositionColor);
         }
         for(Box box : boxes) {
             grid[box.getX()][box.getY()].setFill(BoxColor);
@@ -280,23 +315,16 @@ public class BoxGameApplication extends Application {
 
     private boolean checkWinCondition() {
         // 假设目标位置是一个二维数组，表示每个箱子应该在的位置
-        int[][][] targetPositions = {
-                Position // 箱子1的目标位置
-        };
         int num = 0;
-        for (int[][] targetPosition : targetPositions) {
-            for(int[] target : targetPosition) {
-                for(Box box : boxes) {
-                    if (box.getX() == target[0] && box.getY() == target[1]) {
-                        num++;
-                        break;
-                    }
+        for(Target target : targets) {
+            for (Box box : boxes) {
+                if (box.getX() == target.getX() && box.getY() == target.getY()) {
+                    num++;
+                    break;
                 }
-
             }
-
         }
-        return (num == boxesPosition.length);
+        return (num == boxes.length);
     }
 
     private void alert(String message) {
