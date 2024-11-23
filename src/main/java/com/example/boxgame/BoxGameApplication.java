@@ -43,9 +43,9 @@ public class BoxGameApplication extends Application {
     private Target[] targets = new Target[Position.length];
     private Box[] boxes = new Box[boxesPosition.length];
     private Wall[] walls = new Wall[wallPosition.length];
-    private ArrayList<Target> targetsList = new ArrayList<>();
-    private ArrayList<Box> boxesList = new ArrayList<Box>();
-    private ArrayList<Wall> wallsList = new ArrayList<Wall>();
+    private final ArrayList<Target> targetsList = new ArrayList<>();
+    private final ArrayList<Box> boxesList = new ArrayList<Box>();
+    private final ArrayList<Wall> wallsList = new ArrayList<Wall>();
     private int step = 0;
     private boolean check = true;
     private boolean check2 = true;
