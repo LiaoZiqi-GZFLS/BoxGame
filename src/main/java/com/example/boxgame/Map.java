@@ -270,11 +270,11 @@ public class Map {
     public static char[][] getMap0(Rectangle[][] grid, int[][] t_Position){
         char[][] backupMap = getMap0(grid);
         for(int[] target : t_Position){
-            if(backupMap[target[0]][target[1]]=='P'){
-                backupMap[target[0]][target[1]] = '?';
+            if(backupMap[target[1]][target[0]]=='P'){
+                backupMap[target[1]][target[0]] = '?';
             }
-            if(backupMap[target[0]][target[1]]=='B'){
-                backupMap[target[0]][target[1]] = '@';
+            if(backupMap[target[1]][target[0]]=='B'){
+                backupMap[target[1]][target[0]] = '@';
             }
         }
         return backupMap;

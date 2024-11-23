@@ -22,8 +22,8 @@ public class Wall {
     public static int[][] getWallsPosition(Wall[] t_walls){
         int[][] WallsPosition = new int[t_walls.length][2];
         for (int i = 0; i < t_walls.length; i++) {
-            WallsPosition[i][0] = t_walls[i].x;
-            WallsPosition[i][1] = t_walls[i].y;
+            WallsPosition[i][0] = t_walls[i].getX();
+            WallsPosition[i][1] = t_walls[i].getY();
         }
         return WallsPosition;
     }

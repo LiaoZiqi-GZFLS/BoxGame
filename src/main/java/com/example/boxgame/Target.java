@@ -22,8 +22,8 @@ public class Target {
     public static int[][] getTargetPosition(Target[] t_positions){
         int[][] Positions = new int[t_positions.length][2];
         for (int i = 0; i < t_positions.length; i++) {
-            Positions[i][0] = t_positions[i].x;
-            Positions[i][1] = t_positions[i].y;
+            Positions[i][0] = t_positions[i].getX();
+            Positions[i][1] = t_positions[i].getY();
         }
         return Positions;
     }

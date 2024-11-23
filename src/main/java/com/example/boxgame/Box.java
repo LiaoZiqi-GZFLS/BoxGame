@@ -22,8 +22,8 @@ public class Box {
     public static int[][] getBoxesPosition(Box[] t_boxes){
         int[][] BoxesPosition = new int[t_boxes.length][2];
         for (int i = 0; i < t_boxes.length; i++) {
-            BoxesPosition[i][0] = t_boxes[i].x;
-            BoxesPosition[i][1] = t_boxes[i].y;
+            BoxesPosition[i][0] = t_boxes[i].getX();
+            BoxesPosition[i][1] = t_boxes[i].getY();
         }
         return BoxesPosition;
     }

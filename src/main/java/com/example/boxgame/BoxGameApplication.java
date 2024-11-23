@@ -49,6 +49,7 @@ public class BoxGameApplication extends Application {
     private int step = 0;
     private boolean check = true;
     private boolean check2 = true;
+    private boolean checkUndo = false;
 
     @Override
     public void start(Stage primaryStage) {
@@ -84,7 +85,10 @@ public class BoxGameApplication extends Application {
         // 检查是否按下了Ctrl+Z
         if(event.isControlDown()){
             if (event.getCode() == KeyCode.Z) {
-                undoGame();
+                if(checkUndo){
+                    undoGame();
+                    checkUndo = false;
+                }
             }
             if (event.getCode() == KeyCode.I) {
                 initializeGame();
@@ -96,23 +100,26 @@ public class BoxGameApplication extends Application {
             case UP, KeyCode.W:
                 movePlayer(0, -1, M);
                 Backup();
+                checkUndo = true;
                 break;
             case DOWN, KeyCode.S:
                 movePlayer(0, 1, M);
                 Backup();
+                checkUndo = true;
                 break;
             case LEFT, KeyCode.A:
                 movePlayer(-1, 0, M);
                 Backup();
+                checkUndo = true;
                 break;
             case RIGHT, KeyCode.D:
                 movePlayer(1, 0, M);
                 Backup();
+                checkUndo = true;
                 break;
             default:
                 break;
         }
-
         //检测条件
         checkCondition();
     }
@@ -183,6 +190,7 @@ public class BoxGameApplication extends Application {
         step = 0;
         check = true;
         check2 = true;
+        checkUndo = false;
 
         //初始化地图
         _map = map.getMap();
@@ -200,11 +208,11 @@ public class BoxGameApplication extends Application {
         //Backup
         p_map = _map.clone();
         _map = Map.getMap0(grid,Target.getTargetPosition(targets));
-        _map = Map.getMap0(grid);
     }
 
     private void undoGame() {
         renderGame(new Map(p_map));
+        Backup();
     }
 
     private void Refresh() {
