@@ -43,7 +43,7 @@ public class BoxGameApplication extends Application {
     private Target[] targets = new Target[Position.length];
     private Box[] boxes = new Box[boxesPosition.length];
     private Wall[] walls = new Wall[wallPosition.length];
-    private final ArrayList<Target> targetsList = new ArrayList<>();
+    private final ArrayList<Target> targetsList = new ArrayList<Target>();
     private final ArrayList<Box> boxesList = new ArrayList<Box>();
     private final ArrayList<Wall> wallsList = new ArrayList<Wall>();
     private int step = 0;
@@ -126,7 +126,6 @@ public class BoxGameApplication extends Application {
         int[][] t_wallPosition = tMap.getWallPosition();
         for (int i = 0; i < GRID_COUNT; i++) {
             for (int j = 0; j < GRID_COUNT; j++) {
-
                 if(t_map[i][j]=='#') {
                     grid[j][i].setFill(WallColor);
                 }
@@ -200,7 +199,8 @@ public class BoxGameApplication extends Application {
     private void Backup(){
         //Backup
         p_map = _map.clone();
-        _map = Map.getMap0(grid, Player.getPlayerPosition(player), Target.getTargetPosition(targets), Box.getBoxesPosition(boxes));
+        _map = Map.getMap0(grid,Target.getTargetPosition(targets));
+        _map = Map.getMap0(grid);
     }
 
     private void undoGame() {

@@ -267,17 +267,14 @@ public class Map {
         }
         return backupMap;
     }
-    public static char[][] getMap0(Rectangle[][] grid, int[] t_playerPosition, int[][] t_Position, int[][] t_boxesPosition){
+    public static char[][] getMap0(Rectangle[][] grid, int[][] t_Position){
         char[][] backupMap = getMap0(grid);
         for(int[] target : t_Position){
-            for(int[] box : t_boxesPosition){
-                if (target[0] == box[0] && target[1] == box[1]) {
-                    backupMap[target[0]][target[1]] = '@';
-                    break;
-                }
-            }
-            if(target[0]==t_playerPosition[0] && target[1]==t_playerPosition[1]){
+            if(backupMap[target[0]][target[1]]=='P'){
                 backupMap[target[0]][target[1]] = '?';
+            }
+            if(backupMap[target[0]][target[1]]=='B'){
+                backupMap[target[0]][target[1]] = '@';
             }
         }
         return backupMap;
