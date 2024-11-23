@@ -22,6 +22,10 @@ public class Player {
         this.oldY = 0;
     }
 
+    public static int[] getPlayerPosition(Player t_player){
+        return new int[]{t_player.getX(),t_player.getY()};
+    }
+
     public int getX() {
         return x;
     }

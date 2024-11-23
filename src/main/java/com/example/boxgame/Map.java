@@ -267,51 +267,18 @@ public class Map {
         }
         return backupMap;
     }
-    public static char[][] getMap0(Rectangle[][] grid, int[][] P_T, int[][] B_T){
-        char[][] backupMap = new char[GRID_COUNT][GRID_COUNT];
-        Rectangle rect1 = new Rectangle(GRID_SIZE, GRID_SIZE, GroundColor);
-        Rectangle rect2 = new Rectangle(GRID_SIZE, GRID_SIZE, PlayerColor);
-        Rectangle rect3 = new Rectangle(GRID_SIZE, GRID_SIZE, BoxColor);
-        Rectangle rect4 = new Rectangle(GRID_SIZE, GRID_SIZE, PositionColor);
-        Rectangle rect5 = new Rectangle(GRID_SIZE, GRID_SIZE, WallColor);
-        Rectangle rect6 = new Rectangle(GRID_SIZE, GRID_SIZE, PressColor);
-        Paint fill1 = rect1.getFill();
-        Paint fill2 = rect2.getFill();
-        Paint fill3 = rect3.getFill();
-        Paint fill4 = rect4.getFill();
-        Paint fill5 = rect5.getFill();
-        Paint fill6 = rect6.getFill();
-        for(int i=0;i<GRID_COUNT;i++){
-            for(int j=0;j<GRID_COUNT;j++){
-                Paint fill = grid[j][i].getFill();
-                if(fill==fill1){
-                    backupMap[i][j] = '.';
-                }
-                else if(fill==fill2){
-                    backupMap[i][j] = 'P';
-                }
-                else if(fill==fill3){
-                    backupMap[i][j] = 'B';
-                }
-                else if(fill==fill4){
-                    backupMap[i][j] = 'T';
-                }
-                else if(fill==fill5){
-                    backupMap[i][j] = '#';
-                }
-                else if(fill==fill6){
-                    backupMap[i][j] = 'Y';
-                }
-                else{
-                    backupMap[i][j] = 'L';
+    public static char[][] getMap0(Rectangle[][] grid, int[] t_playerPosition, int[][] t_Position, int[][] t_boxesPosition){
+        char[][] backupMap = getMap0(grid);
+        for(int[] target : t_Position){
+            for(int[] box : t_boxesPosition){
+                if (target[0] == box[0] && target[1] == box[1]) {
+                    backupMap[target[0]][target[1]] = '@';
+                    break;
                 }
             }
-        }
-        for(int i=0;i<P_T.length;i++){
-            backupMap[P_T[i][0]][P_T[i][1]] = '?';
-        }
-        for(int i=0;i<B_T.length;i++){
-            backupMap[B_T[i][0]][B_T[i][1]] = '@';
+            if(target[0]==t_playerPosition[0] && target[1]==t_playerPosition[1]){
+                backupMap[target[0]][target[1]] = '?';
+            }
         }
         return backupMap;
     }

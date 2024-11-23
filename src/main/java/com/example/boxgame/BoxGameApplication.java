@@ -148,6 +148,13 @@ public class BoxGameApplication extends Application {
             }
         }
         //初始化
+
+        initializeList(t_playerPosition ,t_Position, t_boxesPosition, t_wallPosition);
+        // 将玩家和箱子和目标点添加到网格中
+        Refresh();
+    }
+
+    private void initializeList(int[] t_playerPosition, int[][] t_Position, int[][] t_boxesPosition, int[][] t_wallPosition) {
         player = new Player(t_playerPosition[0],t_playerPosition[1]);// 假设玩家在起始位置，箱子在起始位置
         boxes = new Box[t_boxesPosition.length];
         walls = new Wall[t_wallPosition.length];
@@ -170,8 +177,6 @@ public class BoxGameApplication extends Application {
             //ArrayList Version
             targetsList.add(new Target(t_Position[i][0],t_Position[i][1]));
         }
-        // 将玩家和箱子和目标点添加到网格中
-        Refresh();
     }
 
     private void initializeGame() {
@@ -184,19 +189,7 @@ public class BoxGameApplication extends Application {
         _map = map.getMap();
 
         // 假设玩家在起始位置，箱子在起始位置
-        player = new Player(playerPosition[0], playerPosition[1]);
-        for (int i = 0; i < boxes.length; i++) {
-            boxes[i] = new Box(boxesPosition[i][0], boxesPosition[i][1]);
-            boxesList.add(new Box(boxesPosition[i][0], boxesPosition[i][1]));
-        }
-        for(int i = 0; i < walls.length; i++) {
-            walls[i] = new Wall(wallPosition[i][0], wallPosition[i][1]);
-            wallsList.add(new Wall(wallPosition[i][0], wallPosition[i][1]));
-        }
-        for(int i = 0; i < targets.length; i++) {
-            targets[i] = new Target(Position[i][0], Position[i][1]);
-            targetsList.add(new Target(Position[i][0], Position[i][1]));
-        }
+        initializeList(playerPosition, Position, boxesPosition, wallPosition);
         // 将玩家和箱子和目标点添加到网格中
         renderGame(new Map(_map));
 
@@ -207,7 +200,7 @@ public class BoxGameApplication extends Application {
     private void Backup(){
         //Backup
         p_map = _map.clone();
-        _map = Map.getMap0(grid);
+        _map = Map.getMap0(grid, Player.getPlayerPosition(player), Target.getTargetPosition(targets), Box.getBoxesPosition(boxes));
     }
 
     private void undoGame() {

@@ -19,6 +19,15 @@ public class Target {
         this.oldY = 0;
     }
 
+    public static int[][] getTargetPosition(Target[] t_positions){
+        int[][] Positions = new int[t_positions.length][2];
+        for (int i = 0; i < t_positions.length; i++) {
+            Positions[i][0] = t_positions[i].x;
+            Positions[i][1] = t_positions[i].y;
+        }
+        return Positions;
+    }
+
     public int getX() {
         return x;
     }
