@@ -22,13 +22,14 @@ public class BoxGameApplication extends Application {
     public static final int GRID_COUNT = 10;
     public static final int STROKE_SIZE = 1;
     public static final int PUDDING_SIZE = 7;
-    public static final int N = 4;
-    public static final int M = 3;
+    public static final int N = 5;
+    public static final int M = 0;
     public static final Color PlayerColor = Color.LIGHTBLUE;
     public static final Color BoxColor = Color.ORANGE;
     public static final Color PositionColor = Color.LIGHTGREEN;
     public static final Color GroundColor = Color.WHITE;
     public static final Color WallColor = Color.LIGHTGRAY;
+    public static final Color PressColor = Color.LIGHTCYAN;
     public static final Color StrokeColor = Color.GREY;
     private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
     private final Map map = new Map(N);
@@ -39,9 +40,9 @@ public class BoxGameApplication extends Application {
     private final int[][] Position = map.getPosition();
     private final int[][] boxesPosition = map.getBoxesPosition();
     private final int[][] wallPosition = map.getWallPosition();
-    private final Target[] targets = new Target[Position.length];
-    private final Box[] boxes = new Box[boxesPosition.length];
-    private final Wall[] walls = new Wall[wallPosition.length];
+    private Target[] targets = new Target[Position.length];
+    private Box[] boxes = new Box[boxesPosition.length];
+    private Wall[] walls = new Wall[wallPosition.length];
     private ArrayList<Target> targetsList = new ArrayList<>();
     private ArrayList<Box> boxesList = new ArrayList<Box>();
     private ArrayList<Wall> wallsList = new ArrayList<Wall>();
@@ -141,42 +142,58 @@ public class BoxGameApplication extends Application {
                 if(t_map[i][j]=='P'||_map[i][j]=='?') {
                     grid[j][i].setFill(PlayerColor);
                 }
+                if(t_map[i][j]=='Y') {
+                    grid[j][i].setFill(PressColor);
+                }
             }
         }
-
+        //初始化
+        player = new Player();
+        boxes = new Box[t_boxesPosition.length];
+        walls = new Wall[t_wallPosition.length];
+        targets = new Target[t_Position.length];
+        boxesList.clear();
+        wallsList.clear();
+        targetsList.clear();
         // 假设玩家在起始位置，箱子在起始位置
         player.setX(t_playerPosition[0]);
         player.setY(t_playerPosition[1]);
         player.setOldX(player.getX());
         player.setOldY(player.getY());
         for (int i = 0; i < boxes.length; i++) {
+            boxes[i] = new Box();
             boxes[i].setX(t_boxesPosition[i][0]);
             boxes[i].setY(t_boxesPosition[i][1]);
             boxes[i].setOldX(boxes[i].getX());
             boxes[i].setOldY(boxes[i].getY());
             //ArrayList Version
+            boxesList.add(new Box());
             boxesList.get(i).setX(t_boxesPosition[i][0]);
             boxesList.get(i).setY(t_boxesPosition[i][1]);
             boxesList.get(i).setOldX(boxesList.get(i).getX());
             boxesList.get(i).setOldY(boxesList.get(i).getY());
         }
         for(int i = 0; i < walls.length; i++) {
+            walls[i] = new Wall();
             walls[i].setX(t_wallPosition[i][0]);
             walls[i].setY(t_wallPosition[i][1]);
             walls[i].setOldX(walls[i].getX());
             walls[i].setOldY(walls[i].getY());
             //ArrayList Version
+            wallsList.add(walls[i]);
             wallsList.get(i).setX(t_wallPosition[i][0]);
             wallsList.get(i).setY(t_wallPosition[i][1]);
             wallsList.get(i).setOldX(wallsList.get(i).getX());
             wallsList.get(i).setOldY(wallsList.get(i).getY());
         }
         for(int i = 0; i < targets.length; i++) {
+            targets[i] = new Target();
             targets[i].setX(t_Position[i][0]);
             targets[i].setY(t_Position[i][1]);
             targets[i].setOldX(targets[i].getX());
             targets[i].setOldY(targets[i].getY());
             //ArrayList Version
+            targetsList.add(targets[i]);
             targetsList.get(i).setX(t_Position[i][0]);
             targetsList.get(i).setY(t_Position[i][1]);
             targetsList.get(i).setOldX(targetsList.get(i).getX());

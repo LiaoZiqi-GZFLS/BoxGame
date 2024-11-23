@@ -15,6 +15,12 @@ public class Player {
         this.oldX = x;
         this.oldY = y;
     }
+    public Player(){
+        this.x = 0;
+        this.y = 0;
+        this.oldX = 0;
+        this.oldY = 0;
+    }
 
     public int getX() {
         return x;
