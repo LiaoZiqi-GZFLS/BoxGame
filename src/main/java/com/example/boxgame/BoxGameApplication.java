@@ -148,56 +148,27 @@ public class BoxGameApplication extends Application {
             }
         }
         //初始化
-        player = new Player();
+        player = new Player(t_playerPosition[0],t_playerPosition[1]);// 假设玩家在起始位置，箱子在起始位置
         boxes = new Box[t_boxesPosition.length];
         walls = new Wall[t_wallPosition.length];
         targets = new Target[t_Position.length];
         boxesList.clear();
         wallsList.clear();
         targetsList.clear();
-        // 假设玩家在起始位置，箱子在起始位置
-        player.setX(t_playerPosition[0]);
-        player.setY(t_playerPosition[1]);
-        player.setOldX(player.getX());
-        player.setOldY(player.getY());
         for (int i = 0; i < boxes.length; i++) {
-            boxes[i] = new Box();
-            boxes[i].setX(t_boxesPosition[i][0]);
-            boxes[i].setY(t_boxesPosition[i][1]);
-            boxes[i].setOldX(boxes[i].getX());
-            boxes[i].setOldY(boxes[i].getY());
+            boxes[i] = new Box(t_boxesPosition[i][0],t_boxesPosition[i][1]);
             //ArrayList Version
-            boxesList.add(new Box());
-            boxesList.get(i).setX(t_boxesPosition[i][0]);
-            boxesList.get(i).setY(t_boxesPosition[i][1]);
-            boxesList.get(i).setOldX(boxesList.get(i).getX());
-            boxesList.get(i).setOldY(boxesList.get(i).getY());
+            boxesList.add(new Box(t_boxesPosition[i][0],t_boxesPosition[i][1]));
         }
         for(int i = 0; i < walls.length; i++) {
-            walls[i] = new Wall();
-            walls[i].setX(t_wallPosition[i][0]);
-            walls[i].setY(t_wallPosition[i][1]);
-            walls[i].setOldX(walls[i].getX());
-            walls[i].setOldY(walls[i].getY());
+            walls[i] = new Wall(t_wallPosition[i][0],t_wallPosition[i][1]);
             //ArrayList Version
-            wallsList.add(walls[i]);
-            wallsList.get(i).setX(t_wallPosition[i][0]);
-            wallsList.get(i).setY(t_wallPosition[i][1]);
-            wallsList.get(i).setOldX(wallsList.get(i).getX());
-            wallsList.get(i).setOldY(wallsList.get(i).getY());
+            wallsList.add(new Wall(t_wallPosition[i][0],t_wallPosition[i][1]));
         }
         for(int i = 0; i < targets.length; i++) {
-            targets[i] = new Target();
-            targets[i].setX(t_Position[i][0]);
-            targets[i].setY(t_Position[i][1]);
-            targets[i].setOldX(targets[i].getX());
-            targets[i].setOldY(targets[i].getY());
+            targets[i] = new Target(t_Position[i][0],t_Position[i][1]);
             //ArrayList Version
-            targetsList.add(targets[i]);
-            targetsList.get(i).setX(t_Position[i][0]);
-            targetsList.get(i).setY(t_Position[i][1]);
-            targetsList.get(i).setOldX(targetsList.get(i).getX());
-            targetsList.get(i).setOldY(targetsList.get(i).getY());
+            targetsList.add(new Target(t_Position[i][0],t_Position[i][1]));
         }
         // 将玩家和箱子和目标点添加到网格中
         Refresh();
