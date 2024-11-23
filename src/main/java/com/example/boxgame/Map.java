@@ -232,13 +232,11 @@ public class Map {
         Rectangle rect3 = new Rectangle(GRID_SIZE, GRID_SIZE, BoxColor);
         Rectangle rect4 = new Rectangle(GRID_SIZE, GRID_SIZE, PositionColor);
         Rectangle rect5 = new Rectangle(GRID_SIZE, GRID_SIZE, WallColor);
-        Rectangle rect6 = new Rectangle(GRID_SIZE, GRID_SIZE, PressColor);
         Paint fill1 = rect1.getFill();
         Paint fill2 = rect2.getFill();
         Paint fill3 = rect3.getFill();
         Paint fill4 = rect4.getFill();
         Paint fill5 = rect5.getFill();
-        Paint fill6 = rect6.getFill();
         for(int i=0;i<GRID_COUNT;i++){
             for(int j=0;j<GRID_COUNT;j++){
                 Paint fill = grid[j][i].getFill();
@@ -256,12 +254,6 @@ public class Map {
                 }
                 else if(fill==fill5){
                     backupMap[i][j] = '#';
-                }
-                else if(fill==fill6){
-                    backupMap[i][j] = 'Y';
-                }
-                else{
-                    backupMap[i][j] = 'L';
                 }
             }
         }

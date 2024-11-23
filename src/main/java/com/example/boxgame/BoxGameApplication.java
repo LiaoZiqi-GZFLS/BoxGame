@@ -148,9 +148,6 @@ public class BoxGameApplication extends Application {
                 if(t_map[i][j]=='P'||_map[i][j]=='?') {
                     grid[j][i].setFill(PlayerColor);
                 }
-                if(t_map[i][j]=='Y') {
-                    grid[j][i].setFill(PressColor);
-                }
             }
         }
         //初始化
