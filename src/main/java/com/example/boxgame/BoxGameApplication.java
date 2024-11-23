@@ -80,6 +80,16 @@ public class BoxGameApplication extends Application {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, this::handleKeyPress);
     }
 
+    @Override
+    public void init() {
+        System.out.println("这是初始化方法");
+    }
+
+    @Override
+    public void stop() throws Exception {
+        System.out.println("这个是stop()方法");
+    }
+
     private void handleKeyPress(@NotNull KeyEvent event) {
         //System.out.println(event.getCode());
         // 检查是否按下了Ctrl+Z
