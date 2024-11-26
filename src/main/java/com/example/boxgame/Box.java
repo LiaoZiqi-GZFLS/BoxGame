@@ -1,5 +1,7 @@
 package com.example.boxgame;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Box extends Character{
     public Box(int x, int y) {
         super(x, y);
@@ -8,6 +10,7 @@ public class Box extends Character{
         super();
     }
 
+    @NotNull
     public static int[][] getBoxesPosition(Box[] t_boxes){
         int[][] BoxesPosition = new int[t_boxes.length][2];
         for (int i = 0; i < t_boxes.length; i++) {
