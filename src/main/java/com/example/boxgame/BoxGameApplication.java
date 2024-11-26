@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 //import javafx.scene.input.KeyCode;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -69,11 +70,24 @@ public class BoxGameApplication extends Application {
 
         Scene scene = new Scene(gridPane, GRID_COUNT * (GRID_SIZE+STROKE_SIZE)+STROKE_SIZE+PUDDING_SIZE*2, GRID_COUNT * (GRID_SIZE+STROKE_SIZE)+STROKE_SIZE+PUDDING_SIZE*2);
         primaryStage.setTitle("Sokoban Game");
+        primaryStage.setResizable(false);// 禁止用户调整窗口大小
+        // 设置关闭事件处理
+        primaryStage.setOnCloseRequest(event -> {
+            // 创建一个确认对话框
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "您确定要退出程序吗？");
+            alert.setTitle("退出确认");
+            alert.setHeaderText(null);
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.YES) {
+                    event.consume(); // 用户选择“是”时，不关闭窗口
+                } else {
+                    // 用户选择“否”时，不执行任何操作，窗口保持打开状态
+                }
+            });
+        });
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // 禁止用户调整窗口大小
-        primaryStage.setResizable(false);
 
         initializeGame();
 
@@ -509,6 +523,19 @@ public class BoxGameApplication extends Application {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    public void alert(AlertType type,String title,String message) {
+        // 创建一个确认对话框
+        Alert alert = new Alert(type, message);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        // 显示对话框并等待用户响应
+        ButtonType result = alert.showAndWait().orElse(ButtonType.NO);
+
+        // 如果用户选择了"是"，则关闭程序
+        if (result == ButtonType.YES) {
+            System.exit(0); // 关闭程序
+        }
     }
 
     public static void main(String[] args) {

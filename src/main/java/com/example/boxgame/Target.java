@@ -1,24 +1,16 @@
 package com.example.boxgame;
 
-public class Target {
-    private int x;
-    private int y;
-    private int oldX;
-    private int oldY;
+import org.jetbrains.annotations.NotNull;
 
+public class Target extends Character{
     public Target(int x, int y) {
-        this.x = x;
-        this.y = y;
-        this.oldX = x;
-        this.oldY = y;
+        super(x, y);
     }
     public Target(){
-        this.x = 0;
-        this.y = 0;
-        this.oldX = 0;
-        this.oldY = 0;
+        super();
     }
 
+    @NotNull
     public static int[][] getTargetPosition(Target[] t_positions){
         int[][] Positions = new int[t_positions.length][2];
         for (int i = 0; i < t_positions.length; i++) {
@@ -26,44 +18,5 @@ public class Target {
             Positions[i][1] = t_positions[i].getY();
         }
         return Positions;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getOldX() {
-        return oldX;
-    }
-
-    public int getOldY() {
-        return oldY;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setOldX(int oldX) {
-        this.oldX = oldX;
-    }
-
-    public void setOldY(int oldY) {
-        this.oldY = oldY;
-    }
-
-    public void move(int dx, int dy) {
-        oldX = x;
-        oldY = y;
-        x += dx;
-        y += dy;
     }
 }
