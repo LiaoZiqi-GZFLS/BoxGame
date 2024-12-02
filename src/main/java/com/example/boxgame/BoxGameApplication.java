@@ -2,6 +2,7 @@ package com.example.boxgame;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 //import javafx.scene.input.KeyCode;
@@ -51,26 +52,43 @@ public class BoxGameApplication extends Application {
     private final ArrayList<Box> boxesList = new ArrayList<Box>();
     private final ArrayList<Wall> wallsList = new ArrayList<Wall>();
     private int step = 0;
+    private int score = 0;
     private boolean check = true;
     private boolean check2 = true;
     private boolean checkUndo = false;
     private boolean checkRedo = false;
+    private boolean checkGameOver = false;
     private long startTime = 0; // 游戏开始时间
     private long elapsedTime = 0; // 已过时间
     private Label timeLabel;
+    private Label stepLabel;
+    private Label scoreLabel;
 
     @Override
     public void start(Stage primaryStage) {
         GridPane gridPane0 = new GridPane();
         GridPane gridPane = new GridPane();
+        GridPane gridPane1 = new GridPane();
         gridPane.setGridLinesVisible(true);
         gridPane.setPadding(new Insets(PUDDING_SIZE, PUDDING_SIZE, PUDDING_SIZE, PUDDING_SIZE)); // 为GridPane添加内边距
         // 创建时间Label
         timeLabel = new Label();
         timeLabel.setId("timeLabel"); // 设置ID，方便CSS样式设置
-        timeLabel.setText("Time: 00:00"); // 初始化时间显示
-        // 将时间Label添加到GridPane
-        gridPane0.add(timeLabel, 0, 0); // 将Label放在左上角
+        timeLabel.setText("Time: 00:00:00"); // 初始化时间显示
+        // 创建步数Label
+        stepLabel = new Label();
+        stepLabel.setId("stepLabel"); // 设置ID，方便CSS样式设置
+        stepLabel.setText("Step: 0"); // 初始化时间显示
+        // 创建分数Label
+        scoreLabel = new Label();
+        scoreLabel.setId("scoreLabel"); // 设置ID，方便CSS样式设置
+        scoreLabel.setText("Score: 00.00%"); // 初始化时间显示
+        // 将Label添加到GridPane
+        gridPane1.add(timeLabel, 0, 0); // 将Label放在左上角
+        //gridPane1.add(new Label(" ".repeat(42)), 1, 0);
+        gridPane1.add(stepLabel, 2, 0);
+        gridPane1.add(scoreLabel, 3, 0);
+        gridPane0.add(gridPane1, 0, 0); // 将Label放在左上角
         gridPane0.add(gridPane, 0, 1);
 
         for (int i = 0; i < GRID_COUNT; i++) {
@@ -87,6 +105,8 @@ public class BoxGameApplication extends Application {
         primaryStage.setTitle("Sokoban Game");
         primaryStage.setResizable(false);// 禁止用户调整窗口大小
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("TimeStyle.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("StepStyle.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("ScoreStyle.css")).toExternalForm());
         // 设置关闭事件处理
         primaryStage.setOnCloseRequest(event -> {
             // 创建一个确认对话框
@@ -118,11 +138,17 @@ public class BoxGameApplication extends Application {
                     lastTime = System.nanoTime();
                     checkRedo = false;
                 }
+                if(checkGameOver){
+                    return;
+                }
                 double seconds = (currentNanoTime - lastTime) / 1_000_000_000.0;
                 //timeLabel.setText(String.format("Time: %.2f", seconds));
                 elapsedTime = (long) seconds*1000;
                 String timeString = String.format("Time: %02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
+                String scoreString = String.format("Score: %02d.%02d%%", score/100, score%100);
                 timeLabel.setText(timeString);
+                stepLabel.setText("Step: " + step);
+                scoreLabel.setText(scoreString);
             }
         };
         timer.start(); // 启动定时器
@@ -518,20 +544,22 @@ public class BoxGameApplication extends Application {
     private void checkCondition(){
         //检测是否完成
         if (step > 100&&checkWinCondition()&&check2&&!check) {
+            check2 = false;
+            checkGameOver = true;
             alert("Game Over","You finished the game!");
             alert("Waring: Too many steps!");
-            check2 = false;
         }
         // 检查是否胜利
         if (checkWinCondition()&&check&&step<=100) {
-            alert("Victory","Congratulations! You win!");
             check = false;
+            checkGameOver = true;
+            alert("Victory","Congratulations! You win!");
         }
         //步数检测
         if(step > 100&&check) {
+            check = false;
             alert("Failure","You lost!");
             alert("Reason: Too many steps!");
-            check = false;
         }
     }
 
