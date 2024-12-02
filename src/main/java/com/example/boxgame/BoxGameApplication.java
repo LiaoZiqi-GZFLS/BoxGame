@@ -94,10 +94,12 @@ public class BoxGameApplication extends Application {
             alert.setTitle("退出确认");
             alert.setHeaderText(null);
             alert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.YES) {
-                    event.consume(); // 用户选择“是”时，不关闭窗口
+                if (response == ButtonType.OK) {
+                    // 用户选择“是”时，关闭窗口
+                    return;
                 } else {
                     // 用户选择“否”时，不执行任何操作，窗口保持打开状态
+                    event.consume();
                 }
             });
         });
