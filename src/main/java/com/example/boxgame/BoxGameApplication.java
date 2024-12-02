@@ -1,10 +1,12 @@
 package com.example.boxgame;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 //import javafx.scene.input.KeyCode;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -16,6 +18,7 @@ import javafx.scene.control.Alert.AlertType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class BoxGameApplication extends Application {
 
@@ -51,12 +54,24 @@ public class BoxGameApplication extends Application {
     private boolean check = true;
     private boolean check2 = true;
     private boolean checkUndo = false;
+    private boolean checkRedo = false;
+    private long startTime = 0; // 游戏开始时间
+    private long elapsedTime = 0; // 已过时间
+    private Label timeLabel;
 
     @Override
     public void start(Stage primaryStage) {
+        GridPane gridPane0 = new GridPane();
         GridPane gridPane = new GridPane();
         gridPane.setGridLinesVisible(true);
         gridPane.setPadding(new Insets(PUDDING_SIZE, PUDDING_SIZE, PUDDING_SIZE, PUDDING_SIZE)); // 为GridPane添加内边距
+        // 创建时间Label
+        timeLabel = new Label();
+        timeLabel.setId("timeLabel"); // 设置ID，方便CSS样式设置
+        timeLabel.setText("Time: 00:00"); // 初始化时间显示
+        // 将时间Label添加到GridPane
+        gridPane0.add(timeLabel, 0, 0); // 将Label放在左上角
+        gridPane0.add(gridPane, 0, 1);
 
         for (int i = 0; i < GRID_COUNT; i++) {
             for (int j = 0; j < GRID_COUNT; j++) {
@@ -68,9 +83,10 @@ public class BoxGameApplication extends Application {
             }
         }
 
-        Scene scene = new Scene(gridPane, GRID_COUNT * (GRID_SIZE+STROKE_SIZE)+STROKE_SIZE+PUDDING_SIZE*2, GRID_COUNT * (GRID_SIZE+STROKE_SIZE)+STROKE_SIZE+PUDDING_SIZE*2);
+        Scene scene = new Scene(gridPane0, GRID_COUNT * (GRID_SIZE+STROKE_SIZE)+STROKE_SIZE+PUDDING_SIZE*2, GRID_COUNT * (GRID_SIZE+STROKE_SIZE)+STROKE_SIZE+PUDDING_SIZE*2+40);
         primaryStage.setTitle("Sokoban Game");
         primaryStage.setResizable(false);// 禁止用户调整窗口大小
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("TimeStyle.css")).toExternalForm());
         // 设置关闭事件处理
         primaryStage.setOnCloseRequest(event -> {
             // 创建一个确认对话框
@@ -88,10 +104,26 @@ public class BoxGameApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-
         initializeGame();
 
         scene.addEventHandler(KeyEvent.KEY_PRESSED, this::handleKeyPress);
+        // 创建并启动AnimationTimer
+        AnimationTimer timer = new AnimationTimer() {
+            private long lastTime = System.nanoTime();
+            @Override
+            public void handle(long currentNanoTime) {
+                if(checkRedo){
+                    lastTime = System.nanoTime();
+                    checkRedo = false;
+                }
+                double seconds = (currentNanoTime - lastTime) / 1_000_000_000.0;
+                //timeLabel.setText(String.format("Time: %.2f", seconds));
+                elapsedTime = (long) seconds*1000;
+                String timeString = String.format("Time: %02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
+                timeLabel.setText(timeString);
+            }
+        };
+        timer.start(); // 启动定时器
     }
 
     @Override
@@ -105,6 +137,8 @@ public class BoxGameApplication extends Application {
     }
 
     private void handleKeyPress(@NotNull KeyEvent event) {
+        // 更新已过时间
+        elapsedTime = System.currentTimeMillis() - startTime;
         //System.out.println(event.getCode());
         // 检查是否按下了Ctrl+Z
         if(event.isControlDown()){
@@ -175,8 +209,8 @@ public class BoxGameApplication extends Application {
             }
         }
         //初始化
-
         initializeList(t_playerPosition ,t_Position, t_boxesPosition, t_wallPosition);
+
         // 将玩家和箱子和目标点添加到网格中
         Refresh();
     }
@@ -212,6 +246,9 @@ public class BoxGameApplication extends Application {
         check = true;
         check2 = true;
         checkUndo = false;
+        checkRedo = true;
+        // 初始化计时器
+        startTime = System.currentTimeMillis();
 
         //初始化地图
         _map = map.getMap();
