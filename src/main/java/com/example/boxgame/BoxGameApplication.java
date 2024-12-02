@@ -85,9 +85,8 @@ public class BoxGameApplication extends Application {
         scoreLabel.setText("Score: 00.00%"); // 初始化时间显示
         // 将Label添加到GridPane
         gridPane1.add(timeLabel, 0, 0); // 将Label放在左上角
-        //gridPane1.add(new Label(" ".repeat(42)), 1, 0);
-        gridPane1.add(stepLabel, 2, 0);
-        gridPane1.add(scoreLabel, 3, 0);
+        gridPane1.add(stepLabel, 1, 0);
+        gridPane1.add(scoreLabel, 2, 0);
         gridPane0.add(gridPane1, 0, 0); // 将Label放在左上角
         gridPane0.add(gridPane, 0, 1);
 
