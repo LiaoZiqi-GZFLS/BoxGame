@@ -138,6 +138,8 @@ public class BoxGameApplication extends Application {
                     checkRedo = false;
                 }
                 if(checkGameOver){
+                    String scoreString = String.format("Score: %02d.%02d%%", score/100, score%100);
+                    scoreLabel.setText(scoreString);
                     return;
                 }
                 double seconds = (currentNanoTime - lastTime) / 1_000_000_000.0;
@@ -270,10 +272,12 @@ public class BoxGameApplication extends Application {
     private void initializeGame() {
         //初始化数据
         step = 0;
+        score = 0;
         check = true;
         check2 = true;
         checkUndo = false;
         checkRedo = true;
+        checkGameOver = false;
         // 初始化计时器
         startTime = System.currentTimeMillis();
 
@@ -538,6 +542,8 @@ public class BoxGameApplication extends Application {
         }
         //刷新界面
         Refresh();
+        //刷新分数
+        setScore();
     }
 
     private void checkCondition(){
@@ -574,6 +580,17 @@ public class BoxGameApplication extends Application {
             }
         }
         return (num == boxes.length);
+    }
+
+    private void setScore(){
+        int num1= new Map(map.getMap()).getPosition().length;
+        int num2 = 0;
+        for(Target target : targets) {
+            if(grid[target.getX()][target.getY()].getFill() == BoxColor) {
+                num2++;
+            }
+        }
+        score = num2*10000/num1;
     }
 
     private void alert(String message) {
