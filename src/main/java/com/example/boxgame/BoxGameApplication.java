@@ -2,9 +2,11 @@ package com.example.boxgame;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 //import javafx.scene.input.KeyCode;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -13,13 +15,22 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import org.jetbrains.annotations.NotNull;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker.State;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 public class BoxGameApplication extends Application {
 
@@ -27,8 +38,9 @@ public class BoxGameApplication extends Application {
     public static final int GRID_COUNT = 10;
     public static final int STROKE_SIZE = 1;
     public static final int PUDDING_SIZE = 7;
+    public static final int MAX_STEP = 100;
     public static final int N = 5;
-    public static final int M = 0;
+    public static final int M = 3;
     public static final Color PlayerColor = Color.LIGHTBLUE;
     public static final Color BoxColor = Color.ORANGE;
     public static final Color PositionColor = Color.LIGHTGREEN;
@@ -36,7 +48,7 @@ public class BoxGameApplication extends Application {
     public static final Color WallColor = Color.LIGHTGRAY;
     public static final Color PressColor = Color.LIGHTCYAN;
     public static final Color StrokeColor = Color.GREY;
-    private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];
+    private final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];//Rectangle(x,y) int[y][x]
     private final Map map = new Map(N);
     private char[][] _map;
     private char[][] p_map;
@@ -323,222 +335,205 @@ public class BoxGameApplication extends Application {
         grid[player.getX()][player.getY()].setFill(PlayerColor);
     }
 
+    private boolean checkEdge(int x, int y) {
+        return (x < 0 || x >= GRID_COUNT || y < 0 || y >= GRID_COUNT);
+    }
+    private boolean checkWall(int x, int y) {
+        return (grid[x][y].getFill() == WallColor);
+    }
+    private boolean checkBox(int x, int y) {
+        return (grid[x][y].getFill() == BoxColor);
+    }
+    private boolean frontOfPlayer(int dx, int dy) {
+        int newX = player.getX() + dx;
+        int newY = player.getY() + dy;
+        // 检查是否越界
+        if (checkEdge(newX, newY)) {
+            return false;
+        }
+        // 检查是否移动到墙上
+        if (checkWall(newX, newY)) {
+            return false;
+        }
+        // 检查是否推箱子
+        if(checkBox(newX, newY)) {
+            for(Box box : boxes) {
+                if (newX == box.getX() && newY == box.getY()) {
+                    // 检查是否越界
+                    if (checkEdge(newX+dx, newY+dy)) {
+                        return false;
+                    }
+                    // 检查是否移动到墙上
+                    if (checkWall(newX+dx, newY+dy)) {
+                        return false;
+                    }
+                    // 检查是否移动到箱子上
+                    if (checkBox(newX+dx, newY+dy)) {
+                        return false;
+                    }
+                    // 移动箱子
+                    box.move(dx, dy);
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+    private boolean backOfPlayer(int dx, int dy) {
+        int newX = player.getX() + dx;
+        int newY = player.getY() + dy;
+        // 检查是否越界
+        if (checkEdge(newX, newY)) {
+            return false;
+        }
+        // 检查是否移动到墙上
+        if (checkWall(newX, newY)) {
+            return false;
+        }
+        //检查是否移动到箱子上
+        if(checkBox(newX, newY)) {
+            return false;
+        }
+        // 检查是否拉箱子
+        if(checkBox(newX-dx*2, newY-dy*2)) {
+            for(Box box : boxes) {
+                if (newX-dx*2 == box.getX() && newY-dy*2 == box.getY()) {
+                    // 移动箱子
+                    box.move(dx, dy);
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+    private boolean leftOfPlayer(int dx, int dy) {
+        int newX = player.getX() + dx;
+        int newY = player.getY() + dy;
+        // 检查是否越界
+        if (checkEdge(newX, newY)) {
+            return false;
+        }
+        // 检查是否移动到墙上
+        if (checkWall(newX, newY)) {
+            return false;
+        }
+        int tx = newX-dx-Math.abs(dy);
+        int ty = newY-dy-Math.abs(dx);
+        // 检查是否侧滑箱子
+        if(checkBox(tx, ty)) {
+            for(Box box : boxes) {
+                if (tx == box.getX() && ty == box.getY()) {
+                    // 检查是否越界
+                    if (checkEdge(tx+dx, ty+dy)) {
+                        return false;
+                    }
+                    // 检查是否移动到墙上
+                    if (checkWall(tx+dx, ty+dy)) {
+                        return false;
+                    }
+                    // 检查是否移动到箱子上
+                    if (checkBox(tx+dx, ty+dy)) {
+                        return false;
+                    }
+                    // 移动箱子
+                    box.move(dx, dy);
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+    private boolean rightOfPlayer(int dx, int dy) {
+        int newX = player.getX() + dx;
+        int newY = player.getY() + dy;
+        // 检查是否越界
+        if (checkEdge(newX, newY)) {
+            return false;
+        }
+        // 检查是否移动到墙上
+        if (checkWall(newX, newY)) {
+            return false;
+        }
+        // 检查是否侧滑箱子
+        int tx = newX-dx+Math.abs(dy);
+        int ty = newY-dy+Math.abs(dx);
+        if(checkBox(tx, ty)) {
+            for(Box box : boxes) {
+                if (tx == box.getX() && ty == box.getY()) {
+                    // 检查是否越界
+                    if (checkEdge(tx+dx, ty+dy)) {
+                        return false;
+                    }
+                    // 检查是否移动到墙上
+                    if (checkWall(tx+dx, ty+dy)) {
+                        return false;
+                    }
+                    // 检查是否移动到箱子上
+                    if (checkBox(tx+dx, ty+dy)) {
+                        return false;
+                    }
+                    // 移动箱子
+                    box.move(dx, dy);
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+    private boolean transPosition(int dx, int dy) {
+        int newX = player.getX() + dx;
+        int newY = player.getY() + dy;
+        // 检查是否越界
+        if (checkEdge(newX, newY)) {
+            return false;
+        }
+        // 检查是否移动到墙上
+        if (checkWall(newX, newY)) {
+            return false;
+        }
+        // 检查是否换箱子
+        if(checkBox(newX, newY)) {
+            for(Box box : boxes) {
+                if (newX == box.getX() && newY == box.getY()) {
+                    // 移动箱子
+                    box.move(-dx, -dy);
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
     private void movePlayer(int dx, int dy, int method) {
         step++;
         if(method==0){//正常推动
-            int newX = player.getX() + dx;
-            int newY = player.getY() + dy;
-
-            // 检查是否越界
-            if (newX < 0 || newX >= GRID_COUNT || newY < 0 || newY >= GRID_COUNT) {
+            if(frontOfPlayer(dx,dy)) {
+                player.move(dx, dy);
+            }else{
                 step--;
-                return;
             }
-
-            // 检查是否移动到墙上
-            if (grid[newX][newY].getFill() == WallColor) {
-                step--;
-                return;
-            }
-
-            // 检查是否推箱子
-            if(grid[newX][newY].getFill() == BoxColor) {
-                for(Box box : boxes) {
-                    if (newX == box.getX() && newY == box.getY()) {
-                        // 检查是否越界
-                        if (newX+dx < 0 || newX+dx >= GRID_COUNT || newY+dy < 0 || newY+dy >= GRID_COUNT) {
-                            step--;
-                            return;
-                        }
-                        // 检查是否移动到墙上
-                        if (grid[newX+dx][newY+dy].getFill() == WallColor) {
-                            step--;
-                            return;
-                        }
-                        // 检查是否移动到箱子上
-                        if (grid[newX+dx][newY+dy].getFill() == BoxColor) {
-                            step--;
-                            return;
-                        }
-                        // 移动箱子
-                        box.move(dx, dy);
-                        break;
-                    }
-                }
-            }
-
-            // 移动玩家
-            player.move(dx, dy);
         }
         if(method==1){//正常拉动
-            int newX = player.getX() + dx;
-            int newY = player.getY() + dy;
-
-            // 检查是否越界
-            if (newX < 0 || newX >= GRID_COUNT || newY < 0 || newY >= GRID_COUNT) {
+            if(backOfPlayer(dx,dy)) {
+                player.move(dx, dy);
+            }else{
                 step--;
-                return;
             }
-
-            // 检查是否移动到墙上
-            if (grid[newX][newY].getFill() == WallColor) {
-                step--;
-                return;
-            }
-
-            //检查是否移动到箱子上
-            if(grid[newX][newY].getFill() == BoxColor) {
-                step--;
-                return;
-            }
-
-            // 检查是否拉箱子
-            if(grid[newX-dx*2][newY-dy*2].getFill() == BoxColor) {
-                for(Box box : boxes) {
-                    if (newX-dx*2 == box.getX() && newY-dy*2 == box.getY()) {
-                        // 移动箱子
-                        box.move(dx, dy);
-                        break;
-                    }
-                }
-            }
-
-            // 移动玩家
-            player.move(dx, dy);
         }
         if(method==2){//移形换位
-            int newX = player.getX() + dx;
-            int newY = player.getY() + dy;
-
-            // 检查是否越界
-            if (newX < 0 || newX >= GRID_COUNT || newY < 0 || newY >= GRID_COUNT) {
+            if(transPosition(dx,dy)) {
+                player.move(dx, dy);
+            }else{
                 step--;
-                return;
             }
-
-            // 检查是否移动到墙上
-            if (grid[newX][newY].getFill() == WallColor) {
-                step--;
-                return;
-            }
-
-            // 检查是否推箱子
-            if(grid[newX][newY].getFill() == BoxColor) {
-                for(Box box : boxes) {
-                    if (newX == box.getX() && newY == box.getY()) {
-                        // 移动箱子
-                        box.move(-dx, -dy);
-                        break;
-                    }
-                }
-            }
-
-            // 移动玩家
-            player.move(dx, dy);
         }
         if(method==3){//粘黏
-            int newX = player.getX() + dx;
-            int newY = player.getY() + dy;
-
-            // 检查是否越界
-            if (newX < 0 || newX >= GRID_COUNT || newY < 0 || newY >= GRID_COUNT) {
+            if(leftOfPlayer(dx,dy)&&rightOfPlayer(dx,dy)&&frontOfPlayer(dx,dy)) {
+                backOfPlayer(dx,dy);
+                player.move(dx, dy);
+            }else{
                 step--;
-                return;
             }
-
-            // 检查是否移动到墙上
-            if (grid[newX][newY].getFill() == WallColor) {
-                step--;
-                return;
-            }
-
-            // 检查是否推箱子
-            if(grid[newX][newY].getFill() == BoxColor) {
-                for(Box box : boxes) {
-                    if (newX == box.getX() && newY == box.getY()) {
-                        // 检查是否越界
-                        if (newX+dx < 0 || newX+dx >= GRID_COUNT || newY+dy < 0 || newY+dy >= GRID_COUNT) {
-                            step--;
-                            return;
-                        }
-                        // 检查是否移动到墙上
-                        if (grid[newX+dx][newY+dy].getFill() == WallColor) {
-                            step--;
-                            return;
-                        }
-                        // 检查是否移动到箱子上
-                        if (grid[newX+dx][newY+dy].getFill() == BoxColor) {
-                            step--;
-                            return;
-                        }
-                        // 移动箱子
-                        box.move(dx, dy);
-                        break;
-                    }
-                }
-            }
-            // 检查是否拉箱子
-            if(grid[newX-dx*2][newY-dy*2].getFill() == BoxColor) {
-                for(Box box : boxes) {
-                    if (newX-dx*2 == box.getX() && newY-dy*2 == box.getY()) {
-                        // 移动箱子
-                        box.move(dx, dy);
-                        break;
-                    }
-                }
-            }
-            // 检查是否侧滑右箱子
-            if(grid[newX-dx+dy][newY-dy+dx].getFill() == BoxColor) {
-                for(Box box : boxes) {
-                    if (newX-dx+dy == box.getX() && newY-dy+dx == box.getY()) {
-                        // 检查是否越界
-                        if (newX+dy < 0 || newX+dx >= GRID_COUNT || newY+dx < 0 || newY+dy >= GRID_COUNT) {
-                            step--;
-                            return;
-                        }
-                        // 检查是否移动到墙上
-                        if (grid[newX+dy][newY+dx].getFill() == WallColor) {
-                            step--;
-                            return;
-                        }
-                        // 检查是否移动到箱子上
-                        if (grid[newX+dy][newY+dx].getFill() == BoxColor) {
-                            step--;
-                            return;
-                        }
-                        // 移动箱子
-                        box.move(dx, dy);
-                        break;
-                    }
-                }
-            }
-            // 检查是否侧滑左箱子
-            if(grid[newX-dx-dy][newY-dy-dx].getFill() == BoxColor) {
-                for(Box box : boxes) {
-                    if (newX-dx-dy == box.getX() && newY-dy-dx == box.getY()) {
-                        // 检查是否越界
-                        if (newX-dy < 0 || newX-dy >= GRID_COUNT || newY-dx < 0 || newY-dx >= GRID_COUNT) {
-                            step--;
-                            return;
-                        }
-                        // 检查是否移动到墙上
-                        if (grid[newX-dy][newY-dx].getFill() == WallColor) {
-                            step--;
-                            return;
-                        }
-                        // 检查是否移动到箱子上
-                        if (grid[newX-dy][newY-dx].getFill() == BoxColor) {
-                            step--;
-                            return;
-                        }
-                        // 移动箱子
-                        box.move(dx, dy);
-                        break;
-                    }
-                }
-            }
-            // 移动玩家
-            player.move(dx, dy);
         }
         //刷新界面
         Refresh();
@@ -548,20 +543,20 @@ public class BoxGameApplication extends Application {
 
     private void checkCondition(){
         //检测是否完成
-        if (step > 100&&checkWinCondition()&&check2&&!check) {
+        if (step > MAX_STEP&&checkWinCondition()&&check2&&!check) {
             check2 = false;
             checkGameOver = true;
             alert("Game Over","You finished the game!");
             alert("Waring: Too many steps!");
         }
         // 检查是否胜利
-        if (checkWinCondition()&&check&&step<=100) {
+        if (checkWinCondition()&&check&&step<=MAX_STEP) {
             check = false;
             checkGameOver = true;
             alert("Victory","Congratulations! You win!");
         }
         //步数检测
-        if(step > 100&&check) {
+        if(step > MAX_STEP&&check) {
             check = false;
             alert("Failure","You lost!");
             alert("Reason: Too many steps!");
@@ -619,6 +614,63 @@ public class BoxGameApplication extends Application {
         if (result == ButtonType.YES) {
             System.exit(0); // 关闭程序
         }
+    }
+
+    public class CSVReaderService extends Service<Void> {
+
+        private final String filePath;
+        private final ProgressBar progressBar;
+        private final ProgressIndicator progressIndicator;
+        private final Label progressLabel; // 假设你有一个Label来显示消息
+
+        public CSVReaderService(String filePath, ProgressBar progressBar, ProgressIndicator progressIndicator, Label progressLabel) {
+            this.filePath = filePath;
+            this.progressBar = progressBar;
+            this.progressIndicator = progressIndicator;
+            this.progressLabel = progressLabel;
+        }
+
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    int totalLines = 0;
+                    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            totalLines++;
+                        }
+                    }
+                    updateProgress(0, totalLines); // 设置总进度
+
+                    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+                        String line;
+                        int currentLine = 0;
+                        while ((line = br.readLine()) != null) {
+                            currentLine++;
+                            updateProgress(currentLine, totalLines);
+                            int finalCurrentLine = currentLine;
+                            Platform.runLater(() -> progressLabel.setText("Reading line: " + finalCurrentLine));
+                            // 处理每一行数据，例如分割成char数组
+                            // char[][] data = line.split(",").map(s -> s.toCharArray()).toArray(char[][]::new);
+                            // 这里可以根据需要处理数据
+                        }
+                    }
+                    return null;
+                }
+            };
+        }
+    }
+
+    // 在你的JavaFX应用程序中，你可以这样启动服务：
+    public void startService(String filePath, ProgressBar progressBar, ProgressIndicator progressIndicator, Label progressLabel) {
+        CSVReaderService service = new CSVReaderService(filePath, progressBar, progressIndicator, progressLabel);
+
+        progressBar.progressProperty().bind(service.progressProperty());
+        progressIndicator.progressProperty().bind(service.progressProperty());
+
+        service.start(); // 启动服务
     }
 
     public static void main(String[] args) {

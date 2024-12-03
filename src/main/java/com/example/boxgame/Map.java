@@ -225,6 +225,7 @@ public class Map {
         }
         return ints;
     }
+
     public static char[][] getMap0(Rectangle[][] grid){
         char[][] backupMap = new char[GRID_COUNT][GRID_COUNT];
         Rectangle rect1 = new Rectangle(GRID_SIZE, GRID_SIZE, GroundColor);
