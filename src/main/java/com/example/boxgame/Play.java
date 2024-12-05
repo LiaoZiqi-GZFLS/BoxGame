@@ -39,9 +39,7 @@ public class Play {
     public GridPane gridPane0 = new GridPane();
     public GridPane gridPane = new GridPane();
     public GridPane gridPane1 = new GridPane();
-    //public Label timeLabel = new Label();
-    //public Label scoreLabel = new Label();
-    //public Label stepLabel = new Label();
+    public String Label1;
 
     public void initialize(){
         stoppane.setVisible(false);
@@ -93,15 +91,21 @@ public class Play {
             public void handle(long currentNanoTime) {
                 // 获取GraphicsContext
                 GraphicsContext gc = canvas.getGraphicsContext2D();
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                // 设置文本属性
+                gc.setFill(javafx.scene.paint.Color.WHITE); // 设置文本颜色
+                gc.setFont(javafx.scene.text.Font.font("Arial", 30)); // 设置字体和大小
+                //绘制文本
+                gc.fillText(Label1, 140, 48);
                 // 将GridPane截图
                 WritableImage snapshot = gridPane0.snapshot(new SnapshotParameters(), null);
-                WritableImage snapshot2 = gridPane1.snapshot(new SnapshotParameters(), null);
+                //WritableImage snapshot2 = gridPane1.snapshot(new SnapshotParameters(), null);
                 // 计算GridPane在Canvas上的居中位置
                 double gridPaneX = (canvas.getWidth() - gridPane.getPrefWidth()) / 2;
                 double gridPaneY = (canvas.getHeight() - gridPane.getPrefHeight()) / 2;
                 // 将GridPane图像绘制到Canvas的居中位置
                 gc.drawImage(snapshot, gridPaneX- (double) (GRID_SIZE * GRID_COUNT) /2, gridPaneY- (double) (GRID_SIZE * GRID_COUNT) /2);
-                //gc.drawImage(snapshot2,0,0);
+                //gc.drawImage(snapshot2,50,100);
                 if(checkRedo){
                     lastTime = System.nanoTime();
                     checkRedo = false;
@@ -116,9 +120,13 @@ public class Play {
                 elapsedTime = (long) seconds*1000;
                 String timeString = String.format("Time: %02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
                 String scoreString = String.format("Score: %02d.%02d%%", score/100, score%100);
+                String stepString = String.format("Step: %02d", step);
                 timeLabel.setText(timeString);
-                stepLabel.setText("Step: " + step);
+                stepLabel.setText(stepString);
                 scoreLabel.setText(scoreString);
+                // 绘制文本
+                Label1 = timeString +" "+ stepString +" "+ scoreString;
+                gc.fillText(Label1, 140, 48);
             }
         };
         timer.start(); // 启动定时器
@@ -162,6 +170,9 @@ public class Play {
                 break;
             default:
                 handleKeyPress(keyEvent);
+                if(checkGameOver){
+                    from = 1;
+                }
                 break;
         }
     }
