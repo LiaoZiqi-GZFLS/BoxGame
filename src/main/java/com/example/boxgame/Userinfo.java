@@ -10,27 +10,27 @@ import javax.swing.*;
 import static com.example.boxgame.Welcome.*;
 
 public class Userinfo {
-    public ImageView touxiang;
+    public ImageView avatar;
     public AnchorPane bkg;
     //以下为实时变动项目
-    public Label showusername ;
-    public Label showplaycounts;
-    public Label showuserid;
-    public Label showrecentrecord1;//最近步数
-    public Label showrecentrecord2;//最近关卡
+    public Label showUserName;
+    public Label showPlayCounts;
+    public Label showUserid;
+    public Label showRecentRecord1;//最近步数
+    public Label showRecentRecord2;//最近关卡
     //以上实时变动
     Timer timer = new Timer(1000, e -> {
-        showusername.setText(name);
-        showuserid.setText("#"+String.valueOf(id));
-        showrecentrecord1.setText(String.valueOf(laststep));
-        showplaycounts.setText(String.valueOf(times));
-        showrecentrecord2.setText(last);
+        showUserName.setText(name);
+        showUserid.setText("#"+String.valueOf(id));
+        showRecentRecord1.setText(String.valueOf(last_step));
+        showPlayCounts.setText(String.valueOf(times));
+        showRecentRecord2.setText(last);
     });
 
     public void initialize(){
         timer.start();
-        showuserid.setText("#"+String.valueOf(id));
-        showusername.setText(name);
+        showUserid.setText("#"+String.valueOf(id));
+        showUserName.setText(name);
     }
 
     public void close(MouseEvent mouseEvent) {
@@ -38,7 +38,7 @@ public class Userinfo {
     }
 
     public void logout(MouseEvent mouseEvent) {
-        name = "UNLOGIN";
+        name = "Guest";
         int id = 0;
         int times = 0;//游玩次数
         int laststep=0;//上次游玩时步数

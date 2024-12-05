@@ -17,12 +17,12 @@
             <StackPane onMouseReleased="#close" prefHeight="25.0" prefWidth="25.0" styleClass="exit-btn" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
             <VBox layoutX="45.0" layoutY="40.0">
                <children>
-                  <Label fx:id="showusername" prefHeight="35.0" prefWidth="253.0" text="用户名" textFill="#aa8534">
+                  <Label fx:id="showUserName" prefHeight="35.0" prefWidth="253.0" text="用户名" textFill="#aa8534">
                      <font>
                         <Font name="Minecraft Pixel" size="30.0" />
                      </font>
                   </Label>
-                  <Label fx:id="showuserid" prefHeight="25.0" prefWidth="150.0" text="#11" textFill="#aa8534">
+                  <Label fx:id="showUserid" prefHeight="25.0" prefWidth="150.0" text="#11" textFill="#aa8534">
                      <font>
                         <Font name="Minecraft Pixel" size="16.0" />
                      </font>
@@ -31,13 +31,13 @@
             </VBox>
             <Pane layoutX="45.33333206176758" layoutY="154.6666717529297" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="45.0">
                <children>
-                  <ImageView fx:id="touxiang" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="touxiang" />
+                  <ImageView fx:id="avatar" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="touxiang" />
                   <Region nodeOrientation="LEFT_TO_RIGHT" prefHeight="150.0" prefWidth="150.0" styleClass="touxiangkuang" />
                </children>
             </Pane>
             <VBox layoutX="214.0" layoutY="105.0" prefHeight="69.0" prefWidth="141.0">
                <children>
-                  <Label fx:id="showplaycounts" prefHeight="25.0" prefWidth="149.0" text="30" textFill="#aa8534">
+                  <Label fx:id="showPlayCounts" prefHeight="25.0" prefWidth="149.0" text="30" textFill="#aa8534">
                      <font>
                         <Font name="Minecraft Pixel" size="36.0" />
                      </font>
@@ -53,7 +53,7 @@
                <children>
                   <HBox>
                      <children>
-                        <Label fx:id="showrecentrecord1" text="25" textFill="#aa8534">
+                        <Label fx:id="showRecentRecord1" text="25" textFill="#aa8534">
                            <font>
                               <Font name="Minecraft Pixel" size="36.0" />
                            </font>
@@ -65,7 +65,7 @@
                                     <Font name="Minecraft Pixel" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="showrecentrecord2" alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="106.0" text="Level 1" textFill="#bfa670">
+                              <Label fx:id="showRecentRecord2" alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="106.0" text="Level 1" textFill="#bfa670">
                                  <font>
                                     <Font name="Minecraft Pixel" size="12.0" />
                                  </font>

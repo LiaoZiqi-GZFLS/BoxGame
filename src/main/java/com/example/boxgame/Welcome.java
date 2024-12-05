@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Objects;
+
+import static com.example.boxgame.BoxGame.*;
 
 public class Welcome {
     public static int from = 0;
@@ -32,10 +35,10 @@ public class Welcome {
     public BorderPane bkg;
 
     //玩家数据
-    public static String name = "UNLOGIN";
+    public static String name = "Guest";
     public static int id = 0;
     public static int times = 0;//游玩次数
-    public static int laststep=0;//上次游玩时步数
+    public static int last_step =0;//上次游玩时步数
     public static String last = "NeverPlayed";//上次游玩的关卡
     public static String current = "Level 1";
 
@@ -54,30 +57,31 @@ public class Welcome {
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-        iniuserinfo();
+        initUserInfo();
     }
 
     //登录和用户界面
     ContextMenu userinfo = new ContextMenu();
-    Parent userinforoot = null;
+    Parent userInfoRoot = null;
     ContextMenu login = new ContextMenu();
-    Parent loginroot = null;
-    public void iniuserinfo(){
+    Parent loginRoot = null;
+    public void initUserInfo(){
         try {
-            userinforoot = FXMLLoader.load(getClass().getResource("userinfo.fxml"));
-            loginroot = FXMLLoader.load(getClass().getResource("login.fxml"));
+            userInfoRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("userinfo.fxml")));
+            loginRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        login.getScene().setRoot(loginroot);
-        userinfo.getScene().setRoot(userinforoot);
+        login.getScene().setRoot(loginRoot);
+        userinfo.getScene().setRoot(userInfoRoot);
     }
 
     public void startAction(MouseEvent Event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("play.fxml"));
+        //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+        start(stage);
+        //Scene scene = new Scene(root);
+        //stage.setScene(scene);
         stage.show();
         from = 1;
     }
@@ -90,7 +94,7 @@ public class Welcome {
     }
 
     public void select(MouseEvent Event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("select.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("select.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -109,7 +113,7 @@ public class Welcome {
     }
 
     public void settings(MouseEvent Event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("settings.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("settings.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

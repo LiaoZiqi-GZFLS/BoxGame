@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import static com.example.boxgame.Welcome.from;
+import static com.example.boxgame.BoxGame.*;
 
 public class Play {
     public Pane stoppane;
