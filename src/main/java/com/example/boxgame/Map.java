@@ -20,11 +20,11 @@ public class Map {
     //灯泡：L
     private final char[][] imap = {
         "##########".toCharArray(),
-        "#L#L#L# T#".toCharArray(),
-        "#######  #".toCharArray(),
-        "#Y#Y#Y# B#".toCharArray(),
-        "#        #".toCharArray(),
-        "#P       #".toCharArray(),
+        "#L#L#L#.T#".toCharArray(),
+        "#######..#".toCharArray(),
+        "#Y#Y#Y#.B#".toCharArray(),
+        "#........#".toCharArray(),
+        "#P.......#".toCharArray(),
         "#Y#Y#Y#Y##".toCharArray(),
         "##########".toCharArray(),
         "#L#L#L#L##".toCharArray(),
