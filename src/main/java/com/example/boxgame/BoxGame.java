@@ -47,7 +47,10 @@ public class BoxGame{
     public static final Color WallColor = Color.LIGHTGRAY;
     public static final Color PressColor = Color.LIGHTCYAN;
     public static final Color StrokeColor = Color.GREY;
-    private static final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];//Rectangle(x,y) int[y][x]
+    public static Label timeLabel;
+    public static Label stepLabel;
+    public static Label scoreLabel;
+    public static final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];//Rectangle(x,y) int[y][x]
     private static final Map map = new Map(N);
     private static char[][] _map;
     private static char[][] p_map;
@@ -62,18 +65,15 @@ public class BoxGame{
     private static final ArrayList<Target> targetsList = new ArrayList<Target>();
     private static final ArrayList<Box> boxesList = new ArrayList<Box>();
     private static final ArrayList<Wall> wallsList = new ArrayList<Wall>();
-    private static int step = 0;
-    private static int score = 0;
+    public static int step = 0;
+    public static int score = 0;
     private static boolean check = true;
     private static boolean check2 = true;
     private static boolean checkUndo = false;
-    private static boolean checkRedo = false;
-    private static boolean checkGameOver = false;
+    public static boolean checkRedo = false;
+    public static boolean checkGameOver = false;
     private static long startTime = 0; // 游戏开始时间
-    private static long elapsedTime = 0; // 已过时间
-    private static Label timeLabel;
-    private static Label stepLabel;
-    private static Label scoreLabel;
+    public static long elapsedTime = 0; // 已过时间
 
     public static void start(Stage primaryStage) {
         GridPane gridPane0 = new GridPane();
@@ -165,7 +165,7 @@ public class BoxGame{
         timer.start(); // 启动定时器
     }
 
-    private static void handleKeyPress(@NotNull KeyEvent event) {
+    public static void handleKeyPress(@NotNull KeyEvent event) {
         // 更新已过时间
         elapsedTime = System.currentTimeMillis() - startTime;
         //System.out.println(event.getCode());
@@ -211,7 +211,7 @@ public class BoxGame{
         checkCondition();
     }
 
-    private static void renderGame(Map tMap){
+    public static void renderGame(Map tMap){
         //初始化地图
         char[][] t_map = tMap.getMap();
         int[] t_playerPosition = tMap.getPlayerPosition();
@@ -244,7 +244,7 @@ public class BoxGame{
         Refresh();
     }
 
-    private static void initializeList(int[] t_playerPosition, int[][] t_Position, int[][] t_boxesPosition, int[][] t_wallPosition) {
+    public static void initializeList(int[] t_playerPosition, int[][] t_Position, int[][] t_boxesPosition, int[][] t_wallPosition) {
         player = new Player(t_playerPosition[0],t_playerPosition[1]);// 假设玩家在起始位置，箱子在起始位置
         boxes = new Box[t_boxesPosition.length];
         walls = new Wall[t_wallPosition.length];
@@ -269,7 +269,7 @@ public class BoxGame{
         }
     }
 
-    private static void initializeGame() {
+    public static void initializeGame() {
         //初始化数据
         step = 0;
         score = 0;
@@ -293,18 +293,18 @@ public class BoxGame{
         Backup();
     }
 
-    private static void Backup(){
+    public static void Backup(){
         //Backup
         p_map = _map.clone();
         _map = Map.getMap0(grid,Target.getTargetPosition(targets));
     }
 
-    private static void undoGame() {
+    public static void undoGame() {
         renderGame(new Map(p_map));
         Backup();
     }
 
-    private static void Refresh() {
+    public static void Refresh() {
         // 将玩家和箱子和目标点添加到网格中
         for(int i = 0; i < GRID_COUNT; i++) {
             for(int j = 0; j < GRID_COUNT; j++) {
