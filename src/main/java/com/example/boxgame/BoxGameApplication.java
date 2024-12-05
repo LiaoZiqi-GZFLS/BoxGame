@@ -39,7 +39,7 @@ public class BoxGameApplication extends Application {
     public static final int PUDDING_SIZE = 7;
     public static final int MAX_STEP = 100;
     public static final int N = 5;
-    public static final int M = 3;
+    public static final int M = 0;
     public static final Color PlayerColor = Color.LIGHTBLUE;
     public static final Color BoxColor = Color.ORANGE;
     public static final Color PositionColor = Color.LIGHTGREEN;
