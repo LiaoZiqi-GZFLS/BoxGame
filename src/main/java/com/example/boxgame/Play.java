@@ -154,6 +154,13 @@ public class Play {
 
     public void restart(MouseEvent mouseEvent) {
         initializeGame();
+        if(stopBtn.isVisible()){
+            stoppane.setVisible(true);
+            stopBtn.setVisible(false);
+        }else {
+            stoppane.setVisible(false);
+            stopBtn.setVisible(true);
+        }
     }
 
     public void move(KeyEvent keyEvent) {
