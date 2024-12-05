@@ -50,7 +50,6 @@ public class Play {
         gridPane.setPadding(new Insets(PUDDING_SIZE, PUDDING_SIZE, PUDDING_SIZE, PUDDING_SIZE)); // 为GridPane添加内边距
         // 获取GraphicsContext
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Paint.valueOf("blue"));
         // 将GridPane截图
         WritableImage snapshot = gridPane0.snapshot(new SnapshotParameters(), null);
         // 计算GridPane在Canvas上的居中位置
@@ -86,7 +85,6 @@ public class Play {
                 grid[i][j] = rect; // 初始化 grid 数组
             }
         }
-        System.out.println("Finished");
         initializeGame();
         // 创建并启动AnimationTimer
         AnimationTimer timer = new AnimationTimer() {
@@ -103,7 +101,7 @@ public class Play {
                 double gridPaneY = (canvas.getHeight() - gridPane.getPrefHeight()) / 2;
                 // 将GridPane图像绘制到Canvas的居中位置
                 gc.drawImage(snapshot, gridPaneX- (double) (GRID_SIZE * GRID_COUNT) /2, gridPaneY- (double) (GRID_SIZE * GRID_COUNT) /2);
-                gc.drawImage(snapshot2,0,0);
+                //gc.drawImage(snapshot2,0,0);
                 if(checkRedo){
                     lastTime = System.nanoTime();
                     checkRedo = false;
