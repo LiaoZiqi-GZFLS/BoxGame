@@ -1,5 +1,6 @@
 package com.example.boxgame;
 
+import com.almasb.fxgl.physics.box2d.dynamics.joints.Joint;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,11 +19,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
+
 
 import static com.example.boxgame.Welcome.from;
 import static com.example.boxgame.BoxGame.*;
@@ -40,6 +47,8 @@ public class Play {
     public GridPane gridPane = new GridPane();
     public GridPane gridPane1 = new GridPane();
     public String Label1;
+    private boolean continueOrNot = true;
+    private int checkTime = 0;
 
     public void initialize(){
         stoppane.setVisible(false);
@@ -87,14 +96,15 @@ public class Play {
         // 创建并启动AnimationTimer
         AnimationTimer timer = new AnimationTimer() {
             private static long lastTime = System.nanoTime();
+            private static long timer = System.nanoTime();
             @Override
             public void handle(long currentNanoTime) {
                 // 获取GraphicsContext
                 GraphicsContext gc = canvas.getGraphicsContext2D();
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 // 设置文本属性
-                gc.setFill(javafx.scene.paint.Color.WHITE); // 设置文本颜色
-                gc.setFont(javafx.scene.text.Font.font("Arial", 30)); // 设置字体和大小
+                gc.setFill(Color.WHITE); // 设置文本颜色
+                gc.setFont(Font.font("Arial", 30)); // 设置字体和大小
                 //绘制文本
                 gc.fillText(Label1, 140, 48);
                 // 将GridPane截图
@@ -110,14 +120,17 @@ public class Play {
                     lastTime = System.nanoTime();
                     checkRedo = false;
                 }
-                if(checkGameOver){
+                if(checkGameOver||!continueOrNot){
                     String scoreString = String.format("Score: %02d.%02d%%", score/100, score%100);
                     scoreLabel.setText(scoreString);
                     return;
                 }
-                double seconds = (currentNanoTime - lastTime) / 1_000_000_000.0;
-                //timeLabel.setText(String.format("Time: %.2f", seconds));
-                elapsedTime = (long) seconds*1000;
+                if(checkTime==2){
+                    lastTime += currentNanoTime - timer;
+                    checkTime = 0;
+                }
+                timer = currentNanoTime;
+                elapsedTime = (long) ((currentNanoTime - lastTime) / 1_000_000.0);
                 String timeString = String.format("Time: %02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
                 String scoreString = String.format("Score: %02d.%02d%%", score/100, score%100);
                 String stepString = String.format("Step: %02d", step);
@@ -139,12 +152,13 @@ public class Play {
     public void continueGame(){
         stoppane.setVisible(false);
         stopBtn.setVisible(true);
+        continueOrNot = !continueOrNot;
     }
 
     public void exit(MouseEvent Event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("welcome.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("welcome.fxml")));
         if(from==2){
-            root = FXMLLoader.load(getClass().getResource("select.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("select.fxml")));
         }
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -174,11 +188,16 @@ public class Play {
                     stoppane.setVisible(false);
                     stopBtn.setVisible(true);
                 }
+                continueOrNot = !continueOrNot;
+                checkTime++;
                 break;
             default:
-                handleKeyPress(keyEvent);
+                if(continueOrNot){
+                    handleKeyPress(keyEvent);
+                }
                 if(checkGameOver){
                     from = 1;
+                    //跳转
                 }
                 break;
         }
