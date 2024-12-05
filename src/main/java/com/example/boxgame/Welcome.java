@@ -95,6 +95,7 @@ public class Welcome {
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     // 用户选择“是”时，关闭窗口
+                    System.exit(0);
                     return;
                 } else {
                     // 用户选择“否”时，不执行任何操作，窗口保持打开状态
