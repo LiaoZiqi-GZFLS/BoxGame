@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.leewyatt.rxcontrols.controls.RXPasswordField?>
+<?import com.leewyatt.rxcontrols.controls.RXTextField?>
+<?import com.leewyatt.rxcontrols.controls.RXToggleButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="bkg" prefHeight="300.0" prefWidth="500.0" styleClass="background" stylesheets="@login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.boxgame.Login">
+   <children>
+      <RXTextField fx:id="usernameField" layoutX="139.0" layoutY="108.0" onClickButton="#clearuserfield" prefHeight="40.0" prefWidth="230.0" />
+      <StackPane onMouseReleased="#close" prefHeight="25.0" prefWidth="25.0" styleClass="exit-btn" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <RXPasswordField fx:id="passwordField" layoutX="139.0" layoutY="164.0" prefHeight="40.0" prefWidth="230.0" />
+      <HBox layoutX="150.0" layoutY="23.0" prefHeight="77.0" prefWidth="200.0">
+         <children>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <RXToggleButton fx:id="d1" selected="true" styleClass="login-btn" text="登录" textFill="#a58a5f">
+                     <font>
+                        <Font name="Minecraft Pixel" size="20.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="g1" />
+                     </toggleGroup>
+                  </RXToggleButton>
+               </children>
+            </StackPane>
+            <Rectangle fill="#a58a5f" height="40.0" stroke="#a58a5f" strokeType="INSIDE" translateY="15.0" width="1.0" />
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <RXToggleButton fx:id="d2" styleClass="login-btn" text="注册" textFill="#a58a5f" toggleGroup="$g1">
+                     <font>
+                        <Font name="Minecraft Pixel" size="20.0" />
+                     </font>
+                  </RXToggleButton>
+               </children>
+            </StackPane>
+         </children>
+      </HBox>
+      <Button fx:id="login" layoutX="190.0" layoutY="232.0" mnemonicParsing="false" onMouseReleased="#login" prefHeight="30.0" prefWidth="120.0" styleClass="login-btn" text="开始吧" textFill="#644d31">
+         <font>
+            <Font name="Minecraft Pixel" size="25.0" />
+         </font>
+      </Button>
+      <Label fx:id="error" alignment="CENTER" layoutX="119.0" layoutY="212.0" prefHeight="19.0" prefWidth="270.0" text=" " />
+   </children>
+</AnchorPane>

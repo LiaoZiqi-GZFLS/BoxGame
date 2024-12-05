@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane fx:id="bkg" prefHeight="720.0" prefWidth="1080.0" styleClass="bkg" stylesheets="@play.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.boxgame.Play">
+   <children>
+      <AnchorPane onKeyReleased="#move" prefHeight="720.0" prefWidth="1080.0">
+         <children>
+            <StackPane fx:id="stopBtn" onMouseReleased="#stop" prefHeight="32.0" prefWidth="25.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+               <children>
+                  <Region prefHeight="32.0" prefWidth="30.0" styleClass="stop-btn" />
+               </children>
+            </StackPane>
+            <Canvas fx:id="canvas" height="600.0" layoutX="140.0" layoutY="60.0" width="800.0" />
+            <TextField layoutX="1027.0" layoutY="31.0" prefHeight="1.0" prefWidth="1.0" styleClass="text-field" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <Pane fx:id="stoppane" prefHeight="720.0" prefWidth="1080.0" visible="false">
+         <children>
+            <Region prefHeight="720.0" prefWidth="1080.0" styleClass="stop-panel" />
+            <HBox alignment="CENTER" layoutX="390.0" layoutY="308.0" prefHeight="100.0" prefWidth="300.0">
+               <children>
+                  <StackPane onMouseReleased="#exit" prefHeight="150.0" prefWidth="190.0">
+                     <children>
+                        <Region prefHeight="200.0" prefWidth="200.0" styleClass="btn-exit">
+                           <StackPane.margin>
+                              <Insets bottom="20.0" left="27.0" right="27.0" top="20.0" />
+                           </StackPane.margin>
+                        </Region>
+                     </children>
+                  </StackPane>
+                  <StackPane onMouseReleased="#restart" prefHeight="150.0" prefWidth="190.0">
+                     <children>
+                        <Region prefHeight="200.0" prefWidth="200.0" styleClass="btn-restart">
+                           <StackPane.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </StackPane.margin>
+                        </Region>
+                     </children>
+                  </StackPane>
+                  <StackPane onMouseReleased="#continueGame" prefHeight="150.0" prefWidth="190.0">
+                     <children>
+                        <Region prefHeight="200.0" prefWidth="200.0" styleClass="btn-continue">
+                           <StackPane.margin>
+                              <Insets bottom="20.0" left="25.0" right="27.0" top="20.0" />
+                           </StackPane.margin>
+                        </Region>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

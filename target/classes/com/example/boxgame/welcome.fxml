@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.leewyatt.rxcontrols.controls.RXTranslationButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="background" prefHeight="720.0" prefWidth="1080.0" styleClass="background" stylesheets="@welcome.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.boxgame.Welcome">
+   <children>
+      <BorderPane fx:id="bkg" onKeyReleased="#key" prefHeight="720.0" prefWidth="1080.0">
+         <right>
+            <VBox prefHeight="420.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="150.0" right="100.0" top="150.0" />
+               </BorderPane.margin>
+               <children>
+                  <StackPane prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <RXTranslationButton fx:id="start" onMouseReleased="#startAction" prefHeight="93.0" prefWidth="200.0" styleClass="start-btn" text="开始">
+                           <graphic>
+                              <Label fx:id="currentlevel" styleClass="level" text="Level 1" textFill="WHITE">
+                                 <font>
+                                    <Font name="Minecraft Pixel" size="28.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <font>
+                              <Font name="Minecraft Pixel" size="50.0" />
+                           </font>
+                        </RXTranslationButton>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="100.0" prefWidth="200.0" styleClass="select-btn">
+                     <children>
+                        <Label onMouseReleased="#select" text="选择关卡" textFill="WHITE">
+                           <font>
+                              <Font name="Minecraft Pixel" size="50.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="100.0" prefWidth="200.0" styleClass="select-btn">
+                     <children>
+                        <Label onMouseReleased="#settings" text="设置" textFill="WHITE">
+                           <font>
+                              <Font name="Minecraft Pixel" size="50.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="100.0" prefWidth="200.0" styleClass="select-btn">
+                     <children>
+                        <Label onMouseReleased="#exit" text="退出" textFill="WHITE">
+                           <font>
+                              <Font name="Minecraft Pixel" size="50.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </children>
+            </VBox>
+         </right>
+         <top>
+            <AnchorPane prefHeight="57.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane layoutX="5.333333492279053" layoutY="5.333333492279053" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+                     <children>
+                        <StackPane>
+                           <children>
+                              <ImageView fx:id="touxiang" fitHeight="50.0" fitWidth="50.0" onMouseReleased="#login" pickOnBounds="true" preserveRatio="true" styleClass="touxiang" />
+                              <Region onMouseReleased="#login" prefHeight="50.0" prefWidth="50.0" styleClass="touxiangkuang" />
+                           </children>
+                        </StackPane>
+                        <Label fx:id="showusername" layoutX="60.00000238418579" layoutY="4.666666507720947" onMouseReleased="#login" prefHeight="41.0" prefWidth="128.0" text="未登录" textFill="WHITE">
+                           <font>
+                              <Font name="Minecraft Pixel" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>

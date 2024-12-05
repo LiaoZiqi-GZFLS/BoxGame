@@ -1,0 +1,28 @@
+.background{
+    -fx-background-color: #EAE4D1;
+}
+.exit-btn{
+    -fx-background-color: #D5C8A0;
+    -fx-shape:"M259.6 211.6l0.4 0.4 252 252 252-252c13.3-13.3 34.8-13.3 48.1 0 13.1 13.1 13.3 34.4 0.4 47.7l-0.5 0.3-252 252 252 252c13.3 13.3 13.3 34.8 0 48.1-13.1 13.1-34.4 13.3-47.7 0.4l-0.3-0.5-252-252-252 252c-13.3 13.3-34.8 13.3-48.1 0-13.1-13.1-13.3-34.4-0.4-47.7l0.4-0.4 252-252L212 260c-13.3-13.3-13.3-34.8 0-48.1 13.1-13.1 34.3-13.2 47.6-0.3z";
+
+}
+.exit-btn:hover{
+    -fx-opacity: 0.8;
+}
+.touxiangkuang{
+    -fx-background-color:null;
+    -fx-max-width: 150;
+    -fx-max-height: 150;
+    -fx-border-color: #7C623F;
+    -fx-border-width: 2;
+}
+.touxiang{
+    -fx-image: url("img/1.png");
+}
+.logout{
+    -fx-border-width: 2;
+    -fx-border-color: #DFD6B8;
+}
+.logout:hover{
+    -fx-opacity: 0.5;
+}
