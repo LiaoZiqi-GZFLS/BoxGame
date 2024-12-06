@@ -120,6 +120,14 @@ public class Play {
                     lastTime = System.nanoTime();
                     checkRedo = false;
                 }
+                if(checkGameOver){
+                    from = 1;
+                    stoppane.setVisible(true);
+                    stopBtn.setVisible(true);
+                    if(!Label1.contains("100.00%")){
+                        Label1 = Label1.substring(0, Label1.length()-7) + "100.00%";
+                    }
+                }
                 if(checkGameOver||!continueOrNot){
                     String scoreString = String.format("Score: %02d.%02d%%", score/100, score%100);
                     scoreLabel.setText(scoreString);
@@ -178,7 +186,10 @@ public class Play {
     }
 
     public void move(KeyEvent keyEvent) {
-        System.out.println(keyEvent.getCode());
+        //System.out.println(keyEvent.getCode());
+        if(checkGameOver){
+            return;
+        }
         switch (keyEvent.getCode()) {
             case ESCAPE:
                 if(stopBtn.isVisible()){
@@ -194,10 +205,6 @@ public class Play {
             default:
                 if(continueOrNot){
                     handleKeyPress(keyEvent);
-                }
-                if(checkGameOver){
-                    from = 1;
-                    //跳转
                 }
                 break;
         }
