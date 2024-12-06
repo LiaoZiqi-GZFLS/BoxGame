@@ -2,8 +2,8 @@ module com.example.boxgame {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
-    requires transitive rxcontrols;
-    requires transitive org.json;
+    requires rxcontrols;
+    requires org.json;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
