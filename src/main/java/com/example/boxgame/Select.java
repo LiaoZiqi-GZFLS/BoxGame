@@ -22,6 +22,7 @@ public class Select {
     public AnchorPane background;
 
     public void start1(MouseEvent Event) throws IOException {
+        N = 1;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
         //start(stage);
@@ -49,9 +50,9 @@ public class Select {
         stage.setScene(scene);
         stage.show();
         from = 2;
-        N = 1;
     }
     public void start2(MouseEvent Event) throws IOException {
+        N = 2;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
         //start(stage);
@@ -79,9 +80,9 @@ public class Select {
         stage.setScene(scene);
         stage.show();
         from = 2;
-        N = 2;
     }
     public void start3(MouseEvent Event) throws IOException {
+        N = 3;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
         //start(stage);
@@ -109,9 +110,9 @@ public class Select {
         stage.setScene(scene);
         stage.show();
         from = 2;
-        N = 3;
     }
     public void start4(MouseEvent Event) throws IOException {
+        N = 4;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
         //start(stage);
@@ -139,9 +140,9 @@ public class Select {
         stage.setScene(scene);
         stage.show();
         from = 2;
-        N = 4;
     }
     public void start5(MouseEvent Event) throws IOException {
+        N = 5;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
         //start(stage);
@@ -169,7 +170,6 @@ public class Select {
         stage.setScene(scene);
         stage.show();
         from = 2;
-        N = 5;
     }
 
     public void exit(KeyEvent Event) throws IOException {
