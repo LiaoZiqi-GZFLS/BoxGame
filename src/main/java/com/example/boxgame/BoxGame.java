@@ -38,8 +38,8 @@ public class BoxGame{
     public static final int STROKE_SIZE = 1;
     public static final int PUDDING_SIZE = 7;
     public static final int MAX_STEP = 100;
-    public static final int N = 5;
-    public static final int M = 0;
+    public static int N = 1;
+    public static int M = 0;
     public static final Color PlayerColor = Color.LIGHTBLUE;
     public static final Color BoxColor = Color.ORANGE;
     public static final Color PositionColor = Color.LIGHTGREEN;
@@ -50,21 +50,21 @@ public class BoxGame{
     public static Label timeLabel;
     public static Label stepLabel;
     public static Label scoreLabel;
-    public static final Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];//Rectangle(x,y) int[y][x]
-    private static final Map map = new Map(N);
+    public static Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];//Rectangle(x,y) int[y][x]
+    private static Map map = new Map(N);
     private static char[][] _map;
     private static char[][] p_map;
-    private static Player player;
-    private static final int[] playerPosition = map.getPlayerPosition();
-    private static final int[][] Position = map.getPosition();
-    private static final int[][] boxesPosition = map.getBoxesPosition();
-    private static final int[][] wallPosition = map.getWallPosition();
+    private static Player player = new Player();
+    private static int[] playerPosition = map.getPlayerPosition();
+    private static int[][] Position = map.getPosition();
+    private static int[][] boxesPosition = map.getBoxesPosition();
+    private static int[][] wallPosition = map.getWallPosition();
     private static Target[] targets = new Target[Position.length];
     private static Box[] boxes = new Box[boxesPosition.length];
     private static Wall[] walls = new Wall[wallPosition.length];
-    private static final ArrayList<Target> targetsList = new ArrayList<Target>();
-    private static final ArrayList<Box> boxesList = new ArrayList<Box>();
-    private static final ArrayList<Wall> wallsList = new ArrayList<Wall>();
+    private static ArrayList<Target> targetsList = new ArrayList<Target>();
+    private static ArrayList<Box> boxesList = new ArrayList<Box>();
+    private static ArrayList<Wall> wallsList = new ArrayList<Wall>();
     public static int step = 0;
     public static int score = 0;
     private static boolean check = true;
@@ -242,6 +242,31 @@ public class BoxGame{
 
         // 将玩家和箱子和目标点添加到网格中
         Refresh();
+    }
+
+    public static void initElement(int n){
+        map = new Map(n);
+        grid = new Rectangle[GRID_COUNT][GRID_COUNT];
+        Player player = new Player();
+        playerPosition = map.getPlayerPosition();
+        Position = map.getPosition();
+        boxesPosition = map.getBoxesPosition();
+        wallPosition = map.getWallPosition();
+        targets = new Target[Position.length];
+        boxes = new Box[boxesPosition.length];
+        walls = new Wall[wallPosition.length];
+        targetsList = new ArrayList<Target>();
+        boxesList = new ArrayList<Box>();
+        wallsList = new ArrayList<Wall>();
+        step = 0;
+        score = 0;
+        check = true;
+        check2 = true;
+        checkUndo = false;
+        checkRedo = false;
+        checkGameOver = false;
+        startTime = 0; // 游戏开始时间
+        elapsedTime = 0; // 已过时间
     }
 
     public static void initializeList(int[] t_playerPosition, int[][] t_Position, int[][] t_boxesPosition, int[][] t_wallPosition) {

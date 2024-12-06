@@ -51,8 +51,8 @@ public class Play {
     private int checkTime = 0;
 
     public void initialize(){
+        initElement(N);
         stoppane.setVisible(false);
-        System.out.println("Starting...");
         gridPane.setGridLinesVisible(true);
         gridPane.setPadding(new Insets(PUDDING_SIZE, PUDDING_SIZE, PUDDING_SIZE, PUDDING_SIZE)); // 为GridPane添加内边距
         // 获取GraphicsContext
@@ -156,11 +156,14 @@ public class Play {
     public void stop(MouseEvent mouseEvent) {
         stoppane.setVisible(true);
         stopBtn.setVisible(false);
+        continueOrNot = !continueOrNot;
+        checkTime++;
     }
     public void continueGame(){
         stoppane.setVisible(false);
         stopBtn.setVisible(true);
         continueOrNot = !continueOrNot;
+        checkTime++;
     }
 
     public void exit(MouseEvent Event) throws IOException {
