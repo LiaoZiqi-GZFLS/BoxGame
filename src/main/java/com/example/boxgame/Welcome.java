@@ -42,9 +42,11 @@ public class Welcome {
     public static int times = 0;//游玩次数
     public static int last_step =0;//上次游玩时步数
     public static String last = "NeverPlayed";//上次游玩的关卡
-    public static String current = "Level 1";
+    public static String current = "Level " + N;
 
     public void initialize() {
+        current = "Level " + N;
+        currentlevel.setText(current);
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), event -> {
                     if(last.equals("NeverPlayed")){
