@@ -574,6 +574,13 @@ public class BoxGame{
             alert("Failure","You lost!");
             alert("Reason: Too many steps!");
         }
+        //失败
+        if(checkFailCondition()&&!checkGameOver){
+            check = false;
+            checkGameOver = true;
+            alert("Failure","You lost!");
+            alert("Reason: You can't get to the position!");
+        }
     }
 
     private static boolean checkWinCondition() {
@@ -588,6 +595,38 @@ public class BoxGame{
             }
         }
         return (num == boxes.length);
+    }
+
+    private static boolean checkFailCondition() {
+        char[][] t_map = map.getMap();
+        for (Box box : boxes) {
+            int y = box.getX();
+            int x = box.getY();
+            if(t_map[x][y]=='@'){
+                continue;
+            }
+            if(t_map[x-1][y]=='#'){
+                if(t_map[x][y-1]=='#'||t_map[x][y+1]=='#'){
+                    return true;
+                }
+            }
+            if(t_map[x+1][y]=='#'){
+                if(t_map[x][y-1]=='#'||t_map[x][y+1]=='#'){
+                    return true;
+                }
+            }
+            if(t_map[x][y-1]=='#'){
+                if(t_map[x-1][y]=='#'||t_map[x+1][y]=='#'){
+                    return true;
+                }
+            }
+            if(t_map[x][y+1]=='#'){
+                if(t_map[x-1][y]=='#'||t_map[x+1][y]=='#'){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private static void setScore(){

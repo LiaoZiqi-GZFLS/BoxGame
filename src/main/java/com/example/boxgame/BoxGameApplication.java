@@ -560,6 +560,13 @@ public class BoxGameApplication extends Application {
             alert("Failure","You lost!");
             alert("Reason: Too many steps!");
         }
+        //失败
+        if(checkFailCondition()&&!checkGameOver){
+            check = false;
+            checkGameOver = true;
+            alert("Failure","You lost!");
+            alert("Reason: You can't get to the position!");
+        }
     }
 
     private boolean checkWinCondition() {
@@ -574,6 +581,38 @@ public class BoxGameApplication extends Application {
             }
         }
         return (num == boxes.length);
+    }
+
+    private boolean checkFailCondition() {
+        char[][] t_map = map.getMap();
+        for (Box box : boxes) {
+            int y = box.getX();
+            int x = box.getY();
+            if(t_map[x][y]=='@'){
+                continue;
+            }
+            if(t_map[x-1][y]=='#'){
+                if(t_map[x][y-1]=='#'||t_map[x][y+1]=='#'){
+                    return true;
+                }
+            }
+            if(t_map[x+1][y]=='#'){
+                if(t_map[x][y-1]=='#'||t_map[x][y+1]=='#'){
+                    return true;
+                }
+            }
+            if(t_map[x][y-1]=='#'){
+                if(t_map[x-1][y]=='#'||t_map[x+1][y]=='#'){
+                    return true;
+                }
+            }
+            if(t_map[x][y+1]=='#'){
+                if(t_map[x-1][y]=='#'||t_map[x+1][y]=='#'){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void setScore(){
