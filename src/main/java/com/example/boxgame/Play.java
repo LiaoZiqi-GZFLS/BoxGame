@@ -179,13 +179,11 @@ public class Play {
 
     public void restart(MouseEvent mouseEvent) {
         initializeGame();
-        if(stopBtn.isVisible()){
-            stoppane.setVisible(true);
-            stopBtn.setVisible(false);
-        }else {
-            stoppane.setVisible(false);
-            stopBtn.setVisible(true);
-        }
+        stoppane.setVisible(false);
+        stopBtn.setVisible(true);
+        continueOrNot = true;
+        checkTime = 0;
+        checkRedo = true;
     }
 
     public void move(KeyEvent keyEvent) {

@@ -305,6 +305,7 @@ public class BoxGame{
         checkGameOver = false;
         // 初始化计时器
         startTime = System.currentTimeMillis();
+        elapsedTime = 0;
 
         //初始化地图
         _map = map.getMap();
