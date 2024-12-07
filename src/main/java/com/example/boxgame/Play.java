@@ -43,6 +43,8 @@ public class Play {
     public GridPane gridPane = new GridPane();
     public GridPane gridPane1 = new GridPane();
     public String Label1;
+    public Label timelabel;
+    public Label steplabel;
     private boolean continueOrNot = true;
     private int checkTime = 0;
 
