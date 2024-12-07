@@ -23,7 +23,7 @@
                <children>
                   <StackPane prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <RXTranslationButton fx:id="start" onMouseReleased="#startAction" prefHeight="93.0" prefWidth="200.0" styleClass="start-btn" text="开始">
+                        <RXTranslationButton fx:id="start" onMouseReleased="#startAction" prefHeight="93.0" prefWidth="200.0" styleClass="start-btn" text="开始游戏">
                            <graphic>
                               <Label fx:id="currentlevel" styleClass="level" text="Level 1" textFill="WHITE">
                                  <font>
