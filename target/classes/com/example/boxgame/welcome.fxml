@@ -78,7 +78,7 @@
                               <Region onMouseReleased="#login" prefHeight="50.0" prefWidth="50.0" styleClass="touxiangkuang" />
                            </children>
                         </StackPane>
-                        <Label fx:id="showusername" layoutX="60.00000238418579" layoutY="4.666666507720947" onMouseReleased="#login" prefHeight="41.0" prefWidth="128.0" text="未登录" textFill="WHITE">
+                        <Label fx:id="showusername" layoutX="60.00000238418579" layoutY="4.666666507720947" onMouseReleased="#login" prefHeight="41.0" prefWidth="128.0" text="Guest" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="18.0" />
                            </font>
