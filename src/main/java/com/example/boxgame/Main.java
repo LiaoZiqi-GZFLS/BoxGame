@@ -9,10 +9,46 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 public class Main extends Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        String rootPath = "json";
+        File rootdir = new File(rootPath);
+        if (!rootdir.exists()){
+            rootdir.mkdir();
+        }
+        String directoryPath = "json\\playerdata";
+        File directory = new File(directoryPath);
+        if (!directory.exists()||!directory.isDirectory()){
+            directory.mkdir();
+        }
+        File config = new File("json", "config.json");
+        if(!config.exists()){
+            config.createNewFile();
+        }
+        FileInputStream fis0 = new FileInputStream(config);
+        String conf = new String(fis0.readAllBytes());
+        if(conf.isEmpty()){
+            FileOutputStream fos = new FileOutputStream(config);
+            String b = "{\"envvol\":100,\"playervol\":100,\"bkgvol\":100}";
+            fos.write(b.getBytes());
+        }
+        File userdata = new File("json", "userdata.json");
+        if (!userdata.exists()){
+            userdata.createNewFile();
+        }
+        FileInputStream fis = new FileInputStream(userdata);
+        String json = new String(fis.readAllBytes());
+        if(json.isEmpty()){
+            FileOutputStream fos = new FileOutputStream(userdata);
+            String b = "{\"awa\":{\"id\":0,\"pwd\":\"114514a\"}}";
+            fos.write(b.getBytes());
+        }
         launch(args);
     }
     @Override

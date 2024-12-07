@@ -38,6 +38,7 @@ public class Welcome {
 
     //玩家数据
     public static String name = "Guest";
+    public static int isfinished = 0;
     public static int id = 0;
     public static int times = 0;//游玩次数
     public static int last_step =0;//上次游玩时步数
