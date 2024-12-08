@@ -272,4 +272,17 @@ public class Map {
         }
         return backupMap;
     }
+    @Override
+    public String toString(){
+        StringBuilder str= new StringBuilder();
+        str.append(GRID_COUNT);
+        str.append(" ");
+        str.append(GRID_COUNT);
+        str.append('\n');
+        for(char[] chars : map0){
+            str.append(chars);
+            str.append('\n');
+        }
+        return str.toString();
+    }
 }

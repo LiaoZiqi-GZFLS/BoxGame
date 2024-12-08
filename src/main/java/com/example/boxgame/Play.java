@@ -150,7 +150,7 @@ public class Play {
                     if(!Label1.contains("100.00%")&&checkWinCondition()){
                         Label1 = Label1.substring(0, Label1.length()-7) + "100.00%";
                     }
-                    if(scoreS.get()!="100.00%"&&checkWinCondition()){
+                    if(!Objects.equals(scoreS.get(), "100.00%") &&checkWinCondition()){
                         scoreS.set("100.00%");
                     }
 
@@ -200,41 +200,7 @@ public class Play {
         scoreLabel.setText("Score: 00.00%"); // 初始化时间显示
         scorelabel.textProperty().bind(scoreS);
     }
-    private void setupHBox(HBox hBox, AnchorPane anchorPane) {
-        // 将HBox添加到AnchorPane
-        anchorPane.getChildren().add(hBox);
 
-        // 设置HBox在AnchorPane中的位置
-        anchorPane.setRightAnchor(hBox, 30.0);
-        anchorPane.setTopAnchor(hBox, 20.0);
-
-        // 设置HBox的属性
-        hBox.setSpacing(5); // 设置HBox中组件之间的间距
-    }
-    private void setupStackPane(StackPane stackPane, Pane pane) {
-        // 将StackPane添加到Pane
-        pane.getChildren().add(stackPane);
-
-        // 设置StackPane在Pane中的位置
-        stackPane.setLayoutX(390.0);
-        stackPane.setLayoutY(308.0);
-
-        // 设置StackPane的属性
-        stackPane.setPrefHeight(150.0);
-        stackPane.setPrefWidth(190.0);
-    }
-    private void setupRegion(Region region, StackPane stackPane) {
-        // 将Region添加到StackPane
-        stackPane.getChildren().add(region);
-
-        // 设置Region的属性
-        region.setPrefHeight(200.0);
-        region.setPrefWidth(200.0);
-
-        // 设置StackPane的边距
-        Insets insets = new Insets(20.0, 27.0, 20.0, 27.0); // top, right, bottom, left
-        stackPane.setMargin(region, insets);
-    }
     @FXML
     public void stop(MouseEvent mouseEvent) {
         stoppane.setVisible(true);
