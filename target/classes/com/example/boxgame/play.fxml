@@ -21,31 +21,48 @@
                </children>
             </StackPane>
             <Canvas fx:id="canvas" height="600.0" layoutX="140.0" layoutY="60.0" width="800.0" />
-            <TextField layoutX="1027.0" layoutY="31.0" prefHeight="1.0" prefWidth="1.0" styleClass="text-field" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-            <AnchorPane prefHeight="55.0" prefWidth="133.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
+            <TextField fx:id="textField" layoutX="1027.0" layoutY="31.0" prefHeight="1.0" prefWidth="1.0" styleClass="text-field" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+            <AnchorPane fx:id="timeAndStepAnchorPane" prefHeight="55.0" prefWidth="133.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
                <children>
-                  <HBox layoutX="0.33331298828125">
+                  <!-- Time HBox -->
+                  <HBox fx:id="timeHBox" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0">
                      <children>
                         <Label text="Time: " textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="21.0" />
                            </font>
                         </Label>
-                        <Label fx:id="timelabel" text="00:00:00" textFill="WHITE">
+                        <Label fx:id="timelabel" text="${timeS}" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="21.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox layoutY="27.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <!-- Step HBox -->
+                  <HBox fx:id="stepHBox" AnchorPane.topAnchor="27.0" AnchorPane.leftAnchor="0.0">
                      <children>
                         <Label text="Step: " textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="21.0" />
                            </font>
                         </Label>
-                        <Label fx:id="steplabel" text="0" textFill="WHITE">
+                        <Label fx:id="steplabel" text="${stepS}" textFill="WHITE">
+                           <font>
+                              <Font name="Minecraft Pixel" size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <!-- Score HBox -->
+                  <HBox fx:id="scoreHBox" AnchorPane.topAnchor="54.0" AnchorPane.leftAnchor="0.0">
+                     <children>
+                        <Label text="Score: " textFill="WHITE">
+                           <font>
+                              <Font name="Minecraft Pixel" size="21.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="scorelabel" text="${scoreS}" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="21.0" />
                            </font>

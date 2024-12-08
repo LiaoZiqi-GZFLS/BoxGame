@@ -584,7 +584,7 @@ public class BoxGame{
         }
     }
 
-    private static boolean checkWinCondition() {
+    public static boolean checkWinCondition() {
         // 假设目标位置是一个二维数组，表示每个箱子应该在的位置
         int num = 0;
         for(Target target : targets) {
@@ -598,7 +598,7 @@ public class BoxGame{
         return (num == boxes.length);
     }
 
-    private static boolean checkFailCondition() {
+    public static boolean checkFailCondition() {
         char[][] t_map = map.getMap();
         for (Box box : boxes) {
             int y = box.getX();

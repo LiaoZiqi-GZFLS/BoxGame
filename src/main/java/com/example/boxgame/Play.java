@@ -1,6 +1,8 @@
 package com.example.boxgame;
 
 import javafx.animation.AnimationTimer;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -11,13 +13,11 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -45,6 +45,35 @@ public class Play {
     public Label steplabel;
     @FXML
     public Label scorelabel;
+    @FXML
+    private StringProperty timeS = new SimpleStringProperty(String.format("%02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60));
+    @FXML
+    private StringProperty stepS = new SimpleStringProperty(String.format("%02d", step));
+    @FXML
+    private StringProperty scoreS = new SimpleStringProperty(String.format("%02d:%02d%%", score/100, score%100));
+    @FXML
+    public TextField textField;
+    @FXML
+    public AnchorPane timeAndStepAnchorPane;
+    @FXML
+    public HBox timeHBox;
+    @FXML
+    public HBox stepHBox;
+    @FXML
+    public HBox scoreHBox;
+    @FXML
+    public Pane stopPane;
+    @FXML
+    public Region stopPanel;
+    @FXML
+    public HBox buttonHBox;
+    @FXML
+    public StackPane exitStackPane;
+    @FXML
+    public StackPane restartStackPane;
+    @FXML
+    public StackPane continueStackPane;
+
 
     public GridPane gridPane0 = new GridPane();
     public GridPane gridPane = new GridPane();
@@ -67,27 +96,9 @@ public class Play {
         double gridPaneY = (canvas.getHeight() - gridPane.getPrefHeight()) / 2;
         // 将GridPane图像绘制到Canvas的居中位置
         gc.drawImage(snapshot, gridPaneX, gridPaneY);
-        // 创建时间Label
-        timeLabel = new Label();
-        timeLabel.setId("timeLabel"); // 设置ID，方便CSS样式设置
-        timeLabel.setText("Time: 00:00:00"); // 初始化时间显示
-        timelabel = new Label();
-        timelabel.setId("timelabel");
-        timelabel.setText("00:00:00");
-        // 创建步数Label
-        stepLabel = new Label();
-        stepLabel.setId("stepLabel"); // 设置ID，方便CSS样式设置
-        stepLabel.setText("Step: 0"); // 初始化时间显示
-        steplabel = new Label();
-        steplabel.setId("steplabel");
-        steplabel.setText("0");
-        // 创建分数Label
-        scoreLabel = new Label();
-        scoreLabel.setId("scoreLabel"); // 设置ID，方便CSS样式设置
-        scoreLabel.setText("Score: 00.00%"); // 初始化时间显示
-        scorelabel = new Label();
-        scorelabel.setId("scorelabel");
-        scorelabel.setText("00.00%");
+
+        //init labels
+        setUpLabel();
         // 将Label添加到GridPane
         gridPane1.add(timeLabel, 0, 0); // 将Label放在左上角
         gridPane1.add(stepLabel, 1, 0);
@@ -118,7 +129,7 @@ public class Play {
                 gc.setFill(Color.WHITE); // 设置文本颜色
                 gc.setFont(Font.font("Arial", 30)); // 设置字体和大小
                 //绘制文本
-                gc.fillText(Label1, 140, 48);
+                //gc.fillText(Label1, 140, 48);
                 // 将GridPane截图
                 WritableImage snapshot = gridPane0.snapshot(new SnapshotParameters(), null);
                 //WritableImage snapshot2 = gridPane1.snapshot(new SnapshotParameters(), null);
@@ -136,9 +147,13 @@ public class Play {
                     from = 1;
                     stoppane.setVisible(true);
                     stopBtn.setVisible(true);
-                    if(!Label1.contains("100.00%")){
+                    if(!Label1.contains("100.00%")&&checkWinCondition()){
                         Label1 = Label1.substring(0, Label1.length()-7) + "100.00%";
                     }
+                    if(scoreS.get()!="100.00%"&&checkWinCondition()){
+                        scoreS.set("100.00%");
+                    }
+
                 }
                 if(checkGameOver||!continueOrNot){
                     String scoreString = String.format("Score: %02d.%02d%%", score/100, score%100);
@@ -152,38 +167,89 @@ public class Play {
                 timer = currentNanoTime;
                 elapsedTime = (long) ((currentNanoTime - lastTime) / 1_000_000.0);
                 String timeString = String.format("Time: %02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
-                String timeString2 = String.format("%02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
                 String scoreString = String.format("Score: %02d.%02d%%", score/100, score%100);
-                String scoreString2 = String.format("%02d:%02d%%", score/100, score%100);
                 String stepString = String.format("Step: %02d", step);
+                String timeString2 = String.format("%02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
                 String stepString2 = String.format("%02d", step);
+                String scoreString2 = String.format("%02d:%02d%%", score/100, score%100);
+                timeS.set(timeString2);
+                stepS.set(stepString2);
+                scoreS.set(scoreString2);
                 timeLabel.setText(timeString);
-                timelabel.setText(timeString2);
                 stepLabel.setText(stepString);
-                steplabel.setText(stepString2);
                 scoreLabel.setText(scoreString);
-                scorelabel.setText(scoreString2);
                 // 绘制文本
                 Label1 = timeString +" "+ stepString +" "+ scoreString;
-                gc.fillText(Label1, 140, 48);
+                //gc.fillText(Label1, 140, 48);
             }
         };
         timer.start(); // 启动定时器
     }
 
+    public void setUpLabel(){
+        // 创建时间Label
+        timeLabel = new Label();
+        timeLabel.setText("Time: 00:00:00"); // 初始化时间显示
+        timelabel.textProperty().bind(timeS);
+        // 创建步数Label
+        stepLabel = new Label();
+        stepLabel.setText("Step: 0"); // 初始化时间显示
+        steplabel.textProperty().bind(stepS);
+        // 创建分数Label
+        scoreLabel = new Label();
+        scoreLabel.setText("Score: 00.00%"); // 初始化时间显示
+        scorelabel.textProperty().bind(scoreS);
+    }
+    private void setupHBox(HBox hBox, AnchorPane anchorPane) {
+        // 将HBox添加到AnchorPane
+        anchorPane.getChildren().add(hBox);
+
+        // 设置HBox在AnchorPane中的位置
+        anchorPane.setRightAnchor(hBox, 30.0);
+        anchorPane.setTopAnchor(hBox, 20.0);
+
+        // 设置HBox的属性
+        hBox.setSpacing(5); // 设置HBox中组件之间的间距
+    }
+    private void setupStackPane(StackPane stackPane, Pane pane) {
+        // 将StackPane添加到Pane
+        pane.getChildren().add(stackPane);
+
+        // 设置StackPane在Pane中的位置
+        stackPane.setLayoutX(390.0);
+        stackPane.setLayoutY(308.0);
+
+        // 设置StackPane的属性
+        stackPane.setPrefHeight(150.0);
+        stackPane.setPrefWidth(190.0);
+    }
+    private void setupRegion(Region region, StackPane stackPane) {
+        // 将Region添加到StackPane
+        stackPane.getChildren().add(region);
+
+        // 设置Region的属性
+        region.setPrefHeight(200.0);
+        region.setPrefWidth(200.0);
+
+        // 设置StackPane的边距
+        Insets insets = new Insets(20.0, 27.0, 20.0, 27.0); // top, right, bottom, left
+        stackPane.setMargin(region, insets);
+    }
+    @FXML
     public void stop(MouseEvent mouseEvent) {
         stoppane.setVisible(true);
         stopBtn.setVisible(false);
         continueOrNot = !continueOrNot;
         checkTime++;
     }
+    @FXML
     public void continueGame(){
         stoppane.setVisible(false);
         stopBtn.setVisible(true);
         continueOrNot = !continueOrNot;
         checkTime++;
     }
-
+    @FXML
     public void exit(MouseEvent Event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("welcome.fxml")));
         if(from==2){
@@ -194,7 +260,7 @@ public class Play {
         stage.setScene(scene);
         stage.show();
     }
-
+    @FXML
     public void restart(MouseEvent mouseEvent) {
         initializeGame();
         stoppane.setVisible(false);
@@ -203,7 +269,7 @@ public class Play {
         checkTime = 0;
         checkRedo = true;
     }
-
+    @FXML
     public void move(KeyEvent keyEvent) {
         //System.out.println(keyEvent.getCode());
         if(checkGameOver){
