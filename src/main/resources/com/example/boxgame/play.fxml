@@ -25,7 +25,7 @@
             <AnchorPane fx:id="timeAndStepAnchorPane" prefHeight="55.0" prefWidth="133.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
                <children>
                   <!-- Time HBox -->
-                  <HBox fx:id="timeHBox" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                  <HBox fx:id="timeHBox" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label text="Time: " textFill="WHITE">
                            <font>
@@ -40,7 +40,7 @@
                      </children>
                   </HBox>
                   <!-- Step HBox -->
-                  <HBox fx:id="stepHBox" AnchorPane.topAnchor="27.0" AnchorPane.leftAnchor="0.0">
+                  <HBox fx:id="stepHBox" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
                      <children>
                         <Label text="Step: " textFill="WHITE">
                            <font>
@@ -55,7 +55,7 @@
                      </children>
                   </HBox>
                   <!-- Score HBox -->
-                  <HBox fx:id="scoreHBox" AnchorPane.topAnchor="54.0" AnchorPane.leftAnchor="0.0">
+                  <HBox fx:id="scoreHBox" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0">
                      <children>
                         <Label text="Score: " textFill="WHITE">
                            <font>

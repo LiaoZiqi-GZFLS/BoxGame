@@ -46,7 +46,7 @@ public class Play {
     @FXML
     public Label scorelabel;
     @FXML
-    private StringProperty timeS = new SimpleStringProperty(String.format("%02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60));
+    private StringProperty timeS = new SimpleStringProperty(String.format("%02d:%02d", elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60));
     @FXML
     private StringProperty stepS = new SimpleStringProperty(String.format("%02d", step));
     @FXML
@@ -166,12 +166,12 @@ public class Play {
                 }
                 timer = currentNanoTime;
                 elapsedTime = (long) ((currentNanoTime - lastTime) / 1_000_000.0);
-                String timeString = String.format("Time: %02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
+                String timeString = String.format("Time: %02d:%02d", elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
                 String scoreString = String.format("Score: %02d.%02d%%", score/100, score%100);
                 String stepString = String.format("Step: %02d", step);
-                String timeString2 = String.format("%02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
+                String timeString2 = String.format("%02d:%02d", elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
                 String stepString2 = String.format("%02d", step);
-                String scoreString2 = String.format("%02d:%02d%%", score/100, score%100);
+                String scoreString2 = String.format("%d%%", score/100);
                 timeS.set(timeString2);
                 stepS.set(stepString2);
                 scoreS.set(scoreString2);
@@ -189,7 +189,7 @@ public class Play {
     public void setUpLabel(){
         // 创建时间Label
         timeLabel = new Label();
-        timeLabel.setText("Time: 00:00:00"); // 初始化时间显示
+        timeLabel.setText("Time: 00:00"); // 初始化时间显示
         timelabel.textProperty().bind(timeS);
         // 创建步数Label
         stepLabel = new Label();
