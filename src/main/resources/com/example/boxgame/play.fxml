@@ -31,7 +31,7 @@
                               <Font name="Minecraft Pixel" size="21.0" />
                            </font>
                         </Label>
-                        <Label fx:id="timelabel" text="00:00" textFill="WHITE">
+                        <Label fx:id="timelabel" text="00:00:00" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="21.0" />
                            </font>

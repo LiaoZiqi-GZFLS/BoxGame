@@ -39,12 +39,17 @@ public class Play {
     public AnchorPane bkg;
     @FXML
     public Canvas canvas;
+    @FXML
+    public Label timelabel;
+    @FXML
+    public Label steplabel;
+    @FXML
+    public Label scorelabel;
+
     public GridPane gridPane0 = new GridPane();
     public GridPane gridPane = new GridPane();
     public GridPane gridPane1 = new GridPane();
     public String Label1;
-    public Label timelabel;
-    public Label steplabel;
     private boolean continueOrNot = true;
     private int checkTime = 0;
 
@@ -66,19 +71,28 @@ public class Play {
         timeLabel = new Label();
         timeLabel.setId("timeLabel"); // 设置ID，方便CSS样式设置
         timeLabel.setText("Time: 00:00:00"); // 初始化时间显示
+        timelabel = new Label();
+        timelabel.setId("timelabel");
+        timelabel.setText("00:00:00");
         // 创建步数Label
         stepLabel = new Label();
         stepLabel.setId("stepLabel"); // 设置ID，方便CSS样式设置
         stepLabel.setText("Step: 0"); // 初始化时间显示
+        steplabel = new Label();
+        steplabel.setId("steplabel");
+        steplabel.setText("0");
         // 创建分数Label
         scoreLabel = new Label();
         scoreLabel.setId("scoreLabel"); // 设置ID，方便CSS样式设置
         scoreLabel.setText("Score: 00.00%"); // 初始化时间显示
+        scorelabel = new Label();
+        scorelabel.setId("scorelabel");
+        scorelabel.setText("00.00%");
         // 将Label添加到GridPane
-//        gridPane1.add(timeLabel, 0, 0); // 将Label放在左上角
-//        gridPane1.add(stepLabel, 1, 0);
-//        gridPane1.add(scoreLabel, 2, 0);
-//        gridPane0.add(gridPane1, 0, 0); // 将Label放在左上角
+        gridPane1.add(timeLabel, 0, 0); // 将Label放在左上角
+        gridPane1.add(stepLabel, 1, 0);
+        gridPane1.add(scoreLabel, 2, 0);
+        gridPane0.add(gridPane1, 0, 0); // 将Label放在左上角
         gridPane0.add(gridPane, 0, 1);
 
         for (int i = 0; i < GRID_COUNT; i++) {
@@ -137,15 +151,21 @@ public class Play {
                 }
                 timer = currentNanoTime;
                 elapsedTime = (long) ((currentNanoTime - lastTime) / 1_000_000.0);
-                String timeString = String.format("%02d:%02d", elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
+                String timeString = String.format("Time: %02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
+                String timeString2 = String.format("%02d:%02d:%02d", elapsedTime / 1000 / 3600, elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
                 String scoreString = String.format("Score: %02d.%02d%%", score/100, score%100);
-                String stepString = String.format("%02d", step);
-                timelabel.setText(timeString);
-                steplabel.setText(stepString);
+                String scoreString2 = String.format("%02d:%02d%%", score/100, score%100);
+                String stepString = String.format("Step: %02d", step);
+                String stepString2 = String.format("%02d", step);
+                timeLabel.setText(timeString);
+                timelabel.setText(timeString2);
+                stepLabel.setText(stepString);
+                steplabel.setText(stepString2);
                 scoreLabel.setText(scoreString);
+                scorelabel.setText(scoreString2);
                 // 绘制文本
-//                Label1 = timeString +" "+ stepString +" "+ scoreString;
-//                gc.fillText(Label1, 140, 48);
+                Label1 = timeString +" "+ stepString +" "+ scoreString;
+                gc.fillText(Label1, 140, 48);
             }
         };
         timer.start(); // 启动定时器
