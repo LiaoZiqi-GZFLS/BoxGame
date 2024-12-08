@@ -30,6 +30,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static com.example.boxgame.Helper.cal;
+
 
 public class BoxGameApplication extends Application {
 
@@ -182,14 +184,21 @@ public class BoxGameApplication extends Application {
         //System.out.println(event.getCode());
         // 检查是否按下了Ctrl+Z
         if(event.isControlDown()){
-            if (event.getCode() == KeyCode.Z) {
-                if(checkUndo){
-                    undoGame();
-                    checkUndo = false;
-                }
-            }
-            if (event.getCode() == KeyCode.I) {
-                initializeGame();
+            switch (event.getCode()) {
+                case KeyCode.I:
+                    initializeGame();
+                    break;
+                case KeyCode.Z:
+                    if(checkUndo){
+                        undoGame();
+                        checkUndo = false;
+                    }
+                    break;
+                case KeyCode.H:
+                    System.out.println(cal(map.toString()));
+                    break;
+                default:
+                    break;
             }
         }
 
