@@ -83,7 +83,7 @@ public class Login {
             System.out.println(password);
             if(!findname){
                 JSONObject newuser = new JSONObject();
-                int wid = list.length()+1;
+                int wid = list.length();
                 newuser.put("id", wid);
                 newuser.put("pwd", password);
                 list.put(username, newuser);
@@ -95,6 +95,7 @@ public class Login {
                 error.setStyle("-fx-text-fill: green;");
                 FileOutputStream fos;
                 try {
+                    createplayer(username);
                     fos = new FileOutputStream("json\\userdata.json");
                     fos.write(list.toString().getBytes());
                 } catch (IOException e) {

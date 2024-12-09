@@ -24,7 +24,7 @@
                </children>
             </StackPane>
             <TextField fx:id="textField" layoutX="1027.0" layoutY="31.0" prefHeight="1.0" prefWidth="1.0" styleClass="text-field" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-            <StackPane fx:id="defeathintpane" layoutX="442.0" layoutY="600.0" AnchorPane.bottomAnchor="97.0">
+            <StackPane fx:id="defeathintpane" layoutX="442.0" layoutY="600.0" visible="false" AnchorPane.bottomAnchor="97.0">
                <children>
                   <StackPane prefHeight="30.0" styleClass="hint-label" />
                   <Label fx:id="defeathint" alignment="CENTER" onMouseReleased="#restart" prefHeight="30.0" text="你失败了 点此以重开" textFill="#ff3939">
