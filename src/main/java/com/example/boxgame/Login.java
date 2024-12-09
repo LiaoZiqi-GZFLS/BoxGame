@@ -62,6 +62,7 @@ public class Login {
                 JSONObject info = list.getJSONObject(uname);
                 String pwd = info.getString("pwd");
                 int id1= info.getInt("id");
+
                 if(pwd.equals(password)){
                     error.setText("登录成功");
                     error.setVisible(true);
@@ -70,7 +71,11 @@ public class Login {
                     name = uname;
                     id = id1;
             }
-
+                try {
+                    LoadPlayerStatistic(name);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }else{
                 error.setText("登录失败 用户名或密码错误");
                 error.setVisible(true);
@@ -129,7 +134,7 @@ public class Login {
         init.put("last",last);
         init.put("current",current);
         init.put("isfinished",isfinished);
-        init.put("currentmap",currentmap);
+        init.put("currentmap",new Map(currentmap));
 
         fos.write(init.toString().getBytes());
     }
@@ -145,17 +150,13 @@ public class Login {
         currentstep = list.getInt("currentstep");//正在游玩的步数
         current = list.getString("current");//正在游玩的关卡名
         isfinished = list.getInt("isfinished");//是否完成前五关
-        JSONArray maps = list.getJSONArray("currentmap");//加载数据
-        //加载地图
-        String[] m = new String[maps.length()];
-        for(int i = 0; i < maps.length(); i++){
-            m[i] = maps.getString(i);
+        String maps = list.getString("currentmap");//加载数据
+        String[] maps2 = maps.split("\n");
+        char[][] map3 = new char[maps2.length-1][];
+        for(int i=1;i<maps2.length;i++){
+            map3[i-1] = maps2[i].toCharArray();
         }
-        currentmap = new char[maps.length()][m.length];
-        for(int i = 0;i<maps.length();i++){
-            for(int j = 0;j<m.length;j++){
-                currentmap[i][j] = m[i].charAt(j);
-            }
-        }//结束加载地图
+        currentmap = map3;
+        //加载地图
     }
 }

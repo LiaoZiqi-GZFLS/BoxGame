@@ -49,6 +49,17 @@ public class Main extends Application {
             String b = "{\"awa\":{\"id\":0,\"pwd\":\"114514a\"}}";
             fos.write(b.getBytes());
         }
+        File awa = new File("json\\playerdata", "awa.json");
+        if (!awa.exists()){
+            awa.createNewFile();
+        }
+        FileInputStream fisw = new FileInputStream(awa);
+        String jsonw = new String(fisw.readAllBytes());
+        if(jsonw.isEmpty()){
+            FileOutputStream fosw = new FileOutputStream(awa);
+            String b = "{\"currentstep\":0,\"times\":114,\"current\":\"awa\",\"laststep\":514,\"last\":\"Level 114514\",\"currentmap\":\"10 10\\n..........\\n..........\\n..######..\\n..#P...#..\\n..#..BT#..\\n..#.TB.#..\\n..######..\\n..........\\n..........\\n..........\\n\",\"isfinished\":1}";
+            fosw.write(b.getBytes());
+        }
         launch(args);
     }
     @Override
