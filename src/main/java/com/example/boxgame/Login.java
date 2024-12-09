@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -111,5 +112,49 @@ public class Login {
 
     public void close(MouseEvent mouseEvent) {
         bkg.getScene().getWindow().hide();
+    }
+
+    public void createplayer(String name) throws IOException {
+        File player = new File("json\\playerdata", name+".json");
+        if(player.exists()){
+            player.delete();
+        }
+        player.createNewFile();
+        FileOutputStream fos = new FileOutputStream(player);
+        JSONObject init = new JSONObject();
+        init.put("times",times);
+        init.put("laststep",last_step);
+        init.put("currentstep",currentstep);
+        init.put("last",last);
+        init.put("current",current);
+        init.put("isfinished",isfinished);
+        init.put("currentmap",currentmap);
+
+        fos.write(init.toString().getBytes());
+    }
+
+    public void LoadPlayerStatistic(String name) throws IOException {
+        File folder = new File("json\\playerdata");
+        File info = new File("json\\playerdata",name+".json");
+        JSONTokener jt = new JSONTokener(new FileReader(info));
+        JSONObject list = new JSONObject(jt);
+        times = list.getInt("times");//游玩次数
+        last_step = list.getInt("laststep");//上次游玩的步数
+        last = list.getString("last");//上次游玩的关卡名
+        currentstep = list.getInt("currentstep");//正在游玩的步数
+        current = list.getString("current");//正在游玩的关卡名
+        isfinished = list.getInt("isfinished");//是否完成前五关
+        JSONArray maps = list.getJSONArray("currentmap");//加载数据
+        //加载地图
+        String[] m = new String[maps.length()];
+        for(int i = 0; i < maps.length(); i++){
+            m[i] = maps.getString(i);
+        }
+        currentmap = new char[maps.length()][m.length];
+        for(int i = 0;i<maps.length();i++){
+            for(int j = 0;j<m.length;j++){
+                currentmap[i][j] = m[i].charAt(j);
+            }
+        }//结束加载地图
     }
 }

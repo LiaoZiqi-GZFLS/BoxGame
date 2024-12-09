@@ -22,13 +22,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.Objects;
 
 
-import static com.example.boxgame.Welcome.from;
 import static com.example.boxgame.BoxGame.*;
+import static com.example.boxgame.Welcome.*;
 
 public class Play {
     @FXML
@@ -45,6 +47,11 @@ public class Play {
     public Label steplabel;
     @FXML
     public Label scorelabel;
+    public StackPane defeathintpane;//失败提示版
+    public Label defeathint;//失败提示
+    public StackPane successhintpane;//成功提示版
+    public Label successhint;//成功提示
+
     @FXML
     private StringProperty timeS = new SimpleStringProperty(String.format("%02d:%02d", elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60));
     @FXML
@@ -259,5 +266,24 @@ public class Play {
                 }
                 break;
         }
+    }
+
+    public void save() throws IOException {
+        File info = new File("json\\playerdata",name+".json");
+        JSONTokener jt = new JSONTokener(new FileReader(info));
+        JSONObject init = new JSONObject(jt);
+        init.put("times",times);
+        init.put("laststep",last_step);
+        init.put("currentstep",currentstep);
+        init.put("last",last);
+        init.put("current",current);
+        init.put("isfinished",isfinished);
+        init.put("currentmap",currentmap);
+        FileOutputStream fos = new FileOutputStream(info);
+        fos.write(init.toString().getBytes());
+    }
+
+    public void XiaYiGuan(MouseEvent mouseEvent) {
+
     }
 }

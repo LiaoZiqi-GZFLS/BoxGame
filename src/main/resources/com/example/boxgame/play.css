@@ -42,3 +42,7 @@
 .btn-exit:hover{
     -fx-opacity: 0.7;
 }
+.hint-label{
+    -fx-background-color: black;
+    -fx-opacity: 0.1;
+}

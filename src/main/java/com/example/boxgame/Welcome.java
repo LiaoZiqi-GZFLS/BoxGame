@@ -43,7 +43,15 @@ public class Welcome {
     public static int times = 0;//游玩次数
     public static int last_step =0;//上次游玩时步数
     public static String last = "NeverPlayed";//上次游玩的关卡
+    public static int currentstep = 0;//现在游玩关卡的步数
     public static String current = "Level " + N;
+    public static char[][] currentmap = {
+            "######".toCharArray(),
+            "#P...#".toCharArray(),
+            "#..BT#".toCharArray(),
+            "#.TB.#".toCharArray(),
+            "######".toCharArray(),
+    };
 
     public void initialize() {
         current = "Level " + N;
