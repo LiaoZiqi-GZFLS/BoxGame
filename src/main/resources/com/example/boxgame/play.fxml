@@ -64,7 +64,7 @@
                   </Label>
                </children>
             </StackPane>
-            <AnchorPane fx:id="timeAndStepAnchorPane" prefHeight="55.0" prefWidth="133.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
+            <AnchorPane fx:id="timeAndStepAnchorPane" prefHeight="55.0" prefWidth="133.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                <children>
                   <!-- Time HBox -->
                   <HBox fx:id="timeHBox" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

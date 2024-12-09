@@ -55,7 +55,7 @@ public class Play {
     @FXML
     private StringProperty timeS = new SimpleStringProperty(String.format("%02d:%02d", elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60));
     @FXML
-    private StringProperty stepS = new SimpleStringProperty(String.format("%02d", step));
+    private StringProperty stepS = new SimpleStringProperty(String.format("%d", step));
     @FXML
     private StringProperty scoreS = new SimpleStringProperty(String.format("%02d:%02d%%", score/100, score%100));
     @FXML
@@ -91,6 +91,8 @@ public class Play {
 
     public void initialize(){
         initElement(N);
+        defeathintpane.setVisible(false);
+        successhintpane.setVisible(false);
         stoppane.setVisible(false);
         gridPane.setGridLinesVisible(true);
         gridPane.setPadding(new Insets(PUDDING_SIZE, PUDDING_SIZE, PUDDING_SIZE, PUDDING_SIZE)); // 为GridPane添加内边距
@@ -151,9 +153,10 @@ public class Play {
                     checkRedo = false;
                 }
                 if(checkGameOver){
-                    from = 1;
-                    stoppane.setVisible(true);
-                    stopBtn.setVisible(true);
+//                    from = 1;
+//                    stoppane.setVisible(true);
+//                    stopBtn.setVisible(true);
+                    defeathintpane.setVisible(true);
                     if(!Label1.contains("100.00%")&&checkWinCondition()){
                         Label1 = Label1.substring(0, Label1.length()-7) + "100.00%";
                     }
@@ -175,9 +178,9 @@ public class Play {
                 elapsedTime = (long) ((currentNanoTime - lastTime) / 1_000_000.0);
                 String timeString = String.format("Time: %02d:%02d", elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
                 String scoreString = String.format("Score: %02d.%02d%%", score/100, score%100);
-                String stepString = String.format("Step: %02d", step);
+                String stepString = String.format("Step: %d", step);
                 String timeString2 = String.format("%02d:%02d", elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
-                String stepString2 = String.format("%02d", step);
+                String stepString2 = String.format("%d", step);
                 String scoreString2 = String.format("%d%%", score/100);
                 timeS.set(timeString2);
                 stepS.set(stepString2);
@@ -235,6 +238,7 @@ public class Play {
     }
     @FXML
     public void restart(MouseEvent mouseEvent) {
+        defeathintpane.setVisible(false);
         initializeGame();
         stoppane.setVisible(false);
         stopBtn.setVisible(true);

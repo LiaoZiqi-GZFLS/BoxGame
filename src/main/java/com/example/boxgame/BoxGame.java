@@ -596,8 +596,8 @@ public class BoxGame{
         if(checkFailCondition()&&!checkGameOver){
             check = false;
             checkGameOver = true;
-            alert("Failure","You lost!");
-            alert("Reason: You can't get to the position!");
+//            alert("Failure","You lost!");
+//            alert("Reason: You can't get to the position!");
         }
     }
 
