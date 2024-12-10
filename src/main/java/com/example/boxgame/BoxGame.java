@@ -584,7 +584,7 @@ public class BoxGame{
         if (checkWinCondition()&&check&&step<=MAX_STEP) {
             check = false;
             checkGameOver = true;
-            alert("Victory","Congratulations! You win!");
+//            alert("Victory","Congratulations! You win!");
         }
         //步数检测
         if(step > MAX_STEP&&check) {

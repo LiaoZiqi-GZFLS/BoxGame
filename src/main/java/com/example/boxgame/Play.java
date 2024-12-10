@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
@@ -152,11 +154,16 @@ public class Play {
                     lastTime = System.nanoTime();
                     checkRedo = false;
                 }
+                if(checkWinCondition()){
+                    successhintpane.setVisible(true);
+                }
+                if(checkGameOver&&checkFailCondition()){
+                    defeathintpane.setVisible(true);
+                }
                 if(checkGameOver){
 //                    from = 1;
 //                    stoppane.setVisible(true);
 //                    stopBtn.setVisible(true);
-                    defeathintpane.setVisible(true);
                     if(!Label1.contains("100.00%")&&checkWinCondition()){
                         Label1 = Label1.substring(0, Label1.length()-7) + "100.00%";
                     }
@@ -287,7 +294,32 @@ public class Play {
         fos.write(init.toString().getBytes());
     }
 
-    public void XiaYiGuan(MouseEvent mouseEvent) {
-
+    public void XiaYiGuan(MouseEvent Event) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
+        Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
+        //start(stage);
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("TimeStyle.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("StepStyle.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("ScoreStyle.css")).toExternalForm());
+        // 设置关闭事件处理
+        stage.setOnCloseRequest(event -> {
+            // 创建一个确认对话框
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "您确定要退出程序吗？");
+            alert.setTitle("退出确认");
+            alert.setHeaderText(null);
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    // 用户选择“是”时，关闭窗口
+                    System.exit(0);
+                    return;
+                } else {
+                    // 用户选择“否”时，不执行任何操作，窗口保持打开状态
+                    event.consume();
+                }
+            });
+        });
+        stage.setScene(scene);
+        stage.show();
     }
 }
