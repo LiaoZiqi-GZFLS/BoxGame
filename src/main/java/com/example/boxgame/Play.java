@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -83,6 +84,8 @@ public class Play {
     @FXML
     public StackPane continueStackPane;
 
+    public static Image playerImage = new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player1.png")));
+    public static Image boxImage = new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box1.png")));
 
     public GridPane gridPane0 = new GridPane();
     public GridPane gridPane = new GridPane();
@@ -150,6 +153,17 @@ public class Play {
                 // 将GridPane图像绘制到Canvas的居中位置
                 gc.drawImage(snapshot, gridPaneX- (double) (GRID_SIZE * GRID_COUNT) /2, gridPaneY- (double) (GRID_SIZE * GRID_COUNT) /2);
                 //gc.drawImage(snapshot2,50,100);
+
+                Map t_map = new Map(_map);
+                int[] t_playerPosition = t_map.getPlayerPosition();
+                int[][] t_boxesPosition = t_map.getBoxesPosition();
+                int[][] t_Position = t_map.getPosition();
+                int[][] t_wallPosition = t_map.getWallPosition();
+                gc.drawImage(playerImage, getPixelPosition(t_playerPosition,0.50,0.30)[0], getPixelPosition(t_playerPosition,0.50,0.30)[1]);
+                for(int[] t_boxes : t_boxesPosition) {
+                    gc.drawImage(boxImage, getPixelPosition(t_boxes,0.50,0.50)[0], getPixelPosition(t_boxes,0.50,0.50)[1]);
+                }
+
                 if(checkRedo){
                     lastTime = System.nanoTime();
                     checkRedo = false;
@@ -214,6 +228,12 @@ public class Play {
             }
         };
         timer.start(); // 启动定时器
+    }
+
+    public double[] getPixelPosition(int[] tempPosition, double x, double y){
+        double dx = (canvas.getWidth()-gridPane.getPrefWidth()-gridPane.getWidth())/2+(tempPosition[0]+x)*(GRID_SIZE+STROKE_SIZE);
+        double dy = (canvas.getHeight()-gridPane.getPrefHeight()-gridPane.getHeight())/2+(tempPosition[1]+y)*(GRID_SIZE+STROKE_SIZE);
+        return new double[]{dx,dy};
     }
 
     public void setUpLabel(){
