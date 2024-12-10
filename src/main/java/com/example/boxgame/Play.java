@@ -155,7 +155,20 @@ public class Play {
                     checkRedo = false;
                 }
                 if(checkWinCondition()){
+                    int a = N;
+                    if(N==5){a = 0;}
+                    currentmap = new Map(a+1).getMap();
+                    last_step = step;
+                    currentstep=0;
+                    if(islogin==1){
+                        try {
+                            save();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                     successhintpane.setVisible(true);
+                    defeathintpane.setVisible(false);
                 }
                 if(checkGameOver&&checkFailCondition()){
                     defeathintpane.setVisible(true);
@@ -234,6 +247,8 @@ public class Play {
     }
     @FXML
     public void exit(MouseEvent Event) throws IOException {
+        currentmap = _map;
+        currentstep = step;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("welcome.fxml")));
         if(from==2){
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("select.fxml")));
@@ -294,32 +309,38 @@ public class Play {
         fos.write(init.toString().getBytes());
     }
 
-    public void XiaYiGuan(MouseEvent Event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
-        Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
-        //start(stage);
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("TimeStyle.css")).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("StepStyle.css")).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("ScoreStyle.css")).toExternalForm());
-        // 设置关闭事件处理
-        stage.setOnCloseRequest(event -> {
-            // 创建一个确认对话框
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "您确定要退出程序吗？");
-            alert.setTitle("退出确认");
-            alert.setHeaderText(null);
-            alert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
-                    // 用户选择“是”时，关闭窗口
-                    System.exit(0);
-                    return;
-                } else {
-                    // 用户选择“否”时，不执行任何操作，窗口保持打开状态
-                    event.consume();
-                }
+    public void XiaYiGuan(MouseEvent Event) throws IOException {//通关
+        if(N==5){
+            exit(Event);
+        }else{
+            N+=1;
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
+            Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
+            //start(stage);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("TimeStyle.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("StepStyle.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("ScoreStyle.css")).toExternalForm());
+            // 设置关闭事件处理
+            stage.setOnCloseRequest(event -> {
+                // 创建一个确认对话框
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "您确定要退出程序吗？");
+                alert.setTitle("退出确认");
+                alert.setHeaderText(null);
+                alert.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        // 用户选择“是”时，关闭窗口
+                        System.exit(0);
+                        return;
+                    } else {
+                        // 用户选择“否”时，不执行任何操作，窗口保持打开状态
+                        event.consume();
+                    }
+                });
             });
-        });
-        stage.setScene(scene);
-        stage.show();
+            stage.setScene(scene);
+            stage.show();
+        }
+
     }
 }

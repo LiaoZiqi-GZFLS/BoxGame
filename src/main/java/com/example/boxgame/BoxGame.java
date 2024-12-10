@@ -53,7 +53,7 @@ public class BoxGame{
     public static Label scoreLabel;
     public static Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];//Rectangle(x,y) int[y][x]
     private static Map map = new Map(N);
-    private static char[][] _map;
+    public static char[][] _map;
     private static char[][] p_map;
     private static Player player = new Player();
     private static int[] playerPosition = map.getPlayerPosition();

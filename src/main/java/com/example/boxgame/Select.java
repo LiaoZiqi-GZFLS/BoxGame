@@ -1,5 +1,6 @@
 package com.example.boxgame;
 
+import com.leewyatt.rxcontrols.controls.RXToggleButton;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -9,6 +10,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,13 +18,24 @@ import java.util.Objects;
 
 import static com.example.boxgame.Welcome.from;
 import static com.example.boxgame.BoxGame.N;
+import static com.example.boxgame.BoxGame.M;
 
 public class Select {
 
     public AnchorPane background;
+    public BorderPane page3;
+    public BorderPane page2;
+    public BorderPane page1;
+    public BorderPane page4;
+    public RXToggleButton b1;
+    public RXToggleButton b2;
+    public RXToggleButton b3;
+    public RXToggleButton b4;
+    public RXToggleButton b5;
+    public BorderPane page5;
 
-    public void start1(MouseEvent Event) throws IOException {
-        N = 1;
+    public void startplus(MouseEvent Event) throws IOException {
+        from = 2;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
         //start(stage);
@@ -49,127 +62,62 @@ public class Select {
         });
         stage.setScene(scene);
         stage.show();
-        from = 2;
+    }
+
+    public void start0(MouseEvent mouseEvent) throws IOException {
+        N=0;
+        M=0;
+        startplus(mouseEvent);
+    }
+    public void start1(MouseEvent Event) throws IOException {
+        N = 1;
+        M=0;
+        startplus(Event);
     }
     public void start2(MouseEvent Event) throws IOException {
         N = 2;
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
-        Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
-        //start(stage);
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("TimeStyle.css")).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("StepStyle.css")).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("ScoreStyle.css")).toExternalForm());
-        // 设置关闭事件处理
-        stage.setOnCloseRequest(event -> {
-            // 创建一个确认对话框
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "您确定要退出程序吗？");
-            alert.setTitle("退出确认");
-            alert.setHeaderText(null);
-            alert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
-                    // 用户选择“是”时，关闭窗口
-                    System.exit(0);
-                    return;
-                } else {
-                    // 用户选择“否”时，不执行任何操作，窗口保持打开状态
-                    event.consume();
-                }
-            });
-        });
-        stage.setScene(scene);
-        stage.show();
-        from = 2;
+        M=0;
+        startplus(Event);
     }
     public void start3(MouseEvent Event) throws IOException {
         N = 3;
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
-        Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
-        //start(stage);
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("TimeStyle.css")).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("StepStyle.css")).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("ScoreStyle.css")).toExternalForm());
-        // 设置关闭事件处理
-        stage.setOnCloseRequest(event -> {
-            // 创建一个确认对话框
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "您确定要退出程序吗？");
-            alert.setTitle("退出确认");
-            alert.setHeaderText(null);
-            alert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
-                    // 用户选择“是”时，关闭窗口
-                    System.exit(0);
-                    return;
-                } else {
-                    // 用户选择“否”时，不执行任何操作，窗口保持打开状态
-                    event.consume();
-                }
-            });
-        });
-        stage.setScene(scene);
-        stage.show();
-        from = 2;
+        M=0;
+        startplus(Event);
     }
     public void start4(MouseEvent Event) throws IOException {
         N = 4;
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
-        Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
-        //start(stage);
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("TimeStyle.css")).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("StepStyle.css")).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("ScoreStyle.css")).toExternalForm());
-        // 设置关闭事件处理
-        stage.setOnCloseRequest(event -> {
-            // 创建一个确认对话框
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "您确定要退出程序吗？");
-            alert.setTitle("退出确认");
-            alert.setHeaderText(null);
-            alert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
-                    // 用户选择“是”时，关闭窗口
-                    System.exit(0);
-                    return;
-                } else {
-                    // 用户选择“否”时，不执行任何操作，窗口保持打开状态
-                    event.consume();
-                }
-            });
-        });
-        stage.setScene(scene);
-        stage.show();
-        from = 2;
+        M=0;
+        startplus(Event);
     }
     public void start5(MouseEvent Event) throws IOException {
         N = 5;
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
-        Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
-        //start(stage);
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("TimeStyle.css")).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("StepStyle.css")).toExternalForm());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("ScoreStyle.css")).toExternalForm());
-        // 设置关闭事件处理
-        stage.setOnCloseRequest(event -> {
-            // 创建一个确认对话框
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "您确定要退出程序吗？");
-            alert.setTitle("退出确认");
-            alert.setHeaderText(null);
-            alert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
-                    // 用户选择“是”时，关闭窗口
-                    System.exit(0);
-                    return;
-                } else {
-                    // 用户选择“否”时，不执行任何操作，窗口保持打开状态
-                    event.consume();
-                }
-            });
-        });
-        stage.setScene(scene);
-        stage.show();
-        from = 2;
+        M=0;
+        startplus(Event);
+    }
+    public void start21(MouseEvent Event) throws IOException {
+        N = 1;
+        M = 1;
+        startplus(Event);
+    }
+    public void start22(MouseEvent Event) throws IOException {
+        N = 2;
+        M = 1;
+        startplus(Event);
+    }
+    public void start23(MouseEvent Event) throws IOException {
+        N = 3;
+        M = 1;
+        startplus(Event);
+    }
+    public void start24(MouseEvent Event) throws IOException {
+        N = 4;
+        M = 1;
+        startplus(Event);
+    }
+    public void start25(MouseEvent Event) throws IOException {
+        N = 5;
+        M = 1;
+        startplus(Event);
     }
 
     public void exit(KeyEvent Event) throws IOException {
@@ -193,4 +141,52 @@ public class Select {
                 exit(keyEvent);
         }
     }
+
+    public void shiftpage(MouseEvent mouseEvent) {
+        page1.setVisible(false);
+        page2.setVisible(false);
+        page3.setVisible(false);
+        page4.setVisible(false);
+        page5.setVisible(false);
+        if(b1.isSelected()){
+            page1.setVisible(true);
+        }
+        if(b2.isSelected()){
+            page2.setVisible(true);
+        }
+        if(b3.isSelected()){
+            page3.setVisible(true);
+        }
+        if(b4.isSelected()){
+            page4.setVisible(true);
+        }
+        if(b5.isSelected()){
+            page5.setVisible(true);
+        }
+    }
+
+
+    public void start31(MouseEvent mouseEvent) throws IOException {
+        N = 1;
+        M = 2;
+        startplus(mouseEvent);
+    }
+    public void start32(MouseEvent mouseEvent) throws IOException {
+        N = 2;
+        M = 2;
+        startplus(mouseEvent);
+    }public void start33(MouseEvent mouseEvent) throws IOException {
+        N = 3;
+        M = 2;
+        startplus(mouseEvent);
+    }public void start34(MouseEvent mouseEvent) throws IOException {
+        N = 4;
+        M = 2;
+        startplus(mouseEvent);
+    }public void start35(MouseEvent mouseEvent) throws IOException {
+        N = 5;
+        M = 2;
+        startplus(mouseEvent);
+    }
 }
+

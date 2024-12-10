@@ -16,3 +16,16 @@
 .level-btn:hover{
     -fx-opacity: 0.9;
 }
+.btn-page{
+-fx-background-color: null;
+    -fx-text-fill: white;
+    -fx-border-width: 2;
+    -fx-border-color: white;
+}
+.btn-page:hover{
+-fx-opacity: 0.7;
+}
+.btn-page:selected{
+    -fx-background-color: white;
+    -fx-text-fill: #eccc78;
+}

@@ -32,7 +32,7 @@
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start1" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 1" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start31" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="3-1" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -41,7 +41,7 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start2" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 2" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start32" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="3-2" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -50,7 +50,7 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start3" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 3" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start33" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="3-3" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -59,7 +59,7 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start4" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 4" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start34" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="3-4" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -68,7 +68,7 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start5" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 5" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start35" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="3-5" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -114,7 +114,7 @@
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start1" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 1" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start21" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="2-1" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -123,7 +123,7 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start2" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 2" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start22" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="2-2" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -131,7 +131,7 @@
                      </children></StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start3" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 3" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start23" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="2-3" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -139,7 +139,7 @@
                      </children></StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start4" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 4" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start24" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="2-4" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -147,7 +147,7 @@
                      </children></StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start5" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 5" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start25" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="2-5" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -191,7 +191,7 @@
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start1" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 1" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start1" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="1-1" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -200,7 +200,7 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start2" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 2" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start2" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="1-2" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -209,7 +209,7 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start3" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 3" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start3" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="1-3" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -218,7 +218,7 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start4" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 4" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start4" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="1-4" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -227,7 +227,7 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start5" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 5" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start5" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="1-5" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -236,7 +236,7 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" onMouseReleased="#start1" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="Level 0" textFill="WHITE">
+                        <Button mnemonicParsing="false" onMouseReleased="#start0" prefHeight="150.0" prefWidth="150.0" styleClass="level-btn" text="1-0" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="20.0" />
                            </font>
@@ -353,7 +353,7 @@
          <top>
             <Pane prefHeight="150.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="page5" alignment="CENTER" contentDisplay="CENTER" layoutX="440.0" layoutY="50.0" prefHeight="50.0" prefWidth="200.0" text="自定义" textFill="WHITE">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="440.0" layoutY="50.0" prefHeight="50.0" prefWidth="200.0" text="自定义" textFill="WHITE">
                      <font>
                         <Font name="Minecraft Pixel" size="36.0" />
                      </font>
@@ -365,7 +365,7 @@
       <StackPane onMouseReleased="#exit1" prefHeight="28.0" prefWidth="25.0" styleClass="btn-exit" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
       <HBox layoutX="365.0" layoutY="720.0" AnchorPane.bottomAnchor="60.0">
          <children>
-            <RXToggleButton onMouseReleased="#shiftpage" prefHeight="50.0" prefWidth="50.0" selected="true" styleClass="btn-page" text="1" textFill="WHITE">
+            <RXToggleButton fx:id="b1" onMouseReleased="#shiftpage" prefHeight="50.0" prefWidth="50.0" selected="true" styleClass="btn-page" text="1" textFill="WHITE">
                <toggleGroup>
                   <ToggleGroup fx:id="l" />
                </toggleGroup>
@@ -376,7 +376,7 @@
                   <Font name="Minecraft Pixel" size="21.0" />
                </font>
             </RXToggleButton>
-            <RXToggleButton onMouseReleased="#shiftpage" prefHeight="50.0" prefWidth="50.0" styleClass="btn-page" text="2" textFill="WHITE" toggleGroup="$l">
+            <RXToggleButton fx:id="b2" onMouseReleased="#shiftpage" prefHeight="50.0" prefWidth="50.0" styleClass="btn-page" text="2" textFill="WHITE" toggleGroup="$l">
                <font>
                   <Font name="Minecraft Pixel" size="21.0" />
                </font>
@@ -384,7 +384,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </RXToggleButton>
-            <RXToggleButton onMouseReleased="#shiftpage" prefHeight="50.0" prefWidth="50.0" styleClass="btn-page" text="3" textFill="WHITE" toggleGroup="$l">
+            <RXToggleButton fx:id="b3" onMouseReleased="#shiftpage" prefHeight="50.0" prefWidth="50.0" styleClass="btn-page" text="3" textFill="WHITE" toggleGroup="$l">
                <font>
                   <Font name="Minecraft Pixel" size="21.0" />
                </font>
@@ -392,7 +392,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </RXToggleButton>
-            <RXToggleButton onMouseReleased="#shiftpage" prefHeight="50.0" prefWidth="50.0" styleClass="btn-page" text="4" textFill="WHITE" toggleGroup="$l">
+            <RXToggleButton fx:id="b4" onMouseReleased="#shiftpage" prefHeight="50.0" prefWidth="50.0" styleClass="btn-page" text="4" textFill="WHITE" toggleGroup="$l">
                <font>
                   <Font name="Minecraft Pixel" size="21.0" />
                </font>
@@ -400,7 +400,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </RXToggleButton>
-            <RXToggleButton onMouseReleased="#shiftpage" prefHeight="50.0" prefWidth="50.0" styleClass="btn-page" text="5" textFill="WHITE" toggleGroup="$l">
+            <RXToggleButton fx:id="b5" onMouseReleased="#shiftpage" prefHeight="50.0" prefWidth="50.0" styleClass="btn-page" text="5" textFill="WHITE" toggleGroup="$l">
                <font>
                   <Font name="Minecraft Pixel" size="21.0" />
                </font>
