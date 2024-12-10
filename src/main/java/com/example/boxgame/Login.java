@@ -64,12 +64,13 @@ public class Login {
                 int id1= info.getInt("id");
 
                 if(pwd.equals(password)){
-                    error.setText("登录成功");
-                    error.setVisible(true);
-                    error.setStyle("-fx-text-fill: green;");
+//                    error.setText("登录成功");
+//                    error.setVisible(true);
+//                    error.setStyle("-fx-text-fill: green;");
                     islogin=1;
                     name = uname;
                     id = id1;
+                    close(mouseEvent);
             }
                 try {
                     LoadPlayerStatistic(name);
@@ -95,9 +96,10 @@ public class Login {
                 islogin=1;
                 name = username;
                 id = wid;
-                error.setText("注册成功 已经自动登录");
-                error.setVisible(true);
-                error.setStyle("-fx-text-fill: green;");
+//                error.setText("注册成功 已经自动登录");
+//                error.setVisible(true);
+//                error.setStyle("-fx-text-fill: green;");
+                close(mouseEvent);
                 FileOutputStream fos;
                 try {
                     createplayer(username);

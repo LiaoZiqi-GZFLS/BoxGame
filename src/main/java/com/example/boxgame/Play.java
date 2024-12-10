@@ -170,7 +170,11 @@ public class Play {
                 }
                 if(checkWinCondition()){
                     int a = N;
-                    if(N==5){a = 0;}
+                    if(N==5){
+                        a = 0;
+                        successhint.setText("你已通关该章节 点此回到菜单");
+                        from = 2;
+                    }
                     currentmap = new Map(a+1).getMap();
                     last_step = step;
                     currentstep=0;

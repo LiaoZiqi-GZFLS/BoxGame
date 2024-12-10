@@ -19,7 +19,7 @@ public class Userinfo {
     public Label showRecentRecord1;//最近步数
     public Label showRecentRecord2;//最近关卡
     //以上实时变动
-    Timer timer = new Timer(1000, e -> {
+    Timer timer = new Timer(100, e -> {
         showUserName.setText(name);
         showUserid.setText("#"+String.valueOf(id));
         showRecentRecord1.setText(String.valueOf(last_step));
@@ -39,9 +39,9 @@ public class Userinfo {
 
     public void logout(MouseEvent mouseEvent) {
         name = "Guest";
-        int id = 0;
-        int times = 0;//游玩次数
-        int laststep=0;//上次游玩时步数
+        id = 0;
+        times = 0;//游玩次数
+        last_step=0;//上次游玩时步数
         last = "NeverPlayed";
         islogin = 0;
         bkg.getScene().getWindow().hide();
