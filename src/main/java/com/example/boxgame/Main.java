@@ -57,7 +57,7 @@ public class Main extends Application {
         String jsonw = new String(fisw.readAllBytes());
         if(jsonw.isEmpty()){
             FileOutputStream fosw = new FileOutputStream(awa);
-            String b = "{\"currentstep\":0,\"times\":114,\"current\":\"awa\",\"laststep\":514,\"last\":\"Level 114514\",\"currentmap\":\"10 10\\n..........\\n..........\\n..######..\\n..#P...#..\\n..#..BT#..\\n..#.TB.#..\\n..######..\\n..........\\n..........\\n..........\\n\",\"isfinished\":1}";
+            String b = "{\"currentstep\":0,\"times\":114,\"current\":\"awa\",\"laststep\":514,\"last\":\"Level 114514\",\"currentmap\":\"10 10\\n..........\\n..........\\n..######..\\n..#P...#..\\n..#..BT#..\\n..#.TB.#..\\n..######..\\n..........\\n..........\\n..........\\n\",\"isfinished\":1,\"M\":0,\"N\":0}";
             fosw.write(b.getBytes());
         }
         launch(args);

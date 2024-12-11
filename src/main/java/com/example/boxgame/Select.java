@@ -16,9 +16,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-import static com.example.boxgame.Welcome.from;
 import static com.example.boxgame.BoxGame.N;
 import static com.example.boxgame.BoxGame.M;
+import static com.example.boxgame.Welcome.*;
 
 public class Select {
 
@@ -64,59 +64,94 @@ public class Select {
         stage.show();
     }
 
+    public void initialize(){
+        if(isfinished==0){
+            b2.setDisable(true);
+            b3.setDisable(true);
+            b4.setDisable(true);
+            b5.setDisable(true);
+        }else{
+            b2.setDisable(false);
+            b3.setDisable(false);
+            b4.setDisable(false);
+            b5.setDisable(false);
+        }
+    }
+
     public void start0(MouseEvent mouseEvent) throws IOException {
         N=0;
         M=0;
+        currentstep=0;
         startplus(mouseEvent);
     }
     public void start1(MouseEvent Event) throws IOException {
         N = 1;
         M=0;
+        currentstep=0;
+        current = "1-1";
         startplus(Event);
     }
     public void start2(MouseEvent Event) throws IOException {
         N = 2;
         M=0;
+        currentstep=0;
+        current = "1-2";
         startplus(Event);
     }
     public void start3(MouseEvent Event) throws IOException {
         N = 3;
         M=0;
+        currentstep=0;
+        current = "1-3";
         startplus(Event);
     }
     public void start4(MouseEvent Event) throws IOException {
         N = 4;
         M=0;
+        currentstep=0;
+        current = "1-4";
         startplus(Event);
     }
     public void start5(MouseEvent Event) throws IOException {
         N = 5;
         M=0;
+        currentstep=0;
+        current = "1-5";
         startplus(Event);
     }
     public void start21(MouseEvent Event) throws IOException {
         N = 1;
         M = 1;
+        currentstep=0;
+        current = "2-1";
         startplus(Event);
     }
     public void start22(MouseEvent Event) throws IOException {
         N = 2;
         M = 1;
+        currentstep=0;
+        current = "2-2";
         startplus(Event);
     }
     public void start23(MouseEvent Event) throws IOException {
         N = 3;
         M = 1;
+        currentstep=0;
+        current = "2-3";
         startplus(Event);
     }
     public void start24(MouseEvent Event) throws IOException {
         N = 4;
         M = 1;
+        currentstep=0;
+        current = "2-4";
         startplus(Event);
     }
     public void start25(MouseEvent Event) throws IOException {
         N = 5;
         M = 1;
+        currentstep=0;
+        current = "2-5";
         startplus(Event);
     }
 
@@ -169,23 +204,68 @@ public class Select {
     public void start31(MouseEvent mouseEvent) throws IOException {
         N = 1;
         M = 2;
+        currentstep=0;
+        current = "3-1";
         startplus(mouseEvent);
     }
     public void start32(MouseEvent mouseEvent) throws IOException {
         N = 2;
         M = 2;
+        currentstep=0;
+        current = "3-2";
         startplus(mouseEvent);
     }public void start33(MouseEvent mouseEvent) throws IOException {
         N = 3;
         M = 2;
+        currentstep=0;
+        current = "3-3";
         startplus(mouseEvent);
     }public void start34(MouseEvent mouseEvent) throws IOException {
         N = 4;
         M = 2;
+        currentstep=0;
+        current = "3-4";
         startplus(mouseEvent);
     }public void start35(MouseEvent mouseEvent) throws IOException {
         N = 5;
         M = 2;
+        currentstep=0;
+        current = "3-5";
+        startplus(mouseEvent);
+    }
+    public void start41(MouseEvent mouseEvent) throws IOException {
+        N = 1;
+        M = 3;
+        currentstep=0;
+        current = "4-1";
+        startplus(mouseEvent);
+    }
+    public void start42(MouseEvent mouseEvent) throws IOException {
+        N = 2;
+        M = 3;
+        currentstep=0;
+        current = "4-2";
+        startplus(mouseEvent);
+    }
+    public void start43(MouseEvent mouseEvent) throws IOException {
+        N = 3;
+        M = 3;
+        currentstep=0;
+        current = "4-3";
+        startplus(mouseEvent);
+    }
+    public void start44(MouseEvent mouseEvent) throws IOException {
+        N = 4;
+        M = 3;
+        currentstep=0;
+        current = "4-4";
+        startplus(mouseEvent);
+    }
+    public void start45(MouseEvent mouseEvent) throws IOException {
+        N = 5;
+        M = 3;
+        currentstep=0;
+        current = "4-5";
         startplus(mouseEvent);
     }
 }

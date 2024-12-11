@@ -14,6 +14,8 @@ import org.json.JSONTokener;
 
 import java.io.*;
 
+import static com.example.boxgame.BoxGame.M;
+import static com.example.boxgame.BoxGame.N;
 import static com.example.boxgame.Welcome.*;
 import static com.example.boxgame.Welcome.id;
 
@@ -130,13 +132,15 @@ public class Login {
         player.createNewFile();
         FileOutputStream fos = new FileOutputStream(player);
         JSONObject init = new JSONObject();
+        init.put("M",M);
+        init.put("N",N);
         init.put("times",times);
         init.put("laststep",last_step);
         init.put("currentstep",currentstep);
         init.put("last",last);
         init.put("current",current);
         init.put("isfinished",isfinished);
-        init.put("currentmap",new Map(currentmap));
+        init.put("currentmap",(new Map(currentmap)).toString());
 
         fos.write(init.toString().getBytes());
     }
@@ -152,6 +156,8 @@ public class Login {
         currentstep = list.getInt("currentstep");//正在游玩的步数
         current = list.getString("current");//正在游玩的关卡名
         isfinished = list.getInt("isfinished");//是否完成前五关
+        N = list.getInt("N");
+        M = list.getInt("M");
         String maps = list.getString("currentmap");//加载数据
         String[] maps2 = maps.split("\n");
         char[][] map3 = new char[maps2.length-1][];

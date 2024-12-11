@@ -95,6 +95,7 @@ public class Play {
     private int checkTime = 0;
 
     public void initialize(){
+        step = currentstep;
         initElement(N);
         defeathintpane.setVisible(false);
         successhintpane.setVisible(false);
@@ -169,22 +170,30 @@ public class Play {
                     checkRedo = false;
                 }
                 if(checkWinCondition()){
-                    int a = N;
                     if(N==5){
-                        a = 0;
+                        currentmap = new char[][]{
+                                "######..".toCharArray(),
+                                "#....###".toCharArray(),
+                                "#...TT.#".toCharArray(),
+                                "#.BBBP.#".toCharArray(),
+                                "#..#.T.#".toCharArray(),
+                                "########".toCharArray(),
+                        };
+                        last_step = step;
+                        step = 0;
+                        last = current;
+                        isfinished = 1;
                         successhint.setText("你已通关该章节 点此回到菜单");
                         from = 2;
-                    }
-                    currentmap = new Map(a+1).getMap();
-                    last_step = step;
-                    currentstep=0;
-                    if(islogin==1){
-                        try {
-                            save();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                        if(islogin==1){
+                            try {
+                                save();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
+
                     successhintpane.setVisible(true);
                     defeathintpane.setVisible(false);
                 }
@@ -273,6 +282,9 @@ public class Play {
     public void exit(MouseEvent Event) throws IOException {
         currentmap = _map;
         currentstep = step;
+        if(islogin==1){
+            save();
+        }
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("welcome.fxml")));
         if(from==2){
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("select.fxml")));
@@ -328,16 +340,29 @@ public class Play {
         init.put("last",last);
         init.put("current",current);
         init.put("isfinished",isfinished);
-        init.put("currentmap",currentmap);
+        init.put("M",M);
+        init.put("N",N);
+        init.put("currentmap",(new Map(currentmap)).toString());
         FileOutputStream fos = new FileOutputStream(info);
         fos.write(init.toString().getBytes());
     }
 
     public void XiaYiGuan(MouseEvent Event) throws IOException {//通关
+        last = current;
+        last_step = step;
+        currentstep=0;
+        if(islogin==1){
+            try {
+                save();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         if(N==5){
             exit(Event);
         }else{
             N+=1;
+            fromcontinuebtn=0;
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
             Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
             //start(stage);
@@ -365,6 +390,6 @@ public class Play {
             stage.setScene(scene);
             stage.show();
         }
-
+        current = M+1+"-"+N;
     }
 }

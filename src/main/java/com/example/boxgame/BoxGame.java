@@ -31,6 +31,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import static com.example.boxgame.Helper.*;
+import static com.example.boxgame.Welcome.*;
 
 public class BoxGame{
 
@@ -53,6 +54,7 @@ public class BoxGame{
     public static Label scoreLabel;
     public static Rectangle[][] grid = new Rectangle[GRID_COUNT][GRID_COUNT];//Rectangle(x,y) int[y][x]
     private static Map map = new Map(N);
+
     public static char[][] _map;
     private static char[][] p_map;
     private static Player player = new Player();
@@ -66,8 +68,8 @@ public class BoxGame{
     private static ArrayList<Target> targetsList = new ArrayList<Target>();
     private static ArrayList<Box> boxesList = new ArrayList<Box>();
     private static ArrayList<Wall> wallsList = new ArrayList<Wall>();
-    public static int step = 0;
-    public static int score = 0;
+    public static int step =0;
+    public static int score =0;
     private static boolean check = true;
     private static boolean check2 = true;
     private static boolean checkUndo = false;
@@ -76,7 +78,9 @@ public class BoxGame{
     private static long startTime = 0; // 游戏开始时间
     public static long elapsedTime = 0; // 已过时间
 
+
     public static void start(Stage primaryStage) {
+
         GridPane gridPane0 = new GridPane();
         GridPane gridPane = new GridPane();
         GridPane gridPane1 = new GridPane();
@@ -229,6 +233,10 @@ public class BoxGame{
     }
 
     public static void renderGame(Map tMap){
+        times++;
+        if(fromcontinuebtn==1){
+            tMap = new Map(currentmap);
+        }
         //初始化地图
         char[][] t_map = tMap.getMap();
         int[] t_playerPosition = tMap.getPlayerPosition();
@@ -313,7 +321,7 @@ public class BoxGame{
 
     public static void initializeGame() {
         //初始化数据
-        step = 0;
+        step = currentstep;
         score = 0;
         check = true;
         check2 = true;

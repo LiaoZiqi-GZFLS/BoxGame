@@ -28,6 +28,7 @@ import static com.example.boxgame.BoxGame.*;
 public class Welcome {
     public static int from = 0;
     public static int islogin = 0;
+    public static int fromcontinuebtn = 0;
 
     public Label currentlevel;
     public AnchorPane background;
@@ -44,7 +45,7 @@ public class Welcome {
     public static int last_step =0;//上次游玩时步数
     public static String last = "NeverPlayed";//上次游玩的关卡
     public static int currentstep = 0;//现在游玩关卡的步数
-    public static String current = "Level " + N;
+    public static String current = "1-1";
     public static char[][] currentmap = {
             "######".toCharArray(),
             "#P...#".toCharArray(),
@@ -54,10 +55,9 @@ public class Welcome {
     };
 
     public void initialize() {
-        current = "Level " + N;
-        currentlevel.setText(current);
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), event -> {
+                    currentlevel.setText(current);
                     if(last.equals("NeverPlayed")){
                         start.setText("开始游戏");
                         currentlevel.setText(current);
@@ -90,6 +90,7 @@ public class Welcome {
     }
 
     public void startAction(MouseEvent Event) throws IOException {
+        fromcontinuebtn = 1;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
         //start(stage);
@@ -127,6 +128,7 @@ public class Welcome {
     }
 
     public void select(MouseEvent Event) throws IOException {
+        fromcontinuebtn = 0;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("select.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

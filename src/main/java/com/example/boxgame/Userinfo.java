@@ -43,6 +43,7 @@ public class Userinfo {
         times = 0;//游玩次数
         last_step=0;//上次游玩时步数
         last = "NeverPlayed";
+        isfinished=0;
         islogin = 0;
         bkg.getScene().getWindow().hide();
     }

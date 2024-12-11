@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.Arrays;
 
 import static com.example.boxgame.BoxGameApplication.*;
+import static com.example.boxgame.Welcome.currentmap;
 
 public class Map {
     //墙：#
@@ -73,7 +74,7 @@ public class Map {
             "########".toCharArray(),
     };
     private final char[][][] map = {
-            imap,map1, map2, map3, map4, map5,
+            imap,map1, map2, map3, map4, map5
     };
     public Map() {
         int n=N;
