@@ -50,6 +50,7 @@ public class Welcome {
     public static String last = "NeverPlayed";//上次游玩的关卡
     public static int currentstep = 0;//现在游玩关卡的步数
     public static String current = "1-1";
+    public static boolean played = false;
     public static char[][] currentmap = {
             "######".toCharArray(),
             "#P...#".toCharArray(),
@@ -69,7 +70,7 @@ public class Welcome {
                         touxiang.setImage(new Image(imgfile.toURI().toString()));
                     }
                     currentlevel.setText(current);
-                    if(last.equals("NeverPlayed")){
+                    if(!played&&islogin==0){
                         start.setText("开始游戏");
                         currentlevel.setText(current);
                     }else{

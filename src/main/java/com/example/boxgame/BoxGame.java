@@ -233,6 +233,7 @@ public class BoxGame{
     }
 
     public static void renderGame(Map tMap){
+        played = true;
         times++;
         if(fromcontinuebtn==1){
             tMap = new Map(currentmap);
