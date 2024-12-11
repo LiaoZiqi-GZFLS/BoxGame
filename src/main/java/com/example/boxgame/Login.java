@@ -140,6 +140,7 @@ public class Login {
         init.put("last",last);
         init.put("current",current);
         init.put("isfinished",isfinished);
+        init.put("avatarpath",avatarpath);
         init.put("currentmap",(new Map(currentmap)).toString());
 
         fos.write(init.toString().getBytes());
@@ -158,6 +159,7 @@ public class Login {
         isfinished = list.getInt("isfinished");//是否完成前五关
         N = list.getInt("N");
         M = list.getInt("M");
+        avatarpath = list.getString("avatarpath");
         String maps = list.getString("currentmap");//加载数据
         String[] maps2 = maps.split("\n");
         char[][] map3 = new char[maps2.length-1][];

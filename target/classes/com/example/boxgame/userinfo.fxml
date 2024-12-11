@@ -32,7 +32,7 @@
             <Pane layoutX="45.33333206176758" layoutY="154.6666717529297" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="45.0">
                <children>
                   <ImageView fx:id="avatar" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="touxiang" />
-                  <Region nodeOrientation="LEFT_TO_RIGHT" prefHeight="150.0" prefWidth="150.0" styleClass="touxiangkuang" />
+                  <Region nodeOrientation="LEFT_TO_RIGHT" onMouseReleased="#ChangeAvatar" prefHeight="150.0" prefWidth="150.0" styleClass="touxiangkuang" />
                </children>
             </Pane>
             <VBox layoutX="214.0" layoutY="105.0" prefHeight="69.0" prefWidth="141.0">

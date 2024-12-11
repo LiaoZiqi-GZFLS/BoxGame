@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -29,6 +31,7 @@ public class Welcome {
     public static int from = 0;
     public static int islogin = 0;
     public static int fromcontinuebtn = 0;
+    public static String avatarpath = "";
 
     public Label currentlevel;
     public AnchorPane background;
@@ -36,6 +39,7 @@ public class Welcome {
     public ImageView touxiang;
     public Label showusername;
     public BorderPane bkg;
+
 
     //玩家数据
     public static String name = "Guest";
@@ -55,8 +59,15 @@ public class Welcome {
     };
 
     public void initialize() {
+
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), event -> {
+                    if(avatarpath.isEmpty()){
+                        touxiang.setImage(new Image(Welcome.class.getResourceAsStream("img/1.png")));
+                    }else{
+                        File imgfile = new File(avatarpath);
+                        touxiang.setImage(new Image(imgfile.toURI().toString()));
+                    }
                     currentlevel.setText(current);
                     if(last.equals("NeverPlayed")){
                         start.setText("开始游戏");
