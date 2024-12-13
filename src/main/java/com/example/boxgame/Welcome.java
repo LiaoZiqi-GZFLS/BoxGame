@@ -2,6 +2,7 @@ package com.example.boxgame;
 
 import com.leewyatt.rxcontrols.controls.RXTranslationButton;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
@@ -18,16 +19,23 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URI;
+import java.net.URL;
 import java.util.Objects;
 
 import static com.example.boxgame.BoxGame.*;
+import static java.lang.Thread.sleep;
 
 public class Welcome {
+
     public static int from = 0;
     public static int islogin = 0;
     public static int fromcontinuebtn = 0;
@@ -59,8 +67,22 @@ public class Welcome {
             "######".toCharArray(),
     };
 
-    public void initialize() {
+    double bkgvol;
+    public void initvolume(){
+        Reader reader;
+        try {
+            reader = new FileReader("json\\config.json");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        JSONTokener jt = new JSONTokener(reader);
+        JSONObject list = new JSONObject(jt);
+        bkgvol = list.getDouble("bkgvol");
+    }
 
+    public void initialize() {
+        initvolume();
+        MusicManager.playBGM1(bkgvol);
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), event -> {
                     if(avatarpath.isEmpty()){
@@ -84,6 +106,9 @@ public class Welcome {
         timeline.play();
         initUserInfo();
     }
+    public void stopbgm() {
+        MusicManager.stopBGM1();
+    }
 
     //登录和用户界面
     ContextMenu userinfo = new ContextMenu();
@@ -102,6 +127,7 @@ public class Welcome {
     }
 
     public void startAction(MouseEvent Event) throws IOException {
+        stopbgm();
         fromcontinuebtn = 1;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();
@@ -133,6 +159,7 @@ public class Welcome {
     }
 
     public void exit(MouseEvent mouseEvent) {
+        stopbgm();
         System.exit(0);
     }
 

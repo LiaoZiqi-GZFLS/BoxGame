@@ -7,18 +7,29 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
 
 import static com.example.boxgame.BoxGame.N;
 import static com.example.boxgame.BoxGame.M;
 import static com.example.boxgame.Welcome.*;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.RED;
 
 public class Select {
 
@@ -33,6 +44,14 @@ public class Select {
     public RXToggleButton b4;
     public RXToggleButton b5;
     public BorderPane page5;
+    public Label namelabel;
+    public Label youxiaolabel;
+    public Label mapsizelabel;
+    public Label modelabel;
+    public Label introlabel;
+    public Label authorlabel;
+    public StackPane startbtn;
+    public HBox infobox;
 
     public void startplus(MouseEvent Event) throws IOException {
         from = 2;
@@ -267,6 +286,78 @@ public class Select {
         currentstep=0;
         current = "4-5";
         startplus(mouseEvent);
+    }
+
+    String name = "awa";
+    int mode = 0;
+    char[][] map3 = new char[][]{
+            "######..".toCharArray(),
+            "#....###".toCharArray(),
+            "#...TT.#".toCharArray(),
+            "#.BBBP.#".toCharArray(),
+            "#..#.T.#".toCharArray(),
+            "########".toCharArray(),
+    };
+
+    public void startvip(MouseEvent mouseEvent) throws IOException {
+        current = name;
+        currentmap = map3;
+        currentstep=0;
+        N = 0;
+        M = mode;
+        fromcontinuebtn = 1;
+        startplus(mouseEvent);
+    }
+
+    public void daoru(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("选择地图");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("json", "*.json"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if(selectedFile!=null){
+            FileReader reader = null;
+            try {
+                reader = new FileReader(selectedFile);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            JSONTokener jt = new JSONTokener(reader);
+            JSONObject list = new JSONObject(jt);
+            if(list.has("map")&&list.has("mode")&&
+                    list.has("name")&&list.has("author")&&
+                    list.has("introduction")&&list.has("author")&&list.getInt("mode")<5){
+                infobox.setVisible(true);
+                name = list.getString("name");
+                String map = list.getString("map");
+                String[] map1 = map.split("\n");
+                map3 = new char[map1.length-1][];
+                for(int i=1;i<map1.length;i++){
+                    map3[i-1] = map1[i].toCharArray();
+                }
+                mode = list.getInt("mode");
+                String author = list.getString("author");
+                String introduction = list.getString("introduction");
+                startbtn.setVisible(true);
+                youxiaolabel.setText("有效");
+                youxiaolabel.setTextFill(GREEN);
+                youxiaolabel.setVisible(true);
+                namelabel.setText(name);
+                mapsizelabel.setText(map3.length+"x"+map3[0].length);
+                modelabel.setText(mode+"");
+                authorlabel.setText(author);
+                introlabel.setText(introduction);
+
+            }else{
+                youxiaolabel.setText("无效");
+                youxiaolabel.setTextFill(RED);
+                youxiaolabel.setVisible(true);
+            }
+
+        }else{
+            youxiaolabel.setVisible(false);
+            namelabel.setText("导入一个有效的json文件");
+        }
     }
 }
 

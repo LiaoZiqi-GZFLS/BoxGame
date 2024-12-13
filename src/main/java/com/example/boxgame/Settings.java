@@ -162,6 +162,7 @@ public class Settings {
 
     public void config(MouseEvent mouseEvent) {
         double bkgvol = bkgvolumebar.getValue();
+        MusicManager.setBGM1volume(bkgvol);
         double playervol = playervolumebar.getValue();
         double envvol = environmentvolumebar.getValue();
         Reader reader;

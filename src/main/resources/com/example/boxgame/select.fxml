@@ -2,6 +2,7 @@
 
 <?import com.leewyatt.rxcontrols.controls.RXToggleButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -13,6 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="background" onKeyReleased="#key" prefHeight="720.0" prefWidth="1080.0" styleClass="background" stylesheets="@select.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.boxgame.Select">
@@ -351,7 +353,7 @@
       </BorderPane>
       <BorderPane fx:id="page5" layoutX="20.0" layoutY="20.0" prefHeight="720.0" prefWidth="1080.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <Pane prefHeight="150.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="130.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="440.0" layoutY="50.0" prefHeight="50.0" prefWidth="200.0" text="自定义" textFill="WHITE">
                      <font>
@@ -361,6 +363,140 @@
                </children>
             </Pane>
          </top>
+         <left>
+            <VBox prefHeight="461.0" prefWidth="140.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <VBox prefHeight="200.0" prefWidth="140.0" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <VBox prefHeight="129.0" prefWidth="1080.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <VBox prefHeight="461.0" prefWidth="791.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="84.0" prefWidth="800.0">
+                     <children>
+                        <StackPane layoutX="666.0" layoutY="17.0" onMouseReleased="#daoru" prefHeight="50.0" prefWidth="80.0" styleClass="daoru-btn" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="30.0">
+                           <children>
+                              <Label text="导入" textFill="WHITE">
+                                 <font>
+                                    <Font name="Minecraft Pixel" size="22.0" />
+                                 </font>
+                              </Label>
+                           </children></StackPane>
+                        <Label fx:id="namelabel" layoutX="62.0" layoutY="34.0" text="导入有效的json文件" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="150.0">
+                           <font>
+                              <Font name="Minecraft Pixel" size="22.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="youxiaolabel" layoutX="14.0" layoutY="28.0" text="有效" textFill="GREEN" visible="false" AnchorPane.leftAnchor="30.0">
+                           <font>
+                              <Font name="Minecraft Pixel" size="22.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <HBox fx:id="infobox" visible="false">
+                     <children>
+                        <AnchorPane prefHeight="324.0" prefWidth="522.0">
+                           <children>
+                              <AnchorPane>
+                                 <children>
+                                    <HBox layoutX="30.0" layoutY="30.0">
+                                       <children>
+                                          <Label text="地图大小： " textFill="WHITE">
+                                             <font>
+                                                <Font name="Minecraft Pixel" size="22.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="mapsizelabel" text="0 x 0" textFill="WHITE">
+                                             <font>
+                                                <Font name="Minecraft Pixel" size="22.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutY="89.33332824707031">
+                                 <children>
+                                    <HBox layoutX="30.0" layoutY="30.0">
+                                       <children>
+                                          <Label text="关卡模式： " textFill="WHITE">
+                                             <font>
+                                                <Font name="Minecraft Pixel" size="22.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="modelabel" text="1" textFill="WHITE">
+                                             <font>
+                                                <Font name="Minecraft Pixel" size="22.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutY="178.66665649414062">
+                                 <children>
+                                    <HBox layoutX="30.0" layoutY="30.0">
+                                       <children>
+                                          <Label text="介绍： " textFill="WHITE">
+                                             <font>
+                                                <Font name="Minecraft Pixel" size="22.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="introlabel" text="1" textFill="WHITE">
+                                             <font>
+                                                <Font name="Minecraft Pixel" size="22.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutY="268.0">
+                                 <children>
+                                    <HBox layoutX="30.0" layoutY="30.0">
+                                       <children>
+                                          <Label text="作者： " textFill="WHITE">
+                                             <font>
+                                                <Font name="Minecraft Pixel" size="22.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="authorlabel" text="1" textFill="WHITE">
+                                             <font>
+                                                <Font name="Minecraft Pixel" size="22.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="340.0" prefWidth="280.0">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                           </HBox.margin>
+                           <children>
+                              <StackPane fx:id="startbtn" onMouseReleased="#startvip" prefHeight="50.0" prefWidth="80.0" styleClass="daoru-btn" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0">
+                                 <children>
+                                    <Label text="开始" textFill="WHITE">
+                                       <font>
+                                          <Font name="Minecraft Pixel" size="22.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <Canvas fx:id="mapview" height="280.0" width="280.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
       </BorderPane>
       <StackPane onMouseReleased="#exit1" prefHeight="28.0" prefWidth="25.0" styleClass="btn-exit" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
       <HBox layoutX="365.0" layoutY="720.0" AnchorPane.bottomAnchor="60.0">

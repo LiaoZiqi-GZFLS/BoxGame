@@ -21,6 +21,8 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -29,6 +31,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.*;
+import java.net.URL;
 import java.util.Objects;
 
 
@@ -94,7 +97,27 @@ public class Play {
     private boolean continueOrNot = true;
     private int checkTime = 0;
 
+    double bkgvol;
+    double playervol;
+    double envvol;
+
+    public void initvolume(){
+        Reader reader;
+        try {
+            reader = new FileReader("json\\config.json");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        JSONTokener jt = new JSONTokener(reader);
+        JSONObject list = new JSONObject(jt);
+        bkgvol = list.getDouble("bkgvol");
+        envvol = list.getDouble("envvol");
+        playervol = list.getDouble("playervol");
+    }
+
     public void initialize(){
+        initvolume();
+        MusicManager.playBGM2(bkgvol);
         step = currentstep;
         initElement(N);
         defeathintpane.setVisible(false);
@@ -193,7 +216,7 @@ public class Play {
                             }
                         }
                     }
-
+                    MusicManager.stopBGM2();
                     successhintpane.setVisible(true);
                     defeathintpane.setVisible(false);
                 }
@@ -266,6 +289,7 @@ public class Play {
 
     @FXML
     public void stop(MouseEvent mouseEvent) {
+        MusicManager.pauseBGM2();
         stoppane.setVisible(true);
         stopBtn.setVisible(false);
         continueOrNot = !continueOrNot;
@@ -273,6 +297,7 @@ public class Play {
     }
     @FXML
     public void continueGame(){
+        MusicManager.continueBGM2();
         stoppane.setVisible(false);
         stopBtn.setVisible(true);
         continueOrNot = !continueOrNot;
@@ -280,6 +305,7 @@ public class Play {
     }
     @FXML
     public void exit(MouseEvent Event) throws IOException {
+        MusicManager.stopBGM2();
         currentmap = _map;
         currentstep = step;
         if(islogin==1){
@@ -296,6 +322,7 @@ public class Play {
     }
     @FXML
     public void restart(MouseEvent mouseEvent) {
+        MusicManager.playBGM2(bkgvol);
         defeathintpane.setVisible(false);
         initializeGame();
         stoppane.setVisible(false);
@@ -313,9 +340,11 @@ public class Play {
         switch (keyEvent.getCode()) {
             case ESCAPE:
                 if(stopBtn.isVisible()){
+                    MusicManager.pauseBGM2();
                     stoppane.setVisible(true);
                     stopBtn.setVisible(false);
                 }else {
+                    MusicManager.continueBGM2();
                     stoppane.setVisible(false);
                     stopBtn.setVisible(true);
                 }
@@ -361,6 +390,7 @@ public class Play {
         if(N==5){
             exit(Event);
         }else{
+            MusicManager.playBGM2(bkgvol);
             N+=1;
             fromcontinuebtn=0;
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));

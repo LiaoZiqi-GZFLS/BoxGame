@@ -29,3 +29,13 @@
     -fx-background-color: white;
     -fx-text-fill: #eccc78;
 }
+.daoru-btn{
+    -fx-border-color: white;
+    -fx-border-width: 2;
+}
+.daoru-btn Label{
+    -fx-text-fill: white;
+}
+.daoru-btn:hover{
+    -fx-opacity: 0.7;
+}

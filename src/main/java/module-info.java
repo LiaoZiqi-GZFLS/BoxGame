@@ -14,6 +14,7 @@ module com.example.boxgame {
     requires com.almasb.fxgl.all;
     requires annotations;
     requires java.desktop;
+    requires javafx.media;
 
     opens com.example.boxgame to javafx.fxml;
     exports com.example.boxgame;
