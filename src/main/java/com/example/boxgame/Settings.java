@@ -113,16 +113,20 @@ public class Settings {
 
     public void changeplayerskin(MouseEvent mouseEvent) {
         if(playerskinx.isSelected()){
+            playerskin0 = 1;
             playerskin.setImage(new Image(getClass().getResourceAsStream("img/2.jpg")));//玩家皮肤2
         }else{
+            playerskin0 = 0;
             playerskin.setImage(new Image(getClass().getResourceAsStream("img/1.png")));//玩家皮肤1
         }
     }
 
     public void changeboxskin(MouseEvent mouseEvent) {
         if(boxskinx.isSelected()){
+            boxskin0 = 1;
             boxskin.setImage(new Image(getClass().getResourceAsStream("img/2.jpg")));//箱子皮肤2
         }else{
+            boxskin0 = 0;
             boxskin.setImage(new Image(getClass().getResourceAsStream("img/1.png")));//箱子皮肤1
         }
     }

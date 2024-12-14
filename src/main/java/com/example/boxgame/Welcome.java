@@ -50,6 +50,8 @@ public class Welcome {
 
 
     //玩家数据
+    public static int playerskin0 = 0;
+    public static int boxskin0 = 0;
     public static String name = "Guest";
     public static int isfinished = 0;
     public static int id = 0;
