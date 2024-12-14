@@ -97,6 +97,8 @@ public class Play {
     public GridPane gridPane1 = new GridPane();
     public String Label1;
     private boolean continueOrNot = true;
+    private boolean dies = true;
+    private boolean succes = true;
     private int checkTime = 0;
 
     double bkgvol;
@@ -219,10 +221,19 @@ public class Play {
                         }
                     }
                     MusicManager.stopBGM2();
+                    if(succes){
+                        MusicManager.playSuccessSound(envvol);
+                        succes = false;
+                    }
                     successhintpane.setVisible(true);
                     defeathintpane.setVisible(false);
                 }
                 if(checkGameOver&&checkFailCondition()){
+                    MusicManager.pauseBGM2();
+                    if(dies){
+                        MusicManager.playDieSound(envvol);
+                        dies = false;
+                    }
                     defeathintpane.setVisible(true);
                 }
                 if(checkGameOver){
@@ -292,6 +303,7 @@ public class Play {
     @FXML
     public void stop(MouseEvent mouseEvent) {
         MusicManager.pauseBGM2();
+        MusicManager.playSound03(bkgvol);
         stoppane.setVisible(true);
         stopBtn.setVisible(false);
         continueOrNot = !continueOrNot;
@@ -324,6 +336,9 @@ public class Play {
     }
     @FXML
     public void restart(MouseEvent mouseEvent) {
+        MusicManager.playSound02(bkgvol);
+        dies = true;
+        succes = true;
         MusicManager.playBGM2(bkgvol);
         defeathintpane.setVisible(false);
         initializeGame();
@@ -343,6 +358,7 @@ public class Play {
             case ESCAPE:
                 if(stopBtn.isVisible()){
                     MusicManager.pauseBGM2();
+                    MusicManager.playSound03(bkgvol);
                     stoppane.setVisible(true);
                     stopBtn.setVisible(false);
                 }else {

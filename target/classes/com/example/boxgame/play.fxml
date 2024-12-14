@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -151,5 +154,13 @@
             </HBox>
          </children>
       </Pane>
+      <ImageView fx:id="finalpane" fitHeight="722.0" fitWidth="1082.0" onMouseReleased="#unlockisfinished" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@img/tonggguan.png" />
+         </image>
+         <rotationAxis>
+            <Point3D />
+         </rotationAxis>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -67,7 +67,7 @@ public class Welcome {
             "######".toCharArray(),
     };
 
-    double bkgvol;
+    public static double bkgvol;
     public void initvolume(){
         Reader reader;
         try {
@@ -127,6 +127,7 @@ public class Welcome {
     }
 
     public void startAction(MouseEvent Event) throws IOException {
+        MusicManager.playSound02(bkgvol);
         stopbgm();
         fromcontinuebtn = 1;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
@@ -192,5 +193,9 @@ public class Welcome {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void sound01(MouseEvent mouseEvent) {
+        //MusicManager.playSound01(bkgvol);
     }
 }

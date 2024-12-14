@@ -10,6 +10,50 @@ import java.net.URL;
 public class MusicManager {
     private static MediaPlayer bgmPlayer1;
     private static MediaPlayer bgmPlayer2;
+    private static MediaPlayer die;
+    private static MediaPlayer success;
+    private static MediaPlayer sound01;
+    public static MediaPlayer sound02;
+    public static MediaPlayer sound03;
+
+    public static void playSound01(double p) {
+        URL resourceUrl = MusicManager.class.getResource("/com/example/boxgame/bgm/sound01.mp3");
+        Media Sound = new Media(resourceUrl.toString());
+        sound01 = new MediaPlayer(Sound);
+        sound01.setVolume(p/100);
+        sound01.play();
+    }
+    public static void playSound02(double p) {
+        URL resourceUrl = MusicManager.class.getResource("/com/example/boxgame/bgm/sound02.mp3");
+        Media Sound = new Media(resourceUrl.toString());
+        sound02 = new MediaPlayer(Sound);
+        sound02.setVolume(p/100);
+        sound02.play();
+    }
+    public static void playSound03(double p) {
+        URL resourceUrl = MusicManager.class.getResource("/com/example/boxgame/bgm/sound03.mp3");
+        Media Sound = new Media(resourceUrl.toString());
+        sound03 = new MediaPlayer(Sound);
+        sound03.setVolume(p/100);
+        sound03.play();
+    }
+
+    public static void playSuccessSound(double p) {
+        URL resourceUrl = MusicManager.class.getResource("/com/example/boxgame/bgm/success.wav");
+        Media Sound = new Media(resourceUrl.toString());
+        success = new MediaPlayer(Sound);
+        success.setVolume(p/100);
+        success.play();
+    }
+
+    public static void playDieSound(double p) {
+        URL resourceUrl = MusicManager.class.getResource("/com/example/boxgame/bgm/die.wav");
+        Media dieSound = new Media(resourceUrl.toString());
+        die = new MediaPlayer(dieSound);
+        die.setVolume(p/100);
+        die.play();
+
+    }
 
     // 播放 1.wav
     public static void playBGM1(double volume) {
@@ -23,7 +67,6 @@ public class MusicManager {
             bgmPlayer1 = new MediaPlayer(bgm);
             bgmPlayer1.setVolume(volume/100);
             bgmPlayer1.setCycleCount(MediaPlayer.INDEFINITE); // 循环播放
-
             bgmPlayer1.play();
         }
     }
@@ -63,8 +106,8 @@ public class MusicManager {
             bgmPlayer2.setVolume(volume/100);
             bgmPlayer2.setCycleCount(MediaPlayer.INDEFINITE); // 循环播放
 
-            // 创建 PauseTransition 对象，设置持续时间为1秒
-            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            // 创建 PauseTransition 对象，设置持续时间为0.5秒
+            PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
             pause.setOnFinished(event -> bgmPlayer2.play()); // 在暂停结束后播放音乐
             pause.play(); // 开始暂停
         }
