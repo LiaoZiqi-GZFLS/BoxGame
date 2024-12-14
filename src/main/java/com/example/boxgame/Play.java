@@ -17,6 +17,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -57,6 +58,7 @@ public class Play {
     public Label defeathint;//失败提示
     public StackPane successhintpane;//成功提示版
     public Label successhint;//成功提示
+    public ImageView finalpane;
 
     @FXML
     private StringProperty timeS = new SimpleStringProperty(String.format("%02d:%02d", elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60));
@@ -205,8 +207,8 @@ public class Play {
                         last_step = step;
                         step = 0;
                         last = current;
-                        isfinished = 1;
                         successhint.setText("你已通关该章节 点此回到菜单");
+
                         from = 2;
                         if(islogin==1){
                             try {
@@ -388,7 +390,11 @@ public class Play {
             }
         }
         if(N==5){
-            exit(Event);
+            if(isfinished==0){
+                finalpane.setVisible(true);
+            }else{
+                exit(Event);
+            }
         }else{
             MusicManager.playBGM2(bkgvol);
             N+=1;
@@ -421,5 +427,11 @@ public class Play {
             stage.show();
         }
         current = M+1+"-"+N;
+    }
+
+    public void unlockisfinished(MouseEvent mouseEvent) throws IOException {
+        isfinished = 1;
+        from = 1;
+        exit(mouseEvent);
     }
 }

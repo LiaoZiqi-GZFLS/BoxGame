@@ -54,6 +54,7 @@ public class Select {
     public HBox infobox;
 
     public void startplus(MouseEvent Event) throws IOException {
+        MusicManager.stopBGM1();
         from = 2;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("play.fxml")));
         Stage stage = (Stage) ((Node) Event.getSource()).getScene().getWindow();

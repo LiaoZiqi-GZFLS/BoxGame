@@ -397,7 +397,7 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <HBox>
+                  <HBox fx:id="infobox" visible="false">
                      <children>
                         <AnchorPane prefHeight="324.0" prefWidth="522.0">
                            <children>
