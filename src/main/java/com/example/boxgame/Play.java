@@ -94,6 +94,12 @@ public class Play {
     public static Image wallImage = new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/wall1.png")));
     public static Image targetImage = new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/target1.png")));
 
+    public final double[] groundInterval = {0.38,0.38};
+    public final double[] playerInterval = {0.50,0.30};
+    public final double[] targetInterval = {0.42,0.42};
+    public final double[] boxInterval = {0.50,0.50};
+    public final double[] wallInterval = {0.38,0.38};
+
     public GridPane gridPane0 = new GridPane();
     public GridPane gridPane = new GridPane();
     public GridPane gridPane1 = new GridPane();
@@ -191,29 +197,29 @@ public class Play {
                 int[][] t_wallPosition = t_map.getWallPosition();
                 for (int i = 0; i < GRID_COUNT; i++) {
                     for (int j = 0; j < GRID_COUNT; j++) {
-                        gc.drawImage(CharacterImages.getGroundImage(i,j),getPixelPosition(new int[]{i,j},0.38,0.38)[0],getPixelPosition(new int[]{i,j},0.38,0.38)[1]);
+                        gc.drawImage(CharacterImages.getGroundImage(i,j),getPixelPosition(new int[]{i,j},groundInterval[0],groundInterval[1])[0],getPixelPosition(new int[]{i,j},groundInterval[0],groundInterval[1])[1]);
                     }
                 }
                 for (int[] t_targets : t_Position) {
-                    gc.drawImage(targetImage, getPixelPosition(t_targets,0.44,0.80)[0],getPixelPosition(t_targets,0.44,0.80)[1]);
+                    gc.drawImage(targetImage, getPixelPosition(t_targets,targetInterval[0],targetInterval[1])[0],getPixelPosition(t_targets,targetInterval[0],targetInterval[1])[1]);
                 }
                 for (Target t_target : targets){
-                    gc.drawImage(t_target.image,getPixelPosition(new int[]{t_target.getX(),t_target.getY()},0.44,0.80)[0],getPixelPosition(new int[]{t_target.getX(),t_target.getY()},0.44,0.80)[1]);
-                }
-                gc.drawImage(playerImage, getPixelPosition(t_playerPosition,0.50,0.30)[0], getPixelPosition(t_playerPosition,0.50,0.30)[1]);
-                gc.drawImage(player.image, getPixelPosition(t_playerPosition,0.50,0.30)[0], getPixelPosition(t_playerPosition,0.50,0.30)[1]);
-                for(int[] t_boxes : t_boxesPosition) {
-                    gc.drawImage(boxImage, getPixelPosition(t_boxes,0.50,0.50)[0], getPixelPosition(t_boxes,0.50,0.50)[1]);
+                    gc.drawImage(t_target.image,getPixelPosition(new int[]{t_target.getX(),t_target.getY()},targetInterval[0],targetInterval[1])[0],getPixelPosition(new int[]{t_target.getX(),t_target.getY()},targetInterval[0],targetInterval[1])[1]);
+                }for(int[] t_boxes : t_boxesPosition) {
+                    gc.drawImage(boxImage, getPixelPosition(t_boxes,boxInterval[0],boxInterval[1])[0], getPixelPosition(t_boxes,boxInterval[0],boxInterval[1])[1]);
                 }
                 for (Box t_box : boxes){
-                    gc.drawImage(t_box.image, getPixelPosition(new int[]{t_box.getX(),t_box.getY()},0.50,0.50)[0], getPixelPosition(new int[]{t_box.getX(),t_box.getY()},0.50,0.50)[1]);
+                    gc.drawImage(t_box.image, getPixelPosition(new int[]{t_box.getX(),t_box.getY()},boxInterval[0],boxInterval[1])[0], getPixelPosition(new int[]{t_box.getX(),t_box.getY()},boxInterval[0],boxInterval[1])[1]);
                 }
                 for(int[] t_walls : t_wallPosition) {
-                    gc.drawImage(wallImage, getPixelPosition(t_walls,0.38,0.38)[0], getPixelPosition(t_walls,0.38,0.38)[1]);
+                    gc.drawImage(wallImage, getPixelPosition(t_walls,wallInterval[0],wallInterval[1])[0], getPixelPosition(t_walls,wallInterval[0],wallInterval[1])[1]);
                 }
                 for (Wall t_wall : walls){
-                    gc.drawImage(t_wall.image, getPixelPosition(new int[]{t_wall.getX(),t_wall.getY()},0.38,0.38)[0], getPixelPosition(new int[]{t_wall.getX(),t_wall.getY()},0.38,0.38)[1]);
+                    gc.drawImage(t_wall.image, getPixelPosition(new int[]{t_wall.getX(),t_wall.getY()},wallInterval[0],wallInterval[1])[0], getPixelPosition(new int[]{t_wall.getX(),t_wall.getY()},wallInterval[0],wallInterval[1])[1]);
                 }
+                gc.drawImage(playerImage, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
+                gc.drawImage(player.image, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
+
 
                 if(checkRedo){
                     lastTime = System.nanoTime();
