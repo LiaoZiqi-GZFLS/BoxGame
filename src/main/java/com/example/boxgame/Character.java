@@ -9,18 +9,21 @@ public class Character {
     protected int oldY;
 
     protected Image image;
+    protected int imageID;
 
     public Character(int x, int y) {
         this.x = x;
         this.y = y;
         this.oldX = x;
         this.oldY = y;
+        this.imageID = 0;
     }
     public Character(){
         this.x = 0;
         this.y = 0;
         this.oldX = 0;
         this.oldY = 0;
+        this.imageID = 0;
     }
 
     public static int[] getCharacterPosition(Character t_character){

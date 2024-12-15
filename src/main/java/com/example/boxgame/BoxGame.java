@@ -57,14 +57,14 @@ public class BoxGame{
 
     public static char[][] _map;
     private static char[][] p_map;
-    private static Player player = new Player();
+    public static Player player = new Player();
     private static int[] playerPosition = map.getPlayerPosition();
     private static int[][] Position = map.getPosition();
     private static int[][] boxesPosition = map.getBoxesPosition();
     private static int[][] wallPosition = map.getWallPosition();
-    private static Target[] targets = new Target[Position.length];
-    private static Box[] boxes = new Box[boxesPosition.length];
-    private static Wall[] walls = new Wall[wallPosition.length];
+    public static Target[] targets = new Target[Position.length];
+    public static Box[] boxes = new Box[boxesPosition.length];
+    public static Wall[] walls = new Wall[wallPosition.length];
     private static ArrayList<Target> targetsList = new ArrayList<Target>();
     private static ArrayList<Box> boxesList = new ArrayList<Box>();
     private static ArrayList<Wall> wallsList = new ArrayList<Wall>();
@@ -255,10 +255,10 @@ public class BoxGame{
                 if(t_map[i][j]=='T') {
                     grid[j][i].setFill(PositionColor);
                 }
-                if(t_map[i][j]=='B'||_map[i][j]=='@') {
+                if(t_map[i][j]=='B'||t_map[i][j]=='@') {
                     grid[j][i].setFill(BoxColor);
                 }
-                if(t_map[i][j]=='P'||_map[i][j]=='?') {
+                if(t_map[i][j]=='P'||t_map[i][j]=='?') {
                     grid[j][i].setFill(PlayerColor);
                 }
             }
@@ -582,6 +582,13 @@ public class BoxGame{
     }
 
     private static void checkCondition(){
+        //完成
+        if(checkWinCondition()){
+            for(Box box : boxes) {
+                box.image = CharacterImages.getBoxImage(2);
+                box.imageID = 2;
+            }
+        }
         //检测是否完成
         if (step > MAX_STEP&&checkWinCondition()&&check2&&!check) {
             check2 = false;

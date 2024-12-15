@@ -21,6 +21,10 @@ public class CharacterImages {
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box2.png"))),
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box3.png"))),
     };
+    public static Image[] targetImages = {
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/target1.png"))),
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/target2.png"))),
+    };
     public static Image[] wallImages = {
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/wall1.png"))),
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/wall2.png"))),
@@ -34,6 +38,9 @@ public class CharacterImages {
     }
     public static Image getBoxImage(int a) {
         return boxImages[a];
+    }
+    public static Image getTargetImage(int a) {
+        return targetImages[a];
     }
     public static Image getWallImage(int a) {
         return wallImages[a];
