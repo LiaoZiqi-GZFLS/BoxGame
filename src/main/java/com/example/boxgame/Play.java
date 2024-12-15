@@ -447,8 +447,8 @@ public class Play {
     }
     @FXML
     public void restart(MouseEvent mouseEvent) {
-        timer.stop();
-        timer2.cancel();
+        //timer.stop();
+        //timer2.cancel();
         MusicManager.playSound02(bkgvol);
         dies = true;
         succes = true;
@@ -508,6 +508,8 @@ public class Play {
     }
 
     public void XiaYiGuan(MouseEvent Event) throws IOException {//通关
+        timer.stop();
+        timer2.cancel();
         last = current;
         last_step = step;
         currentstep=0;

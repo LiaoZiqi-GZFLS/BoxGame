@@ -58,7 +58,7 @@ public class BoxGame{
     private static Map map = new Map(N);
 
     public static char[][] _map;
-    private static char[][] p_map;
+    public static char[][] p_map;
     public static Player player = new Player();
     private static int[] playerPosition = map.getPlayerPosition();
     private static int[][] Position = map.getPosition();
@@ -238,7 +238,7 @@ public class BoxGame{
         played = true;
         times++;
         if(fromcontinuebtn==1){
-            tMap = new Map(currentmap);
+            //tMap = new Map(currentmap);//???
         }
         //初始化地图
         char[][] t_map = tMap.getMap();
