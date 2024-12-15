@@ -625,11 +625,14 @@ public class BoxGame{
     }
 
     public static boolean checkFailCondition() {
+        if(M!=0){
+            return false;
+        }
         char[][] t_map = map.getMap();
         for (Box box : boxes) {
             int y = box.getX();
             int x = box.getY();
-            if(t_map[x][y]=='@'){
+            if(t_map[x][y]=='@'||t_map[x][y]=='T'){
                 continue;
             }
             if(t_map[x-1][y]=='#'){

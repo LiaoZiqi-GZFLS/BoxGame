@@ -23,7 +23,7 @@
                <children>
                   <StackPane prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <RXTranslationButton fx:id="start" onMouseReleased="#startAction" prefHeight="93.0" prefWidth="200.0" styleClass="start-btn" text=" ">
+                        <RXTranslationButton fx:id="start" onMouseEntered="#sound01" onMouseReleased="#startAction" prefHeight="93.0" prefWidth="200.0" styleClass="start-btn" text=" ">
                            <graphic>
                               <Label fx:id="currentlevel" styleClass="level" text="Level 1" textFill="WHITE">
                                  <font>
@@ -39,7 +39,7 @@
                   </StackPane>
                   <StackPane prefHeight="100.0" prefWidth="200.0" styleClass="select-btn">
                      <children>
-                        <Label onMouseReleased="#select" text="选择关卡" textFill="WHITE">
+                        <Label onMouseEntered="#sound01" onMouseReleased="#select" text="选择关卡" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="50.0" />
                            </font>
@@ -48,7 +48,7 @@
                   </StackPane>
                   <StackPane prefHeight="100.0" prefWidth="200.0" styleClass="select-btn">
                      <children>
-                        <Label onMouseReleased="#settings" text="设置" textFill="WHITE">
+                        <Label onMouseEntered="#sound01" onMouseReleased="#settings" text="设置" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="50.0" />
                            </font>
@@ -57,7 +57,7 @@
                   </StackPane>
                   <StackPane prefHeight="100.0" prefWidth="200.0" styleClass="select-btn">
                      <children>
-                        <Label onMouseReleased="#exit" text="退出" textFill="WHITE">
+                        <Label onMouseEntered="#sound01" onMouseReleased="#exit" text="退出" textFill="WHITE">
                            <font>
                               <Font name="Minecraft Pixel" size="50.0" />
                            </font>

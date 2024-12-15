@@ -1,10 +1,14 @@
 package com.example.boxgame;
 
+import javafx.scene.image.Image;
+
 public class Character {
     protected int x;
     protected int y;
     protected int oldX;
     protected int oldY;
+
+    protected Image image;
 
     public Character(int x, int y) {
         this.x = x;

@@ -2,12 +2,16 @@ package com.example.boxgame;
 
 import org.jetbrains.annotations.NotNull;
 
+import static com.example.boxgame.CharacterImages.getBoxImage;
+
 public class Box extends Character{
     public Box(int x, int y) {
         super(x, y);
+        this.image = getBoxImage(0);
     }
     public Box(){
         super();
+        this.image = getBoxImage(0);
     }
 
     @NotNull
