@@ -27,7 +27,7 @@ public class Player extends Character{
             if(imageID==0){
                 this.image = getPlayerImage(0,0);
                 imageID = 1;
-            }else {
+            }else if(imageID==1){
                 this.image = getPlayerImage(0,1);
                 imageID = 0;
             }

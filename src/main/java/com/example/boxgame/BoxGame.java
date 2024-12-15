@@ -31,6 +31,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import static com.example.boxgame.Helper.*;
+import static com.example.boxgame.Play.boxImageStage;
+import static com.example.boxgame.Play.playerImageStage;
 import static com.example.boxgame.Welcome.*;
 
 public class BoxGame{
@@ -546,6 +548,7 @@ public class BoxGame{
 
     private static void movePlayer(int dx, int dy, int method) {
         step++;
+        playerImageStage=6;
         if(method==0){//正常推动
             if(frontOfPlayer(dx,dy)) {
                 player.move(dx, dy);
@@ -587,6 +590,7 @@ public class BoxGame{
             for(Box box : boxes) {
                 box.image = CharacterImages.getBoxImage(2);
                 box.imageID = 2;
+                boxImageStage+=8;
             }
         }
         //检测是否完成

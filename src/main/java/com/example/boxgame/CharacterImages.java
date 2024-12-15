@@ -8,18 +8,23 @@ public class CharacterImages {
     public CharacterImages() {}
     public static Image[][] playerImages = {
             {new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player1.png"))),
-            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player2.png"))),},
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player2.png"))),
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player9.png"))),},
             {new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player3.png"))),
-            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player4.png"))),},
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player4.png"))),
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player10.png"))),},
             {new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player5.png"))),
-            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player6.png"))),},
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player6.png"))),
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player11.png"))),},
             {new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player7.png"))),
-            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player8.png"))),},
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player8.png"))),
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player12.png"))),},
     };
     public static Image[] boxImages = {
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box1.png"))),
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box2.png"))),
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box3.png"))),
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box4.png"))),
     };
     public static Image[] targetImages = {
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/target1.png"))),

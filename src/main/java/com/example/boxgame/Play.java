@@ -34,9 +34,12 @@ import org.json.JSONTokener;
 import java.io.*;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 import static com.example.boxgame.BoxGame.*;
+import static com.example.boxgame.CharacterImages.*;
 import static com.example.boxgame.Welcome.*;
 
 public class Play {
@@ -93,6 +96,9 @@ public class Play {
     public static Image boxImage = new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box1.png")));
     public static Image wallImage = new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/wall1.png")));
     public static Image targetImage = new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/target1.png")));
+
+    public static int playerImageStage;
+    public static int boxImageStage;
 
     public final double[] groundInterval = {0.38,0.38};
     public final double[] playerInterval = {0.50,0.30};
@@ -217,7 +223,7 @@ public class Play {
                 for (Wall t_wall : walls){
                     gc.drawImage(t_wall.image, getPixelPosition(new int[]{t_wall.getX(),t_wall.getY()},wallInterval[0],wallInterval[1])[0], getPixelPosition(new int[]{t_wall.getX(),t_wall.getY()},wallInterval[0],wallInterval[1])[1]);
                 }
-                gc.drawImage(playerImage, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
+                //gc.drawImage(playerImage, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
                 gc.drawImage(player.image, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
 
 
@@ -306,6 +312,76 @@ public class Play {
             }
         };
         timer.start(); // 启动定时器
+        // 创建一个定时任务
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                // 这里执行定时任务，例如更新UI
+                if(playerImageStage>0){
+                    int dx=player.getX()-player.getOldX();
+                    int dy=player.getY()-player.getOldY();
+                    if(dx==0 && dy==-1){
+                        if(player.imageID==0){
+                            player.image = getPlayerImage(0,0);
+                            player.imageID = 2;
+                        }else if(player.imageID==1){
+                            player.image = getPlayerImage(0,1);
+                            player.imageID = 0;
+                        }else {
+                            player.image = getPlayerImage(0,2);
+                            player.imageID = 1;
+                        }
+                    }
+                    if(dx==0 && dy==1){
+                        if(player.imageID==0){
+                            player.image = getPlayerImage(1,0);
+                            player.imageID = 2;
+                        }else if(player.imageID==1){
+                            player.image = getPlayerImage(1,1);
+                            player.imageID = 0;
+                        }else {
+                            player.image = getPlayerImage(1,2);
+                            player.imageID = 1;
+                        }
+                    }
+                    if(dx==-1 && dy==0){
+                        if(player.imageID==0){
+                            player.image = getPlayerImage(2,0);
+                            player.imageID = 2;
+                        }else if(player.imageID==1){
+                            player.image = getPlayerImage(2,1);
+                            player.imageID = 0;
+                        }else {
+                            player.image = getPlayerImage(2,2);
+                            player.imageID = 1;
+                        }
+                    }
+                    if(dx==1 && dy==0){
+                        if(player.imageID==0){
+                            player.image = getPlayerImage(3,0);
+                            player.imageID = 2;
+                        }else if(player.imageID==1){
+                            player.image = getPlayerImage(3,1);
+                            player.imageID = 0;
+                        }else {
+                            player.image = getPlayerImage(3,2);
+                            player.imageID = 1;
+                        }
+                    }
+                    playerImageStage--;
+                }
+                if (boxImageStage>0){
+                    for(Box box : boxes){
+                        box.imageID = (box.imageID+1)%4;
+                        box.image = getBoxImage(box.imageID);
+                    }
+                    boxImageStage--;
+                }
+            }
+        };
+        // 创建一个定时器，每???毫秒执行一次任务
+        Timer timer2 = new Timer();
+        timer2.scheduleAtFixedRate(task, 0, 300);
     }
 
     public double[] getPixelPosition(int[] tempPosition, double x, double y){
