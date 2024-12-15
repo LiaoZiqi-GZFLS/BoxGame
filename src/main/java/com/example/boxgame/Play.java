@@ -91,6 +91,7 @@ public class Play {
 
     public static Image playerImage = new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player1.png")));
     public static Image boxImage = new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box1.png")));
+    public static Image wallImage = new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/wall1.png")));
 
     public GridPane gridPane0 = new GridPane();
     public GridPane gridPane = new GridPane();
@@ -187,9 +188,17 @@ public class Play {
                 int[][] t_boxesPosition = t_map.getBoxesPosition();
                 int[][] t_Position = t_map.getPosition();
                 int[][] t_wallPosition = t_map.getWallPosition();
+                for (int i = 0; i < GRID_COUNT; i++) {
+                    for (int j = 0; j < GRID_COUNT; j++) {
+                        gc.drawImage(CharacterImages.getGroundImage(i,j),getPixelPosition(new int[]{i,j},0.38,0.38)[0],getPixelPosition(new int[]{i,j},0.38,0.38)[1]);
+                    }
+                }
                 gc.drawImage(playerImage, getPixelPosition(t_playerPosition,0.50,0.30)[0], getPixelPosition(t_playerPosition,0.50,0.30)[1]);
                 for(int[] t_boxes : t_boxesPosition) {
                     gc.drawImage(boxImage, getPixelPosition(t_boxes,0.50,0.50)[0], getPixelPosition(t_boxes,0.50,0.50)[1]);
+                }
+                for(int[] t_walls : t_wallPosition) {
+                    gc.drawImage(wallImage, getPixelPosition(t_walls,0.38,0.38)[0], getPixelPosition(t_walls,0.38,0.38)[1]);
                 }
 
                 if(checkRedo){
