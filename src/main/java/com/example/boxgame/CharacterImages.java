@@ -38,6 +38,10 @@ public class CharacterImages {
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/ground1.png"))),
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/ground2.png"))),
     };
+    public static Image[] shadowImages = {
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/shadow1.png"))),
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/shadow2.png"))),
+    };
     public static Image getPlayerImage(int a, int b) {
         return playerImages[a][b];
     }
@@ -59,5 +63,8 @@ public class CharacterImages {
         }else {
             return getGroundImage(1);
         }
+    }
+    public static Image getShadowImage(int a) {
+        return shadowImages[a];
     }
 }

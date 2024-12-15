@@ -100,11 +100,15 @@ public class Play {
     public static int playerImageStage;
     public static int boxImageStage;
 
+    public AnimationTimer timer;
+    public Timer timer2 = new Timer();
+
     public final double[] groundInterval = {0.38,0.38};
     public final double[] playerInterval = {0.50,0.30};
     public final double[] targetInterval = {0.42,0.42};
     public final double[] boxInterval = {0.50,0.50};
     public final double[] wallInterval = {0.38,0.38};
+    public final double[] shadowInterval = {0.50,0.40};
 
     public GridPane gridPane0 = new GridPane();
     public GridPane gridPane = new GridPane();
@@ -173,7 +177,7 @@ public class Play {
         }
         initializeGame();
         // 创建并启动AnimationTimer
-        AnimationTimer timer = new AnimationTimer() {
+        timer = new AnimationTimer() {
             private static long lastTime = System.nanoTime();
             private static long timer = System.nanoTime();
             @Override
@@ -223,6 +227,7 @@ public class Play {
                 for (Wall t_wall : walls){
                     gc.drawImage(t_wall.image, getPixelPosition(new int[]{t_wall.getX(),t_wall.getY()},wallInterval[0],wallInterval[1])[0], getPixelPosition(new int[]{t_wall.getX(),t_wall.getY()},wallInterval[0],wallInterval[1])[1]);
                 }
+                gc.drawImage(getShadowImage(0),getPixelPosition(t_playerPosition,shadowInterval[0],shadowInterval[1])[0], getPixelPosition(t_playerPosition,shadowInterval[0],shadowInterval[1])[1]);
                 //gc.drawImage(playerImage, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
                 gc.drawImage(player.image, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
 
@@ -380,7 +385,6 @@ public class Play {
             }
         };
         // 创建一个定时器，每???毫秒执行一次任务
-        Timer timer2 = new Timer();
         timer2.scheduleAtFixedRate(task, 0, 300);
     }
 
@@ -424,6 +428,8 @@ public class Play {
     }
     @FXML
     public void exit(MouseEvent Event) throws IOException {
+        timer.stop();
+        timer2.cancel();
         MusicManager.stopBGM2();
         currentmap = _map;
         currentstep = step;
@@ -441,6 +447,8 @@ public class Play {
     }
     @FXML
     public void restart(MouseEvent mouseEvent) {
+        timer.stop();
+        timer2.cancel();
         MusicManager.playSound02(bkgvol);
         dies = true;
         succes = true;
