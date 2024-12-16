@@ -47,8 +47,8 @@ public class CharacterImages {
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box4.png"))),},
     };
     public static Image[] targetImages = {
-            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/target1.png"))),
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/target2.png"))),
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/target1.png"))),
     };
     public static Image[] wallImages = {
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/wall1.png"))),

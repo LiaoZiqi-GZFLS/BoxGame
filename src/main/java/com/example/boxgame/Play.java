@@ -216,7 +216,8 @@ public class Play {
                 }
                 for (Target t_target : targets){
                     gc.drawImage(t_target.image,getPixelPosition(new int[]{t_target.getX(),t_target.getY()},targetInterval[0],targetInterval[1])[0],getPixelPosition(new int[]{t_target.getX(),t_target.getY()},targetInterval[0],targetInterval[1])[1]);
-                }for(int[] t_boxes : t_boxesPosition) {
+                }
+                for(int[] t_boxes : t_boxesPosition) {
                     gc.drawImage(boxImage, getPixelPosition(t_boxes,boxInterval[0],boxInterval[1])[0], getPixelPosition(t_boxes,boxInterval[0],boxInterval[1])[1]);
                 }
                 for (Box t_box : boxes){
