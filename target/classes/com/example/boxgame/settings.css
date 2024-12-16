@@ -1,5 +1,5 @@
 .background{
-    -fx-background-color: #eccc78;
+    -fx-background-color: #1E6091;
 }
 .btn-exit{
     -fx-background-color: white;
@@ -16,19 +16,19 @@
     -fx-opacity: 0.7;
 }
 .btn:selected{
-    -fx-text-fill: #BE9457;
+    -fx-text-fill: #84a19f;
 }
 .slider{
 }
 .slider .thumb{
     -fx-background-color: #EAE4D1;
     -fx-border-width: 3;
-    -fx-border-color: #D5C8A0;
+    -fx-border-color: #8b999c;
 }
 .slider .track{
     -fx-background-color: #F5F2E9;
     -fx-border-width: 2;
-    -fx-border-color: #DFD6B8;
+    -fx-border-color: #a3b2cd;
 }
 .xiangkuang{
     -fx-border-color: #896D47;

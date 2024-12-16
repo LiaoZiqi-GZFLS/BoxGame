@@ -1,5 +1,5 @@
 .background{
-    -fx-background-image: url("img/bkg.png");
+    -fx-background-image: url("img/bkg.png");;
 }
 .start-btn{
     -fx-background-color: null;
@@ -15,6 +15,6 @@
 }
 .touxiangkuang{
     -fx-background-color:null;
-    -fx-border-color: #7C623F;
+    -fx-border-color: #997B66;
     -fx-border-width: 2;
 }
