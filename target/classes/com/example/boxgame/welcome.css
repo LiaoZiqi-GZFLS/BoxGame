@@ -18,3 +18,10 @@
     -fx-border-color: #997B66;
     -fx-border-width: 2;
 }
+.spe{
+    -fx-border-width: 0;
+}
+.spe .bar{
+    -fx-pref-width: 6px;
+    -fx-background-color: #22466e;
+}

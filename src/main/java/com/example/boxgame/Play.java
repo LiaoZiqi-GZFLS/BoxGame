@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -104,6 +105,7 @@ public class Play {
 
     public AnimationTimer timer;
     public Timer timer2 = new Timer();
+    public Timer timer3 = new Timer();
 
     public final double[] groundInterval = {0.38,0.38};
     public final double[] playerInterval = {0.50,0.30};
@@ -393,6 +395,51 @@ public class Play {
         };
         // 创建一个定时器，每???毫秒执行一次任务
         timer2.scheduleAtFixedRate(task, 0, 300);
+        TimerTask task1 = new TimerTask() {
+            @Override
+            public void run() {
+                // 这里执行定时任务，例如更新UI
+                if(calSuccess){
+                    switch (solverPath.charAt(0)){
+                        case 'u':
+                            playsound(playervol);
+                            movePlayer(0, -1, M);
+                            Backup();
+                            checkUndo = false;
+                            break;
+                        case 'd':
+                            playsound(playervol);
+                            movePlayer(0, 1, M);
+                            Backup();
+                            checkUndo = false;
+                            break;
+                        case 'l':
+                            playsound(playervol);
+                            movePlayer(-1, 0, M);
+                            Backup();
+                            checkUndo = false;
+                            break;
+                        case 'r':
+                            playsound(playervol);
+                            movePlayer(1, 0, M);
+                            Backup();
+                            checkUndo = false;
+                            break;
+                        default:
+                            break;
+                    }
+                    if(solverPath.length()>1){
+                        solverPath = solverPath.substring(3);
+                    }else {
+                            calSuccess = false;
+                            calFinish = true;
+                            solverPath = "";
+                    }
+                }
+            }
+        };
+        // 创建一个定时器，每???毫秒执行一次任务
+        timer3.scheduleAtFixedRate(task1, 0, 600);
     }
 
     public double[] getPixelPosition(int[] tempPosition, double x, double y){
@@ -437,6 +484,7 @@ public class Play {
     public void exit(MouseEvent Event) throws IOException {
         timer.stop();
         timer2.cancel();
+        timer3.cancel();
         MusicManager.stopBGM2();
         currentmap = _map;
         currentstep = step;
@@ -490,7 +538,7 @@ public class Play {
                 checkTime++;
                 break;
             default:
-                if(continueOrNot){
+                if(continueOrNot&&calFinish){
                     handleKeyPress(keyEvent);
                 }
                 break;
@@ -517,6 +565,7 @@ public class Play {
     public void XiaYiGuan(MouseEvent Event) throws IOException {//通关
         timer.stop();
         timer2.cancel();
+        timer3.cancel();
         last = current;
         last_step = step;
         currentstep=0;

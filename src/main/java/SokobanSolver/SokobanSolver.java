@@ -1,7 +1,10 @@
 package SokobanSolver;
 
 import java.io.IOException;
+import com.example.boxgame.BoxGame;
 
+import static com.example.boxgame.BoxGame.calFinish;
+import static com.example.boxgame.BoxGame.solverPath;
 /**
  * Command line interface for solving Sokoban with:
  * - BFS
@@ -49,6 +52,8 @@ public class SokobanSolver {
 
 				if (solver != null) {
 					String solution = solver.search();
+					solverPath = solution;
+					calFinish = true;
 					int nodesExplored = solver.getNodesExplored();
 					int previouslySeen = solver.getPreviouslySeen();
 					int queueLength = solver.getFringeLength();

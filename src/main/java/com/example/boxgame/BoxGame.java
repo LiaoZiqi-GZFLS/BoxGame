@@ -25,6 +25,8 @@ import javafx.concurrent.Worker.State;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
@@ -74,12 +76,16 @@ public class BoxGame{
     public static int score =0;
     private static boolean check = true;
     private static boolean check2 = true;
-    private static boolean checkUndo = false;
+    public static boolean checkUndo = false;
     public static boolean checkRedo = false;
     public static boolean checkGameOver = false;
     private static long startTime = 0; // 游戏开始时间
     public static long elapsedTime = 0; // 已过时间
+    public static String solverPath;
+    public static boolean calFinish = true;
+    public static boolean calSuccess = false;
 
+    public static ExecutorService executorService = Executors.newFixedThreadPool(4); // 创建固定大小的线程池
 
     public static void start(Stage primaryStage) {
 
@@ -189,8 +195,10 @@ public class BoxGame{
                     }
                     break;
                 case KeyCode.H:
-                    String[] args = new String[]{ "-b","-q"};
-                    SokobanSolver.parseArguments(args);
+                    if(calFinish){
+                        MyTask task = new MyTask();
+                        executorService.submit(task);
+                    }
                     break;
                 default:
                     break;
@@ -604,7 +612,7 @@ public class BoxGame{
         return true;
     }
 
-    private static void movePlayer(int dx, int dy, int method) {
+    public static void movePlayer(int dx, int dy, int method) {
         step++;
         playerImageStage=6;
         if(method==0){//正常推动
@@ -766,62 +774,15 @@ public class BoxGame{
             System.exit(0); // 关闭程序
         }
     }
-
-    public static class CSVReaderService extends Service<Void> {
-
-        private String filePath = "";
-        private final ProgressBar progressBar;
-        private final ProgressIndicator progressIndicator;
-        private final Label progressLabel; // 假设你有一个Label来显示消息
-
-        public CSVReaderService(String filePath, ProgressBar progressBar, ProgressIndicator progressIndicator, Label progressLabel) {
-            this.filePath = filePath;
-            this.progressBar = progressBar;
-            this.progressIndicator = progressIndicator;
-            this.progressLabel = progressLabel;
-        }
-
+    public static class MyTask extends Task<Void> {
         @Override
-        protected Task<Void> createTask() {
-            return new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    int totalLines = 0;
-                    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            totalLines++;
-                        }
-                    }
-                    updateProgress(0, totalLines); // 设置总进度
-
-                    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-                        String line;
-                        int currentLine = 0;
-                        while ((line = br.readLine()) != null) {
-                            currentLine++;
-                            updateProgress(currentLine, totalLines);
-                            int finalCurrentLine = currentLine;
-                            Platform.runLater(() -> progressLabel.setText("Reading line: " + finalCurrentLine));
-                            // 处理每一行数据，例如分割成char数组
-                            // char[][] data = line.split(",").map(s -> s.toCharArray()).toArray(char[][]::new);
-                            // 这里可以根据需要处理数据
-                        }
-                    }
-                    return null;
-                }
-            };
+        protected Void call() throws Exception {
+            // 这里是多线程执行的代码
+            String[] args = new String[]{ "-b","-q"};
+            SokobanSolver.parseArguments(args);
+            calSuccess = true;
+            return null;
         }
-    }
-
-    // 在你的JavaFX应用程序中，你可以这样启动服务：
-    public static void startService(String filePath, ProgressBar progressBar, ProgressIndicator progressIndicator, Label progressLabel) {
-        CSVReaderService service = new CSVReaderService(filePath, progressBar, progressIndicator, progressLabel);
-
-        progressBar.progressProperty().bind(service.progressProperty());
-        progressIndicator.progressProperty().bind(service.progressProperty());
-
-        service.start(); // 启动服务
     }
 
 }
