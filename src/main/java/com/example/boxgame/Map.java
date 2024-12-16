@@ -273,6 +273,32 @@ public class Map {
         }
         return backupMap;
     }
+    public static char[][] getMap1(char[][] t_map){
+        char[][] tempMap = t_map.clone();
+        for(char[] row : tempMap){
+            for(char col : row){
+                if(col=='@'){
+                    col = '*';
+                }
+                if(col=='?'){
+                    col = '+';
+                }
+                if(col=='P'){
+                    col = '@';
+                }
+                if(col=='B'){
+                    col = '$';
+                }
+                if(col=='.'){
+                    col = ' ';
+                }
+                if(col=='T'){
+                    col = '.';
+                }
+            }
+        }
+        return tempMap;
+    }
     @Override
     public String toString(){
         StringBuilder str= new StringBuilder();
@@ -281,6 +307,18 @@ public class Map {
         str.append(GRID_COUNT);
         str.append('\n');
         for(char[] chars : map0){
+            str.append(chars);
+            str.append('\n');
+        }
+        return str.toString();
+    }
+    public String toString(boolean b){
+        char[][] t_map = map0.clone();
+        if(b){
+            t_map = getMap1(map0);
+        }
+        StringBuilder str= new StringBuilder();
+        for(char[] chars : t_map){
             str.append(chars);
             str.append('\n');
         }

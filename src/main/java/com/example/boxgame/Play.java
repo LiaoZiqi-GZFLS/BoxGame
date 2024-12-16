@@ -464,7 +464,7 @@ public class Play {
         checkRedo = true;
     }
     @FXML
-    public void move(KeyEvent keyEvent) {
+    public void move(KeyEvent keyEvent) throws IOException, InterruptedException {
         //System.out.println(keyEvent.getCode());
         if(checkGameOver){
             return;

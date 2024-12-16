@@ -59,6 +59,7 @@ public class Welcome {
     public static int last_step =0;//上次游玩时步数
     public static String last = "NeverPlayed";//上次游玩的关卡
     public static int currentstep = 0;//现在游玩关卡的步数
+    //
     public static String current = "1-1";
     public static boolean played = false;
     public static char[][] currentmap = {

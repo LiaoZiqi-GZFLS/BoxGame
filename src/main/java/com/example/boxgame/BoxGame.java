@@ -1,5 +1,6 @@
 package com.example.boxgame;
 
+import SokobanSolver.SokobanSolver;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -189,7 +190,8 @@ public class BoxGame{
                     }
                     break;
                 case KeyCode.H:
-                    System.out.println(cal(map.toString()));
+                    String[] args = new String[]{ "-b","-q"};
+                    SokobanSolver.parseArguments(args);
                     break;
                 default:
                     break;
