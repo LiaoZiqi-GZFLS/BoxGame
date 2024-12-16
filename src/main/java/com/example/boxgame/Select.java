@@ -301,6 +301,7 @@ public class Select {
             "########".toCharArray(),
     };
 
+    public static int fromstartvip = 0;
     public void startvip(MouseEvent mouseEvent) throws IOException {
         current = name;
         currentmap = map3;
@@ -308,6 +309,7 @@ public class Select {
         N = 0;
         M = mode;
         fromcontinuebtn = 1;
+        fromstartvip=1;
         startplus(mouseEvent);
     }
 
@@ -328,7 +330,7 @@ public class Select {
             JSONObject list = new JSONObject(jt);
             if(list.has("map")&&list.has("mode")&&
                     list.has("name")&&list.has("author")&&
-                    list.has("introduction")&&list.has("author")&&list.getInt("mode")<5){
+                    list.has("introduction")&&list.getInt("mode")<5){
                 infobox.setVisible(true);
                 name = list.getString("name");
                 String map = list.getString("map");

@@ -40,6 +40,7 @@ import java.util.TimerTask;
 
 import static com.example.boxgame.BoxGame.*;
 import static com.example.boxgame.CharacterImages.*;
+import static com.example.boxgame.Select.fromstartvip;
 import static com.example.boxgame.Welcome.*;
 
 public class Play {
@@ -121,8 +122,8 @@ public class Play {
     private int checkTime = 0;
 
     double bkgvol;
-    double playervol;
-    double envvol;
+    public static double playervol;
+    public static double envvol;
 
     public void initvolume(){
         Reader reader;
@@ -239,6 +240,10 @@ public class Play {
                     checkRedo = false;
                 }
                 if(checkWinCondition()){
+                    if(fromstartvip==1){
+                        from=1;
+                        successhint.setText("你已通关该关卡 点此回到主界面");
+                    }
                     if(N==5){
                         currentmap = new char[][]{
                                 "######..".toCharArray(),
@@ -522,10 +527,11 @@ public class Play {
                 throw new RuntimeException(e);
             }
         }
-        if(N==5){
+        if(N==5||fromstartvip==1){
             if(isfinished==0){
                 finalpane.setVisible(true);
             }else{
+                fromstartvip=0;
                 exit(Event);
             }
         }else{
@@ -569,10 +575,12 @@ public class Play {
     }
 
     public void save0(MouseEvent mouseEvent) throws IOException {
+        MusicManager.stopBGM2();
         exit(mouseEvent);
     }
 
     public void nosave(MouseEvent mouseEvent) throws IOException {
+        MusicManager.stopBGM2();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("welcome.fxml")));
         if(from==2){
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("select.fxml")));

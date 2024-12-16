@@ -19,7 +19,10 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import static com.example.boxgame.Welcome.*;
 import static com.example.boxgame.Welcome.last;
@@ -114,20 +117,20 @@ public class Settings {
     public void changeplayerskin(MouseEvent mouseEvent) {
         if(playerskinx.isSelected()){
             playerskin0 = 1;
-            playerskin.setImage(new Image(getClass().getResourceAsStream("img/2.jpg")));//玩家皮肤2
+            playerskin.setImage(new Image(getClass().getResourceAsStream("img/2.png")));//玩家皮肤2
         }else{
             playerskin0 = 0;
-            playerskin.setImage(new Image(getClass().getResourceAsStream("img/1.png")));//玩家皮肤1
+            playerskin.setImage(new Image(getClass().getResourceAsStream("img/1-1.png")));//玩家皮肤1
         }
     }
 
     public void changeboxskin(MouseEvent mouseEvent) {
         if(boxskinx.isSelected()){
             boxskin0 = 1;
-            boxskin.setImage(new Image(getClass().getResourceAsStream("img/2.jpg")));//箱子皮肤2
+            boxskin.setImage(new Image(getClass().getResourceAsStream("img/box02.png")));//箱子皮肤2
         }else{
             boxskin0 = 0;
-            boxskin.setImage(new Image(getClass().getResourceAsStream("img/1.png")));//箱子皮肤1
+            boxskin.setImage(new Image(getClass().getResourceAsStream("img/box01.png")));//箱子皮肤1
         }
     }
 
@@ -185,6 +188,30 @@ public class Settings {
             fos = new FileOutputStream("json\\config.json");
             fos.write(list.toString().getBytes());
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void opengithub1(MouseEvent mouseEvent) {
+        try {
+            Desktop.getDesktop().browse(new URI("https://github.com/LiaoZiqi-GZFLS"));
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void opengithub2(MouseEvent mouseEvent) {
+        try {
+            Desktop.getDesktop().browse(new URI("https://github.com/liaoshao"));
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void opengithub(MouseEvent mouseEvent) {
+        try {
+            Desktop.getDesktop().browse(new URI("https://github.com/LiaoZiqi-GZFLS/BoxGame"));
+        } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }

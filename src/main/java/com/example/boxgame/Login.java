@@ -94,17 +94,20 @@ public class Login {
                     name = uname;
                     id = id1;
 
-            }
+
                 try {
-                    LoadPlayerStatistic(name,mouseEvent);
+                    LoadPlayerStatistic(uname,mouseEvent);
                 } catch (IOException e) {
+                    error.setText("登录失败 用户名或密码错误");
+                    error.setVisible(true);
+                    error.setStyle("-fx-text-fill: red;");
                     throw new RuntimeException(e);
-                }
-            }else{
+                }}
+            else{
                 error.setText("登录失败 用户名或密码错误");
                 error.setVisible(true);
                 error.setStyle("-fx-text-fill: red;");
-            }
+            }}
 
         }else if(d2.isSelected()){
             System.out.println("register");
@@ -178,6 +181,9 @@ public class Login {
             JSONTokener jt = new JSONTokener(new FileReader(info));
             list = new JSONObject(jt);
         } catch (FileNotFoundException e) {
+            error.setText("登录失败 用户名或密码错误");
+            error.setVisible(true);
+            error.setStyle("-fx-text-fill: red;");
             throw new RuntimeException(e);
         } catch (JSONException e) {
             error.setText("用户数据文件出现错误 请删除用户文件并重启");

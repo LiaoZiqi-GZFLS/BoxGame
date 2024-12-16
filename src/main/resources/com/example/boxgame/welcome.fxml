@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.leewyatt.rxcontrols.controls.RXAudioSpectrum?>
 <?import com.leewyatt.rxcontrols.controls.RXTranslationButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -89,5 +90,6 @@
             </AnchorPane>
          </top>
       </BorderPane>
+      <RXAudioSpectrum fx:id="spe" crestPos="DOUBLE" prefHeight="154.0" prefWidth="1080.0" styleClass="spe" viewOrder="10.0" AnchorPane.bottomAnchor="0.0" />
    </children>
 </AnchorPane>

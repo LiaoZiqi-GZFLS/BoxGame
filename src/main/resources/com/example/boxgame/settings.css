@@ -44,3 +44,6 @@
 .btn1:selected{
     -fx-text-fill: #EAE4D1;
 }
+.about-text{
+    -fx-wrap-text: true;
+}

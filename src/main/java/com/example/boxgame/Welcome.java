@@ -1,5 +1,6 @@
 package com.example.boxgame;
 
+import com.leewyatt.rxcontrols.controls.RXAudioSpectrum;
 import com.leewyatt.rxcontrols.controls.RXTranslationButton;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -19,6 +20,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -32,6 +34,7 @@ import java.net.URL;
 import java.util.Objects;
 
 import static com.example.boxgame.BoxGame.*;
+import static com.example.boxgame.MusicManager.bgmPlayer1;
 import static java.lang.Thread.sleep;
 
 public class Welcome {
@@ -71,6 +74,8 @@ public class Welcome {
     };
 
     public static double bkgvol;
+    public RXAudioSpectrum spe;
+
     public void initvolume(){
         Reader reader;
         try {
@@ -86,6 +91,12 @@ public class Welcome {
     public void initialize() {
         initvolume();
         MusicManager.playBGM1(bkgvol);
+        bgmPlayer1.setAudioSpectrumListener(new AudioSpectrumListener() {
+            @Override
+            public void spectrumDataUpdate(double v, double v1, float[] floats, float[] floats1) {
+                spe.setMagnitudes(floats);
+            }
+        });
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), event -> {
                     if(avatarpath.isEmpty()){
