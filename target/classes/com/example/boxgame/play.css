@@ -46,3 +46,11 @@
     -fx-background-color: black;
     -fx-opacity: 0.1;
 }
+.btn{
+    -fx-background-color: null;
+    -fx-border-width: 1;
+    -fx-border-color: white;
+}
+.btn:hover{
+    -fx-opacity: 0.7;
+}

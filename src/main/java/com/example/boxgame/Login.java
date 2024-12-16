@@ -129,7 +129,7 @@ public class Login {
                     fos = new FileOutputStream("json\\userdata.json");
                     fos.write(list.toString().getBytes());
                 } catch (IOException e) {
-                    error.setText("用户密码表出现错误 请删除缓存文件夹并重启游戏");
+                    error.setText("用户密码表出现错误 请删除该用户文件");
                     error.setVisible(true);
                     error.setStyle("-fx-text-fill: red;");
                     throw new RuntimeException(e);
@@ -180,7 +180,7 @@ public class Login {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (JSONException e) {
-            error.setText("用户数据文件出现错误 请删除缓存文件夹并重启游戏");
+            error.setText("用户数据文件出现错误 请删除用户文件并重启");
             error.setVisible(true);
             error.setStyle("-fx-text-fill: red;");
             throw new RuntimeException(e);

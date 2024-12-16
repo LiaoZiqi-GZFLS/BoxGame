@@ -334,7 +334,6 @@ public class BoxGame{
         // 初始化计时器
         startTime = System.currentTimeMillis();
         elapsedTime = 0;
-
         //初始化地图
         _map = map.getMap();
 
@@ -342,7 +341,7 @@ public class BoxGame{
         initializeList(playerPosition, Position, boxesPosition, wallPosition);
         // 将玩家和箱子和目标点添加到网格中
         renderGame(new Map(_map));
-
+        setScore();
         //备份
         Backup();
     }
