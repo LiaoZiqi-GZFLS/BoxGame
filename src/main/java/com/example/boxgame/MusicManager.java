@@ -8,7 +8,7 @@ import javafx.util.Duration;
 import java.net.URL;
 
 public class MusicManager {
-    private static MediaPlayer bgmPlayer1;
+    public static MediaPlayer bgmPlayer1;
     private static MediaPlayer bgmPlayer2;
     private static MediaPlayer die;
     private static MediaPlayer success;
