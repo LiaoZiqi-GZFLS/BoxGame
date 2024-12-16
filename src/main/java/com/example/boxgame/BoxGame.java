@@ -244,15 +244,15 @@ public class BoxGame{
             if(M==1){
                 switch (psound){
                     case 1:
-                        MusicManager.playSound14(s);
+                        MusicManager.playSound12(s);
                         psound+=1;
                         break;
                     case 2:
-                        MusicManager.playSound13(s);
+                        MusicManager.playSound14(s);
                         psound+=1;
                         break;
                     case 3:
-                        MusicManager.playSound12(s);
+                        MusicManager.playSound11(s);
                         psound+=1;
                         break;
                     case 4:
