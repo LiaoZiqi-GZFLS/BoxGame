@@ -15,6 +15,39 @@ public class MusicManager {
     private static MediaPlayer sound01;
     public static MediaPlayer sound02;
     public static MediaPlayer sound03;
+    public static MediaPlayer sound11;
+    public static MediaPlayer sound12;
+    public static MediaPlayer sound13;
+    public static MediaPlayer sound14;
+
+    public static void playSound11(double p) {
+        URL resourceUrl = MusicManager.class.getResource("/com/example/boxgame/bgm/11.wav");
+        Media Sound = new Media(resourceUrl.toString());
+        sound11 = new MediaPlayer(Sound);
+        sound11.setVolume(p/100);
+        sound11.play();
+    }
+    public static void playSound12(double p) {
+        URL resourceUrl = MusicManager.class.getResource("/com/example/boxgame/bgm/12.wav");
+        Media Sound = new Media(resourceUrl.toString());
+        sound12 = new MediaPlayer(Sound);
+        sound12.setVolume(p/100);
+        sound12.play();
+    }
+    public static void playSound13(double p) {
+        URL resourceUrl = MusicManager.class.getResource("/com/example/boxgame/bgm/13.wav");
+        Media Sound = new Media(resourceUrl.toString());
+        sound13 = new MediaPlayer(Sound);
+        sound13.setVolume(p/100);
+        sound13.play();
+    }
+    public static void playSound14(double p) {
+        URL resourceUrl = MusicManager.class.getResource("/com/example/boxgame/bgm/14.wav");
+        Media Sound = new Media(resourceUrl.toString());
+        sound14 = new MediaPlayer(Sound);
+        sound14.setVolume(p/100);
+        sound14.play();
+    }
 
     public static void playSound01(double p) {
         URL resourceUrl = MusicManager.class.getResource("/com/example/boxgame/bgm/sound01.mp3");

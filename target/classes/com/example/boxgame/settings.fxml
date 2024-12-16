@@ -134,7 +134,7 @@
                                  <children>
                                     <ImageView fx:id="playerskin" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@img/1.png" />
+                                          <Image url="@img/1-1.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -169,7 +169,7 @@
                                  <children>
                                     <ImageView fx:id="boxskin" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@img/1.png" />
+                                          <Image url="@img/box01.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -202,7 +202,46 @@
                   </VBox>
                   <AnchorPane fx:id="pane3" prefHeight="640.0" prefWidth="880.0" visible="false">
                      <children>
-                        <Label layoutX="248.0" layoutY="162.0" text="3" />
+                        <Label layoutX="376.0" layoutY="39.0" text="关于作者" textFill="WHITE">
+                           <font>
+                              <Font name="Minecraft Pixel" size="32.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="113.0" layoutY="172.0" text="廖子祺" textFill="WHITE" AnchorPane.leftAnchor="150.0">
+                           <font>
+                              <Font name="Minecraft Pixel" size="32.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="632.0" layoutY="172.0" text="廖子豪" textFill="WHITE" AnchorPane.rightAnchor="150.0">
+                           <font>
+                              <Font name="Minecraft Pixel" size="32.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="164.0" layoutY="234.0" onMouseReleased="#opengithub1" styleClass="btn" text="github" textFill="WHITE" AnchorPane.topAnchor="230.0">
+                           <font>
+                              <Font name="Minecraft Pixel" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="648.0" layoutY="256.0" onMouseReleased="#opengithub2" styleClass="btn" text="github" textFill="WHITE" AnchorPane.topAnchor="230.0">
+                           <font>
+                              <Font name="Minecraft Pixel" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="63.0" layoutY="437.0" prefHeight="100.0" prefWidth="754.0" styleClass="about-text" text="本软件遵循OpenGPL 4.0（开源GNU通用公共许可证）开源协议。这意味着我们的软件是基于社区的贡献和合作精神开发的，旨在提供一个自由、开放的平台，供用户使用、修改和分发。" textFill="WHITE">
+                           <font>
+                              <Font name="Minecraft Pixel" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="63.0" layoutY="353.0" onMouseReleased="#opengithub" prefHeight="63.0" prefWidth="649.0" styleClass="btn" text="https://github.com/LiaoZiqi-GZFLS/BoxGame" textFill="WHITE">
+                           <font>
+                              <Font name="Minecraft Pixel" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="63.0" layoutY="320.0" text="项目地址：" textFill="WHITE">
+                           <font>
+                              <Font name="Minecraft Pixel" size="28.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </children>

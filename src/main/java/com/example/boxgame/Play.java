@@ -121,8 +121,8 @@ public class Play {
     private int checkTime = 0;
 
     double bkgvol;
-    double playervol;
-    double envvol;
+    public static double playervol;
+    public static double envvol;
 
     public void initvolume(){
         Reader reader;

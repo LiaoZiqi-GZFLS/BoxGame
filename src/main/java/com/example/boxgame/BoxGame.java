@@ -31,8 +31,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import static com.example.boxgame.Helper.*;
-import static com.example.boxgame.Play.boxImageStage;
-import static com.example.boxgame.Play.playerImageStage;
+import static com.example.boxgame.Play.*;
 import static com.example.boxgame.Welcome.*;
 
 public class BoxGame{
@@ -205,24 +204,29 @@ public class BoxGame{
             }
         }
 
+
         //移动操作
         switch (event.getCode()) {
             case UP, KeyCode.W:
+                playsound(playervol);
                 movePlayer(0, -1, M);
                 Backup();
                 checkUndo = true;
                 break;
             case DOWN, KeyCode.S:
+                playsound(playervol);
                 movePlayer(0, 1, M);
                 Backup();
                 checkUndo = true;
                 break;
             case LEFT, KeyCode.A:
+                playsound(playervol);
                 movePlayer(-1, 0, M);
                 Backup();
                 checkUndo = true;
                 break;
             case RIGHT, KeyCode.D:
+                playsound(playervol);
                 movePlayer(1, 0, M);
                 Backup();
                 checkUndo = true;
@@ -234,6 +238,54 @@ public class BoxGame{
         checkCondition();
     }
 
+    static int psound = 1;
+    public static void playsound(double s){
+        if(playerskin0==1){
+            if(M==1){
+                switch (psound){
+                    case 1:
+                        MusicManager.playSound14(s);
+                        psound+=1;
+                        break;
+                    case 2:
+                        MusicManager.playSound13(s);
+                        psound+=1;
+                        break;
+                    case 3:
+                        MusicManager.playSound12(s);
+                        psound+=1;
+                        break;
+                    case 4:
+                        MusicManager.playSound11(s);
+                        psound=1;
+                        break;
+                }
+            }else{
+                switch (psound){
+                    case 1:
+                        MusicManager.playSound11(s);
+                        psound+=1;
+                        break;
+                    case 2:
+                        MusicManager.playSound12(s);
+                        psound+=1;
+                        break;
+                    case 3:
+                        MusicManager.playSound13(s);
+                        psound+=1;
+                        break;
+                    case 4:
+                        MusicManager.playSound14(s);
+                        psound=1;
+                        break;
+                }
+            }
+
+        }else if(playerskin0==0){
+            MusicManager.playSound01(s);
+        }
+
+    }
     public static void renderGame(Map tMap){
         played = true;
         times++;
