@@ -331,6 +331,8 @@ public class BoxGame{
         checkUndo = false;
         checkRedo = true;
         checkGameOver = false;
+        playerImageStage = 0;
+        boxImageStage = 0;
         // 初始化计时器
         startTime = System.currentTimeMillis();
         elapsedTime = 0;

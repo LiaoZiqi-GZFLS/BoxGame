@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 
 import java.util.Objects;
 
+import static com.example.boxgame.Welcome.boxskin0;
 import static com.example.boxgame.Welcome.playerskin0;
 
 public class CharacterImages {
@@ -35,11 +36,15 @@ public class CharacterImages {
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player8-2.png"))),
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/player12-2.png"))),},},
     };
-    public static Image[] boxImages = {
-            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box1.png"))),
+    public static Image[][] boxImages = {
+            {new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box1-2.png"))),
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box2-2.png"))),
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box3-2.png"))),
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box4-2.png"))),},
+            {new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box1.png"))),
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box2.png"))),
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box3.png"))),
-            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box4.png"))),
+            new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/box4.png"))),},
     };
     public static Image[] targetImages = {
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/target1.png"))),
@@ -61,7 +66,7 @@ public class CharacterImages {
         return playerImages[playerskin0][a][b];
     }
     public static Image getBoxImage(int a) {
-        return boxImages[a];
+        return boxImages[boxskin0][a];
     }
     public static Image getTargetImage(int a) {
         return targetImages[a];
