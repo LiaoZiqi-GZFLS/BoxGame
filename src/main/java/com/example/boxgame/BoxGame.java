@@ -196,9 +196,11 @@ public class BoxGame{
                     break;
                 case KeyCode.H:
                     if(calFinish){
-                        MyTask task = new MyTask();
+                        calFinish = false;
+                        MyTask task = new MyTask(new String[]{ "-b","-q"});
                         executorService.submit(task);
                     }
+                    //System.out.println(cal(new Map(_map).toString()));
                     break;
                 default:
                     break;
@@ -775,10 +777,16 @@ public class BoxGame{
         }
     }
     public static class MyTask extends Task<Void> {
+        public String[] args;
+        public MyTask(String[] args) {
+            // 这里是多线程执行的代码
+            this.args = args;
+            SokobanSolver.parseArguments(args);
+            calSuccess = true;
+        }
         @Override
         protected Void call() throws Exception {
             // 这里是多线程执行的代码
-            String[] args = new String[]{ "-b","-q"};
             SokobanSolver.parseArguments(args);
             calSuccess = true;
             return null;

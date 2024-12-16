@@ -20,16 +20,16 @@ public class Map {
     //压力传感器：Y
     //灯泡：L
     private final char[][] imap = {
-        "##########".toCharArray(),
-        "#L#L#L#.T#".toCharArray(),
-        "#######..#".toCharArray(),
-        "#Y#Y#Y#.B#".toCharArray(),
-        "#........#".toCharArray(),
-        "#P.......#".toCharArray(),
-        "#Y#Y#Y#Y##".toCharArray(),
-        "##########".toCharArray(),
-        "#L#L#L#L##".toCharArray(),
-        "##########".toCharArray(),
+        ".T###.#..#".toCharArray(),
+        "..###.#.B#".toCharArray(),
+        "..#...#..#".toCharArray(),
+        "#aa...##.#".toCharArray(),
+        ".aa##.##.#".toCharArray(),
+        "##..#.#...".toCharArray(),
+        "##.##.....".toCharArray(),
+        ".......###".toCharArray(),
+        ".#.#.#...#".toCharArray(),
+        "P...##..#.".toCharArray(),
     };
     private final char[][] map0 = new char[GRID_COUNT][GRID_COUNT];
     private final char[][] map1 = {
