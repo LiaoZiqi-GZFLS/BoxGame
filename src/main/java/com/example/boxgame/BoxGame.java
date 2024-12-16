@@ -237,9 +237,7 @@ public class BoxGame{
     public static void renderGame(Map tMap){
         played = true;
         times++;
-        if(fromcontinuebtn==1){
-            tMap = new Map(currentmap);//???
-        }
+
         //初始化地图
         char[][] t_map = tMap.getMap();
         int[] t_playerPosition = tMap.getPlayerPosition();
@@ -342,7 +340,11 @@ public class BoxGame{
         // 假设玩家在起始位置，箱子在起始位置
         initializeList(playerPosition, Position, boxesPosition, wallPosition);
         // 将玩家和箱子和目标点添加到网格中
-        renderGame(new Map(_map));
+        if(fromcontinuebtn==1){
+            renderGame(new Map(currentmap));//读档
+        }else {
+            renderGame(new Map(_map));
+        }
         setScore();
         //备份
         Backup();
