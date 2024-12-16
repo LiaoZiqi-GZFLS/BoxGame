@@ -62,6 +62,7 @@ public class Play {
     public StackPane successhintpane;//成功提示版
     public Label successhint;//成功提示
     public ImageView finalpane;
+    public BorderPane baocun;
 
     @FXML
     private StringProperty timeS = new SimpleStringProperty(String.format("%02d:%02d", elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60));
@@ -564,5 +565,24 @@ public class Play {
         isfinished = 1;
         from = 1;
         exit(mouseEvent);
+    }
+
+    public void save0(MouseEvent mouseEvent) throws IOException {
+        exit(mouseEvent);
+    }
+
+    public void nosave(MouseEvent mouseEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("welcome.fxml")));
+        if(from==2){
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("select.fxml")));
+        }
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void exit0(MouseEvent mouseEvent) {
+        baocun.setVisible(true);
     }
 }

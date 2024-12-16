@@ -238,7 +238,7 @@ public class BoxGame{
         played = true;
         times++;
         if(fromcontinuebtn==1){
-            //tMap = new Map(currentmap);//???
+            tMap = new Map(currentmap);//???
         }
         //初始化地图
         char[][] t_map = tMap.getMap();
@@ -354,6 +354,7 @@ public class BoxGame{
     }
 
     public static void undoGame() {
+        step--;
         renderGame(new Map(p_map));
         Backup();
     }
