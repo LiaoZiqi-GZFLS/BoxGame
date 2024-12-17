@@ -24,6 +24,7 @@ import javafx.concurrent.Task;
 import javafx.concurrent.Worker.State;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -85,7 +86,8 @@ public class BoxGame{
     public static boolean calFinish = true;
     public static boolean calSuccess = false;
 
-    public static ExecutorService executorService = Executors.newFixedThreadPool(4); // 创建固定大小的线程池
+    public static ExecutorService executorService = Executors.newFixedThreadPool(8); // 创建固定大小的线程池
+    static List<MyTask> tasks = new ArrayList<>();
 
     public static void start(Stage primaryStage) {
 
@@ -197,8 +199,7 @@ public class BoxGame{
                 case KeyCode.H:
                     if(calFinish){
                         calFinish = false;
-                        MyTask task = new MyTask(new String[]{ "-b","-q"});
-                        executorService.submit(task);
+                        submitTask();
                     }
                     //System.out.println(cal(new Map(_map).toString()));
                     break;
@@ -357,6 +358,8 @@ public class BoxGame{
         checkGameOver = false;
         startTime = 0; // 游戏开始时间
         elapsedTime = 0; // 已过时间
+        calFinish = true;
+        calSuccess = false;
     }
 
     public static void initializeList(int[] t_playerPosition, int[][] t_Position, int[][] t_boxesPosition, int[][] t_wallPosition) {
@@ -393,6 +396,8 @@ public class BoxGame{
         checkUndo = false;
         checkRedo = true;
         checkGameOver = false;
+        calFinish = true;
+        calSuccess = false;
         playerImageStage = 0;
         boxImageStage = 0;
         // 初始化计时器
@@ -778,18 +783,35 @@ public class BoxGame{
     }
     public static class MyTask extends Task<Void> {
         public String[] args;
+        public int time;
         public MyTask(String[] args) {
             // 这里是多线程执行的代码
             this.args = args;
-            SokobanSolver.parseArguments(args);
-            calSuccess = true;
         }
         @Override
         protected Void call() throws Exception {
+            if(args[0]!="-b"&&args[0]!="-d"){
+                Thread.sleep(2000);
+            }
             // 这里是多线程执行的代码
             SokobanSolver.parseArguments(args);
             calSuccess = true;
+            for (MyTask task : tasks) {
+                if (!task.isDone()&&this!=task) {
+                    task.cancel();
+                }
+            }
+            calFinish = true;
             return null;
+        }
+    }
+
+    public static void submitTask() {
+        String[] strs = {"-b","-d","-u","-ab","-gb","-am","-gm"};
+        for(int i = 0; i < strs.length; i++){
+            MyTask task = new MyTask(new String[]{strs[i],"-q"});
+            tasks.add(task);
+            executorService.submit(task);
         }
     }
 

@@ -328,16 +328,25 @@ public class BoardState implements Comparable<BoardState> {
 	}
 
 	public static BoardState parseBoardInput(){
-		int width = GRID_COUNT;
+		int width = GRID_COUNT+2;
 		System.out.println(width);
-		int height = GRID_COUNT;
+		int height = GRID_COUNT+2;
 		System.out.println(height);
 		byte[][] boardPoints = new byte[height][width];
 		Point player = new Point();
 		Set<Point> goals = new HashSet<Point>();
 		Set<Point> boxes = new HashSet<Point>();
 
-		char[][] tempMap = _map.clone();
+		char[][] tempMap = new char[height][width];
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				if(i == 0 || i == height-1 || j == 0 || j == width-1) {
+					tempMap[i][j] = '#';
+				}else {
+					tempMap[i][j] = _map[i-1][j-1];
+				}
+			}
+		}
 
 		String line;
 		for (int row = 0; row < height && (line = new String(tempMap[row])) != null; row++) {
