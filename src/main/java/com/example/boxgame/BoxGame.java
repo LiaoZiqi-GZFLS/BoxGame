@@ -790,8 +790,11 @@ public class BoxGame{
         }
         @Override
         protected Void call() throws Exception {
-            if(args[0]!="-b"&&args[0]!="-d"){
-                Thread.sleep(2000);
+            if(args[0]!="-b"){
+                Thread.sleep(1000);
+                if(args[0]!="-d"){
+                    Thread.sleep(1000);
+                }
             }
             // 这里是多线程执行的代码
             SokobanSolver.parseArguments(args);
