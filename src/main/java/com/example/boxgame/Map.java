@@ -17,21 +17,19 @@ public class Map {
     //目标：T
     //玩家在目标上：?
     //箱子在目标上：@
-    //压力传感器：Y
-    //灯泡：L
     private final char[][] imap = {
         ".T###.#..#".toCharArray(),
         "..###.#.B#".toCharArray(),
         "..#...#..#".toCharArray(),
-        "#aa...##.#".toCharArray(),
-        ".aa##.##.#".toCharArray(),
+        "#.....##.#".toCharArray(),
+        "...##.##.#".toCharArray(),
         "##..#.#...".toCharArray(),
         "##.##.....".toCharArray(),
         ".......###".toCharArray(),
         ".#.#.#...#".toCharArray(),
         "P...##..#.".toCharArray(),
     };
-    private final char[][] map0 = new char[GRID_COUNT][GRID_COUNT];
+    private char[][] map0 = new char[GRID_COUNT][GRID_COUNT];
     private final char[][] map1 = {
             "######".toCharArray(),
             "#P...#".toCharArray(),
@@ -100,6 +98,12 @@ public class Map {
         }
     }
     public Map(int n) {
+        if(n==-1){
+            SokobanGenerator sokobanGenerator = new SokobanGenerator();
+            sokobanGenerator.mainGenerator();
+            map0 = sokobanGenerator.getMap();
+            return;
+        }
         for(int i = 0; i < GRID_COUNT; i++) {
             Arrays.fill(map0[i], '.');
         }

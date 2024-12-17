@@ -127,6 +127,27 @@ public class SokobanSolver {
 			}
 		}
 
+
+	}
+
+	public static boolean checkPossibility(char[][] boardMap){
+		try {
+			BoardState initialBoard = BoardState.parseBoardInput(boardMap);
+			AbstractSolver solver = null;
+			System.out.println(initialBoard);
+			solver = new DFSSolver(initialBoard);
+			if (solver != null) {
+				String solution = solver.search();
+				calSuccess = false;
+				calFinish = true;
+			}
+			return true;
+		}catch (NoSolutionException e) {
+			System.out.println("Solution does not exist");
+			calSuccess = false;
+			calFinish = true;
+			return false;
+		}
 	}
 
 }

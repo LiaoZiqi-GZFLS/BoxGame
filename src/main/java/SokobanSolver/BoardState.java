@@ -372,4 +372,50 @@ public class BoardState implements Comparable<BoardState> {
 
 		return new BoardState(boardPoints, player, goals, boxes);
 	}
+
+	public static BoardState parseBoardInput(char[][] _map){
+		int width = GRID_COUNT+2;
+		System.out.println(width);
+		int height = GRID_COUNT+2;
+		System.out.println(height);
+		byte[][] boardPoints = new byte[height][width];
+		Point player = new Point();
+		Set<Point> goals = new HashSet<Point>();
+		Set<Point> boxes = new HashSet<Point>();
+
+		char[][] tempMap = new char[height][width];
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				if(i == 0 || i == height-1 || j == 0 || j == width-1) {
+					tempMap[i][j] = '#';
+				}else {
+					tempMap[i][j] = _map[i-1][j-1];
+				}
+			}
+		}
+
+		String line;
+		for (int row = 0; row < height && (line = new String(tempMap[row])) != null; row++) {
+			for (int col = 0; col < width && col < line.length(); col++) {
+				byte field = 0;
+				try{
+					field = charToField.get(line.charAt(col));
+				}catch (Exception e) {
+					System.out.println("Invalid character: " + line.charAt(col));
+					System.exit(1);
+				}
+
+				boardPoints[row][col] = field;
+				boardPoints[row][col] = field;
+				if ((field & PLAYER) == PLAYER)
+					player = new Point(row, col);
+				if ((field & GOAL) == GOAL)
+					goals.add(new Point(row, col));
+				if ((field & BOX) == BOX)
+					boxes.add(new Point(row, col));
+			}
+		}
+
+		return new BoardState(boardPoints, player, goals, boxes);
+	}
 }
