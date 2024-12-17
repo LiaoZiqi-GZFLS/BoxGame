@@ -101,7 +101,7 @@ public class Map {
         if(n==-1){
             SokobanGenerator sokobanGenerator = new SokobanGenerator();
             sokobanGenerator.mainGenerator();
-            map0 = sokobanGenerator.getMap();
+            map0 = new Map(sokobanGenerator.getMap()).getMap();
             return;
         }
         for(int i = 0; i < GRID_COUNT; i++) {
