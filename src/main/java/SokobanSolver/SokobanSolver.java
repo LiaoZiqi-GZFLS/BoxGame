@@ -1,6 +1,8 @@
 package SokobanSolver;
 
 import java.io.IOException;
+import java.util.concurrent.*;
+
 import com.example.boxgame.BoxGame;
 
 import static com.example.boxgame.BoxGame.*;
@@ -131,23 +133,54 @@ public class SokobanSolver {
 	}
 
 	public static boolean checkPossibility(char[][] boardMap){
-		try {
-			BoardState initialBoard = BoardState.parseBoardInput(boardMap);
-			AbstractSolver solver = null;
-			System.out.println(initialBoard);
-			solver = new DFSSolver(initialBoard);
-			if (solver != null) {
-				String solution = solver.search();
+		Callable<Boolean> task = () -> {
+			try {
+				BoardState initialBoard = BoardState.parseBoardInput(boardMap);
+				AbstractSolver solver = null;
+				System.out.println(initialBoard);
+				solver = new DFSSolver(initialBoard);
+				if (solver != null) {
+					String solution = solver.search();
+					calSuccess = false;
+					calFinish = true;
+				}
+				Thread.sleep(1);
+				return true;
+			}catch (NoSolutionException e) {
+				System.out.println("Solution does not exist");
 				calSuccess = false;
 				calFinish = true;
+				e.printStackTrace();
+				return false;
+			}catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+				e.printStackTrace();
+				return false;
 			}
-			return true;
-		}catch (NoSolutionException e) {
-			System.out.println("Solution does not exist");
-			calSuccess = false;
-			calFinish = true;
-			return false;
-		}
+		};
+		boolean result = executeFunctionWithTimeout(task, 2500);
+		return result;
 	}
+	public static boolean executeFunctionWithTimeout(Callable<Boolean> function, long timeoutMillis) {
+        try (ExecutorService executor = Executors.newSingleThreadExecutor()) {
+            Future<Boolean> future = executor.submit(function);
+
+            try {
+				// 等待任务完成或超时
+                return future.get(timeoutMillis, TimeUnit.MILLISECONDS);
+            } catch (TimeoutException e) {
+				// 超时，取消任务
+                future.cancel(true);
+                return false;
+            } catch (InterruptedException | ExecutionException e) {
+				// 处理其他异常情况
+                e.printStackTrace();
+                return false;
+            } finally {
+				// 关闭ExecutorService
+                executor.shutdownNow();
+            }
+        }
+    }
 
 }

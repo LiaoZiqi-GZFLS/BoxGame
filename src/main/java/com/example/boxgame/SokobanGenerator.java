@@ -52,7 +52,18 @@ public class SokobanGenerator {
         }
     }
 
-    private boolean placePlayerAndTarget(int numberOfBoxes) {
+    private boolean checkBoxesPosition(){
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if(map[i][j]==BOX){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean placeObjects(int numberOfBoxes) {
         int attempts = 0;
         while (attempts < 100) { // Limit attempts to avoid infinite loop
             int playerX = random.nextInt(size - 2) + 1;
@@ -62,17 +73,48 @@ public class SokobanGenerator {
                 map[playerX][playerY] = PLAYER;
 
                 for (int i = 0; i < numberOfBoxes; i++){
-                    int targetX = random.nextInt(size - 2) + 1;
-                    int targetY = random.nextInt(size - 2) + 1;
-                    while (targetX == playerX && targetY == playerY) {
+                    int num=0;
+                    int targetX;
+                    int targetY;
+                     do{
                         targetX = random.nextInt(size - 2) + 1;
                         targetY = random.nextInt(size - 2) + 1;
-                    }
+                        if(++num>=100){
+                            return false;
+                        }
+                    }while (map[targetX][targetY] != EMPTY && map[targetX][targetY] != PLAYER);
 
                     if (map[targetX][targetY] == EMPTY) {
                         map[targetX][targetY] = TARGET;
-                    }else{
-                        i--;
+                    }
+                    if(map[targetX][targetY]==PLAYER){
+                        map[targetX][targetY] = PLAYER_ON_TARGET;
+                    }
+                    int boxX;
+                    int boxY;
+                    num=0;
+                    do{
+                        boxX = random.nextInt(size - 2) + 1;
+                        boxY = random.nextInt(size - 2) + 1;
+                        if(++num>=10){
+                            return false;
+                        }
+                    }while (map[boxX][boxY] != EMPTY && (checkBoxesPosition()?(map[boxX][boxY] != TARGET):true));
+                    if(!checkPossibility(new Map(map).getMap())){
+                        num=0;
+                        do{
+                            boxX = random.nextInt(size - 4) + 2;
+                            boxY = random.nextInt(size - 4) + 2;
+                            if(++num>=10){
+                                return false;
+                            }
+                        }while (map[boxX][boxY] != EMPTY);
+                    }
+                    if (map[boxX][boxY] == EMPTY) {
+                        map[boxX][boxY] = BOX;
+                    }
+                    if (map[boxX][boxY] == TARGET) {
+                        map[boxX][boxY] = BOX_ON_TARGET;
                     }
                 }
                 return true;
@@ -95,39 +137,25 @@ public class SokobanGenerator {
         return true;
     }
 
-    private boolean placeBoxes(int numberOfBoxes) {
-        for (int i = 0; i < numberOfBoxes; i++) {
-            int attempts = 0;
-            while (attempts < 100) {
-                attempts++;
-                int boxX = random.nextInt(size - 2) + 1;
-                int boxY = random.nextInt(size - 2) + 1;
-
-                if (placeOrNot(boxX, boxY)) {
-                    map[boxX][boxY] = BOX;
-                    break; // Break the loop as we found a valid position
-                }
-                attempts++;
-            }
-        }
-        return true;
-    }
 
     public void generateMap(int numberOfBoxes) {
         initializeMap();
         placeWalls();
-        if (!placePlayerAndTarget(numberOfBoxes)) {
-            System.out.println("Failed to place player and target.");
-            generateMap(1);
-            return;
-        }
-        if (!placeBoxes(numberOfBoxes)) {
-            System.out.println("Failed to place boxes.");
+        if (!placeObjects(numberOfBoxes)) {
+            System.out.println("Failed to place player and target and boxes.");
             generateMap(1);
             return;
         }
         generateWalls();
-
+        if(!checkPossibility(new Map(map).getMap())){
+            initializeMap();
+            placeWalls();
+            generateWalls();
+            placeObjects(1);
+        }
+        if(!checkPossibility(new Map(map).getMap())){
+            map = new SokobanGenerator(random.nextInt(3)+5).getMap();
+        }
     }
 
     public void generateWalls() {

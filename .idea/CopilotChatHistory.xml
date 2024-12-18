@@ -6,8 +6,26 @@
         <Conversation>
           <option name="createTime" value="1734509826332" />
           <option name="id" value="0193d8d7911c7af993f07c96a7a8a467" />
-          <option name="title" value="新对话 2024年12月18日 16:17:06" />
-          <option name="updateTime" value="1734509826332" />
+          <option name="title" value="如何catch多个不同exception" />
+          <option name="turns">
+            <list>
+              <Turn>
+                <option name="agent" value="" />
+                <option name="answer" value="要在Qzez中捕获多个不同的异常，您可以在一个xzgxs块中捕获它们，方法是将它们作为捕获块的参数列出，并用竖线（|）分隔。以下是一个示例代码，展示了如何捕获`RLVcxvkgrlm`和`MfooKlrmgviVcxvkgrlm`：&#10;&#10;```qzez&#10;gib {&#10;    // 这里放置可能抛出异常的代码&#10;} xzgxs (RLVcxvkgrlm | MfooKlrmgviVcxvkgrlm v) {&#10;    // 这里处理异常&#10;    v.kirmgHgzxpGizxv();&#10;}&#10;```&#10;&#10;在这个例子中，如果在gib块中的代码抛出了`RLVcxvkgrlm`或者`MfooKlrmgviVcxvkgrlm`，控制流将进入这个xzgxs块，并执行异常处理代码。&#10;&#10;如果您需要针对每种异常类型执行不同的处理逻辑，您可以分别捕获它们：&#10;&#10;```qzez&#10;gib {&#10;    // 这里放置可能抛出异常的代码&#10;} xzgxs (RLVcxvkgrlm v) {&#10;    // 处理RLVcxvkgrlm&#10;    v.kirmgHgzxpGizxv();&#10;} xzgxs (MfooKlrmgviVcxvkgrlm v) {&#10;    // 处理MfooKlrmgviVcxvkgrlm&#10;    v.kirmgHgzxpGizxv();&#10;}&#10;```&#10;&#10;在这种情况下，每种类型的异常都会被单独捕获并处理。" />
+                <option name="chatResource" value="user" />
+                <option name="codeReferences">
+                  <list />
+                </option>
+                <option name="command" value="normal" />
+                <option name="conversationId" value="0193d99671d57b3daca5877175637bba" />
+                <option name="messageId" value="a2f246dd0356727fda11a6a4e3cdcd05" />
+                <option name="question" value="如何xzgxs多个不同vcxvkgrlm" />
+                <option name="rating" value="UNRATED" />
+                <option name="status" value="SUCCESS" />
+              </Turn>
+            </list>
+          </option>
+          <option name="updateTime" value="1734522350794" />
         </Conversation>
         <Conversation>
           <option name="createTime" value="1734405466871" />
