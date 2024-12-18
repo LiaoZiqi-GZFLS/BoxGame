@@ -2,7 +2,6 @@ com\example\boxgame\Play$2.class
 SokobanSolver\Heuristic.class
 com\example\boxgame\BoxGame$1.class
 SokobanSolver\BoxGoalHeuristic.class
-com\example\boxgame\SokobanGenerator.class
 com\example\boxgame\Box.class
 com\example\boxgame\MusicManager.class
 SokobanSolver\AbstractSolver.class
@@ -23,7 +22,7 @@ com\example\boxgame\Map.class
 com\example\boxgame\Play.class
 com\example\boxgame\TestHelper.class
 com\example\boxgame\Assistant.class
-com\example\boxgame\BoxGame$MyTask.class
+com\example\boxgame\BoxGame$CSVReaderService$1.class
 com\example\boxgame\Settings.class
 com\example\boxgame\BoxGameApplication$CSVReaderService.class
 com\example\boxgame\BoxGame$2.class
@@ -47,8 +46,8 @@ com\example\boxgame\Character.class
 SokobanSolver\GreedyBFSSolver.class
 com\example\boxgame\Solver.class
 com\example\boxgame\BoxGame.class
-com\example\boxgame\Play$4.class
 com\example\boxgame\Welcome.class
+com\example\boxgame\BoxGame$CSVReaderService.class
 com\example\boxgame\Select$1.class
 SokobanSolver\AStarSolver.class
 com\example\boxgame\person.class
