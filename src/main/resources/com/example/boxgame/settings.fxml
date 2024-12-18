@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.leewyatt.rxcontrols.controls.RXToggleButton?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -24,7 +25,7 @@
             <VBox prefHeight="637.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <Region prefHeight="75.0" prefWidth="200.0" />
-                  <RXToggleButton onMouseReleased="#btn1" prefHeight="120.0" prefWidth="200.0" selected="true" styleClass="btn" text="音频" textFill="WHITE">
+                  <RXToggleButton onMouseReleased="#btn1" prefHeight="120.0" prefWidth="200.0" selected="true" styleClass="btn" text="常规" textFill="WHITE">
                      <font>
                         <Font name="Minecraft Pixel" size="36.0" />
                      </font>
@@ -64,6 +65,29 @@
                <children>
                   <VBox fx:id="pane1" prefHeight="640.0" prefWidth="880.0">
                      <children>
+                        <AnchorPane prefHeight="120.0" prefWidth="880.0">
+                           <children>
+                              <HBox layoutX="531.0" layoutY="32.0">
+                                 <children>
+                                    <Pane prefHeight="56.0" prefWidth="84.0" />
+                                    <RXToggleButton fx:id="showcontrolbtn" onAction="#showcontrolpanes" prefHeight="56.0" prefWidth="100.0" text="显示" textFill="WHITE">
+                                       <styleClass>
+                                          <String fx:value="btn-showcontrol" />
+                                          <String fx:value="btn" />
+                                       </styleClass>
+                                       <font>
+                                          <Font name="Minecraft Pixel" size="22.0" />
+                                       </font>
+                                    </RXToggleButton>
+                                 </children>
+                              </HBox>
+                              <Label layoutX="53.0" layoutY="39.0" prefHeight="50.0" prefWidth="176.0" text="显示控制按钮" textFill="WHITE" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="53.0" AnchorPane.topAnchor="39.0">
+                                 <font>
+                                    <Font name="Minecraft Pixel" size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
                         <AnchorPane prefHeight="120.0" prefWidth="880.0">
                            <children>
                               <HBox layoutX="306.0" layoutY="32.0">

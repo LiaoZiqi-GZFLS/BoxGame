@@ -118,6 +118,46 @@
                   </HBox>
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="controlpane" layoutX="840.0" layoutY="486.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <StackPane layoutX="75.0" layoutY="14.0" onMouseReleased="#up" prefHeight="50.0" prefWidth="50.0" styleClass="btn-up">
+                     <children>
+                        <Region prefHeight="32.0" prefWidth="30.0">
+                           <StackPane.margin>
+                              <Insets bottom="13.0" left="10.0" right="10.0" top="13.0" />
+                           </StackPane.margin>
+                        </Region>
+                     </children>
+                  </StackPane>
+                  <StackPane layoutX="14.0" layoutY="75.0" onMouseReleased="#left" prefHeight="50.0" prefWidth="50.0" styleClass="btn-left">
+                     <children>
+                        <Region prefHeight="32.0" prefWidth="30.0">
+                           <StackPane.margin>
+                              <Insets bottom="10.0" left="13.0" right="13.0" top="10.0" />
+                           </StackPane.margin>
+                        </Region>
+                     </children>
+                  </StackPane>
+                  <StackPane layoutX="75.0" layoutY="136.0" onMouseReleased="#down" prefHeight="50.0" prefWidth="50.0" styleClass="btn-down">
+                     <children>
+                        <Region prefHeight="32.0" prefWidth="30.0">
+                           <StackPane.margin>
+                              <Insets bottom="13.0" left="10.0" right="10.0" top="13.0" />
+                           </StackPane.margin>
+                        </Region>
+                     </children>
+                  </StackPane>
+                  <StackPane layoutX="136.0" layoutY="75.0" onMouseReleased="#right" prefHeight="50.0" prefWidth="50.0" styleClass="btn-right">
+                     <children>
+                        <Region prefHeight="32.0" prefWidth="30.0">
+                           <StackPane.margin>
+                              <Insets bottom="10.0" left="13.0" right="13.0" top="10.0" />
+                           </StackPane.margin>
+                        </Region>
+                     </children>
+                  </StackPane>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <Pane fx:id="stoppane" prefHeight="720.0" prefWidth="1080.0" visible="false">

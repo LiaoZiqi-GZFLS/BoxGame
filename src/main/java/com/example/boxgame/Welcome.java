@@ -62,6 +62,7 @@ public class Welcome {
     public static int last_step =0;//上次游玩时步数
     public static String last = "NeverPlayed";//上次游玩的关卡
     public static int currentstep = 0;//现在游玩关卡的步数
+    public static long currenttime = 0;
     //
     public static String current = "1-1";
     public static boolean played = false;
@@ -98,7 +99,7 @@ public class Welcome {
             }
         });
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(0.1), event -> {
+                new KeyFrame(Duration.seconds(0.2), event -> {
                     if(avatarpath.isEmpty()){
                         touxiang.setImage(new Image(Welcome.class.getResourceAsStream("img/1.png")));
                     }else{
@@ -154,7 +155,7 @@ public class Welcome {
         // 设置关闭事件处理
         stage.setOnCloseRequest(event -> {
             // 创建一个确认对话框
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "您确定要退出程序吗？");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "您确定要退出程序吗？进度将不会保存");
             alert.setTitle("退出确认");
             alert.setHeaderText(null);
             alert.showAndWait().ifPresent(response -> {

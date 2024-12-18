@@ -51,6 +51,59 @@
     -fx-border-width: 1;
     -fx-border-color: white;
 }
-.btn:hover{
+    .btn:hover{
+        -fx-opacity: 0.7;
+    }
+     .btn-up{
+         -fx-border-radius: 5;
+         -fx-background-color: null;
+         -fx-border-width: 2;
+         -fx-border-color: white;
+     }
+     .btn-up:hover{
+         -fx-opacity: 0.7;
+     }
+.btn-up Region{
+          -fx-background-color: white;
+          -fx-shape: "M533.333333 465.066667L358.4 640 298.666667 580.266667l234.666666-234.666667 234.666667 234.666667-64 59.733333-170.666667-174.933333z";
+    }
+.btn-down{
+    -fx-border-radius: 5;
+    -fx-background-color: null;
+    -fx-border-width: 2;
+    -fx-border-color: white;
+}
+.btn-down:hover{
     -fx-opacity: 0.7;
 }
+.btn-down Region{
+    -fx-background-color: white;
+    -fx-shape: "M533.333333 516.266667l-174.933333-170.666667-64 59.733333 234.666667 234.666667L768 405.333333l-59.733333-59.733333-174.933334 170.666667z";
+}
+.btn-left{
+    -fx-background-color: null;
+    -fx-border-width: 2;
+    -fx-border-color: white;
+    -fx-border-radius: 5;
+}
+.btn-left:hover{
+    -fx-opacity: 0.7;
+}
+.btn-left Region{
+    -fx-background-color: white;
+    -fx-shape: "M503.466667 490.666667l174.933333 174.933333-59.733333 59.733333L384 490.666667 618.666667 256l59.733333 59.733333-174.933333 174.933334z";
+    }
+.btn-right{
+    -fx-background-color: null;
+    -fx-border-width: 2;
+    -fx-border-color: white;
+    -fx-border-radius: 5;
+}
+.btn-right:hover{
+    -fx-opacity: 0.7;
+}
+.btn-right Region{
+    -fx-background-color: white;
+    -fx-shape: "M558.933333 490.666667L384 665.6l59.733333 59.733333 234.666667-234.666666L443.733333 256 384 315.733333l174.933333 174.933334z";
+
+    }

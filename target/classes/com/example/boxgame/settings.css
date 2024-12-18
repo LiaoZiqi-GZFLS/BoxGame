@@ -47,3 +47,10 @@
 .about-text{
     -fx-wrap-text: true;
 }
+.btn-showcontrol{
+    -fx-border-color: white;
+    -fx-border-width: 2;
+}
+.btn-showcontrol:selected{
+    -fx-opacity: 0.5;
+}

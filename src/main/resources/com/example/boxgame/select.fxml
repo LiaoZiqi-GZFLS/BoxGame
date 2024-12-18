@@ -262,6 +262,11 @@
                         <Font name="Minecraft Pixel" size="36.0" />
                      </font>
                   </Label>
+                  <Button fx:id="suijiguanqia" layoutX="891.0" layoutY="55.0" mnemonicParsing="false" onMouseReleased="#start01" styleClass="btn-page" text="随机关卡" textFill="WHITE">
+                     <font>
+                        <Font name="Minecraft Pixel" size="24.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
          </top>

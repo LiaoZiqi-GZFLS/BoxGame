@@ -3,6 +3,7 @@ package com.example.boxgame;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -42,6 +43,7 @@ import java.util.TimerTask;
 import static com.example.boxgame.BoxGame.*;
 import static com.example.boxgame.CharacterImages.*;
 import static com.example.boxgame.Select.fromstartvip;
+import static com.example.boxgame.Settings.showcontrols;
 import static com.example.boxgame.Welcome.*;
 
 public class Play {
@@ -65,6 +67,8 @@ public class Play {
     public Label successhint;//成功提示
     public ImageView finalpane;
     public BorderPane baocun;
+    public  TextField textField;
+    public AnchorPane controlpane;
 
     @FXML
     private StringProperty timeS = new SimpleStringProperty(String.format("%02d:%02d", elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60));
@@ -72,8 +76,8 @@ public class Play {
     private StringProperty stepS = new SimpleStringProperty(String.format("%d", step));
     @FXML
     private StringProperty scoreS = new SimpleStringProperty(String.format("%02d:%02d%%", score/100, score%100));
-    @FXML
-    public TextField textField;
+    
+    
     @FXML
     public AnchorPane timeAndStepAnchorPane;
     @FXML
@@ -160,6 +164,11 @@ public class Play {
         double gridPaneY = (canvas.getHeight() - gridPane.getPrefHeight()) / 2;
         // 将GridPane图像绘制到Canvas的居中位置
         gc.drawImage(snapshot, gridPaneX, gridPaneY);
+        if(showcontrols ==0){
+            controlpane.setVisible(true);
+        }else{
+            controlpane.setVisible(false);
+        }
 
         //init labels
         setUpLabel();
@@ -642,5 +651,33 @@ public class Play {
 
     public void exit0(MouseEvent mouseEvent) {
         baocun.setVisible(true);
+    }
+
+    public void up(MouseEvent actionEvent) {
+        playsound(playervol);
+        movePlayer(0, -1, M);
+        Backup();
+        checkUndo = true;
+    }
+
+    public void left(MouseEvent actionEvent) {
+        playsound(playervol);
+        movePlayer(-1, 0, M);
+        Backup();
+        checkUndo = true;
+    }
+
+    public void right(MouseEvent actionEvent) {
+        playsound(playervol);
+        movePlayer(1, 0, M);
+        Backup();
+        checkUndo = true;
+    }
+
+    public void down(MouseEvent actionEvent) {
+        playsound(playervol);
+        movePlayer(0, 1, M);
+        Backup();
+        checkUndo = true;
     }
 }

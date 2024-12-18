@@ -1,6 +1,7 @@
 package com.example.boxgame;
 
 import com.leewyatt.rxcontrols.controls.RXToggleButton;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -41,9 +42,18 @@ public class Settings {
     public RXToggleButton boxskinx;//隐藏皮肤按钮
     public ImageView playerskin;//玩家皮肤图片
     public ImageView boxskin;//箱子皮肤图片
+    public static int showcontrols = 0;
+    public RXToggleButton showcontrolbtn;
 
     public void initialize(){
         loadconfig();
+        if(showcontrols==0){
+            showcontrolbtn.setSelected(false);
+            showcontrolbtn.setText("显示");
+        }else{
+            showcontrolbtn.setSelected(true);
+            showcontrolbtn.setText("不显示");
+        }
         initskin();
     }
 
@@ -161,6 +171,7 @@ public class Settings {
         environmentvolumebar.setValue(envvol);
         double playervol = list.getDouble("playervol");
         playervolumebar.setValue(playervol);
+        showcontrols = list.getInt("showcontrols");
 
         bkgvolume.textProperty().bind(bkgvolumebar.valueProperty().asString("%.0f%%"));
         playervolume.textProperty().bind(playervolumebar.valueProperty().asString("%.0f%%"));
@@ -212,6 +223,32 @@ public class Settings {
         try {
             Desktop.getDesktop().browse(new URI("https://github.com/LiaoZiqi-GZFLS/BoxGame"));
         } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void showcontrolpanes(ActionEvent actionEvent) {
+        if(showcontrols==0){
+            showcontrols=1;
+            showcontrolbtn.setText("不显示");
+        }else{
+            showcontrols=0;
+            showcontrolbtn.setText("显示");
+        }
+        Reader reader;
+        try {
+            reader = new FileReader("json\\config.json");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        JSONTokener jt = new JSONTokener(reader);
+        JSONObject list = new JSONObject(jt);
+        list.put("showcontrols", showcontrols);
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream("json\\config.json");
+            fos.write(list.toString().getBytes());
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

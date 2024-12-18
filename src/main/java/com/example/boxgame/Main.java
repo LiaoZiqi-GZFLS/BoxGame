@@ -35,7 +35,7 @@ public class Main extends Application {
         String conf = new String(fis0.readAllBytes());
         if(conf.isEmpty()){
             FileOutputStream fos = new FileOutputStream(config);
-            String b = "{\"envvol\":100,\"playervol\":100,\"bkgvol\":100}";
+            String b = "{\"envvol\":100,\"playervol\":100,\"bkgvol\":100,\"showcontrols\":0}";
             fos.write(b.getBytes());
         }
         File userdata = new File("json", "userdata.json");
@@ -46,7 +46,7 @@ public class Main extends Application {
         String json = new String(fis.readAllBytes());
         if(json.isEmpty()){
             FileOutputStream fos = new FileOutputStream(userdata);
-            String b = "{\"awa\":{\"id\":0,\"pwd\":\"114514a\"}}";
+            String b = "{\"awa\":{\"id\":0,\"pwd\":\"e3dd05a04907692729b83b3b6bc44769\"}}";
             fos.write(b.getBytes());
         }
         File awa = new File("json\\playerdata", "awa.json");
@@ -69,7 +69,7 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/1.png"))));
         stage.setResizable(false);
-        stage.setTitle("awa");
+        stage.setTitle("BoxGame");
         // 设置关闭事件处理
         stage.setOnCloseRequest(event -> {
             // 创建一个确认对话框

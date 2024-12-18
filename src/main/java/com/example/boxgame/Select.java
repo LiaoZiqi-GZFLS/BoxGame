@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -52,6 +53,7 @@ public class Select {
     public Label authorlabel;
     public StackPane startbtn;
     public HBox infobox;
+    public Button suijiguanqia;
 
     public void startplus(MouseEvent Event) throws IOException {
         MusicManager.playSound02(bkgvol);
@@ -87,11 +89,13 @@ public class Select {
 
     public void initialize(){
         if(isfinished==0){
+            suijiguanqia.setDisable(true);
             b2.setDisable(true);
             b3.setDisable(true);
             b4.setDisable(true);
             b5.setDisable(true);
         }else{
+            suijiguanqia.setDisable(false);
             b2.setDisable(false);
             b3.setDisable(false);
             b4.setDisable(false);
@@ -362,6 +366,14 @@ public class Select {
             youxiaolabel.setVisible(false);
             namelabel.setText("导入一个有效的json文件");
         }
+    }
+
+    public void start01(MouseEvent mouseEvent) throws IOException {
+        N = -1;
+        M = 0;
+        currentstep=0;
+        fromstartvip=1;
+        startplus(mouseEvent);
     }
 }
 

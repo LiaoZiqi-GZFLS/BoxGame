@@ -14,6 +14,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import static com.example.boxgame.BoxGame.M;
 import static com.example.boxgame.BoxGame.N;
@@ -30,13 +32,41 @@ public class Login {
     public RXToggleButton d1;
     public AnchorPane bkg;
 
+    public static String getMD5(String input) {
+        try {
+            // 获取MessageDigest实例，并指定算法为MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // 将输入字符串转换为字节数组并更新到MessageDigest对象中
+            md.update(input.getBytes());
+
+            // 计算消息摘要（即哈希值）
+            byte[] digest = md.digest();
+
+            // 创建一个StringBuilder以构建十六进制字符串
+            StringBuilder hexString = new StringBuilder();
+
+            // 遍历每个字节，将其转换为十六进制格式并添加到StringBuilder中
+            for (byte b : digest) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            // 返回最终的十六进制字符串
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void clearuserfield(RXActionEvent rxActionEvent) {
         usernameField.setText("");
     }
 
     public void login(MouseEvent mouseEvent) {
         String username = usernameField.getText();
-        String password = passwordField.getText();
+        String password = getMD5(passwordField.getText());
 
         Reader reader = null;
         try {
