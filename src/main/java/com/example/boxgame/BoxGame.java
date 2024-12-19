@@ -363,6 +363,9 @@ public class BoxGame{
         calFinish = true;
         calSuccess = false;
         checkAI = false;
+        if(fromcontinuebtn==1){
+            map = new Map(currentmap);//读档
+        }
     }
 
     public static void initializeList(int[] t_playerPosition, int[][] t_Position, int[][] t_boxesPosition, int[][] t_wallPosition) {
@@ -413,11 +416,7 @@ public class BoxGame{
         // 假设玩家在起始位置，箱子在起始位置
         initializeList(playerPosition, Position, boxesPosition, wallPosition);
         // 将玩家和箱子和目标点添加到网格中
-        if(fromcontinuebtn==1){
-            renderGame(new Map(currentmap));//读档
-        }else {
-            renderGame(new Map(_map));
-        }
+        renderGame(new Map(_map));
         setScore();
         //备份
         Backup();

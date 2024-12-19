@@ -308,7 +308,7 @@ public class Select {
     public static int fromstartvip = 0;
     public void startvip(MouseEvent mouseEvent) throws IOException {
         current = name;
-        currentmap = map3;
+        currentmap = map3.clone();
         currentstep=0;
         N = 0;
         M = mode;
