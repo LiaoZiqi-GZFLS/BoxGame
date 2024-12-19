@@ -245,7 +245,9 @@ public class Play {
                 gc.drawImage(getShadowImage(0),getPixelPosition(t_playerPosition,shadowInterval[0],shadowInterval[1])[0], getPixelPosition(t_playerPosition,shadowInterval[0],shadowInterval[1])[1]);
                 //gc.drawImage(playerImage, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
                 gc.drawImage(player.image, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
-                drawBalls(gc, (int)getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], (int)getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1],GRID_SIZE/10,2*Math.PI*(turningStep++)%24000/240.00);
+                if(checkAI){
+                    drawBalls(gc, (int)getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], (int)getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1],GRID_SIZE/10,2*Math.PI*(turningStep++)%24000/240.00);
+                }
 
                 if(checkRedo){
                     lastTime = System.nanoTime();

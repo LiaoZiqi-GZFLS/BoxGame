@@ -85,6 +85,7 @@ public class BoxGame{
     public static String solverPath;
     public static boolean calFinish = true;
     public static boolean calSuccess = false;
+    public static boolean checkAI = false;
 
     public static ExecutorService executorService = Executors.newFixedThreadPool(8); // 创建固定大小的线程池
     static List<MyTask> tasks = new ArrayList<>();
@@ -199,6 +200,7 @@ public class BoxGame{
                 case KeyCode.H:
                     if(calFinish){
                         calFinish = false;
+                        checkAI = true;
                         submitTask();
                     }
                     //System.out.println(cal(new Map(_map).toString()));
@@ -360,6 +362,7 @@ public class BoxGame{
         elapsedTime = 0; // 已过时间
         calFinish = true;
         calSuccess = false;
+        checkAI = false;
     }
 
     public static void initializeList(int[] t_playerPosition, int[][] t_Position, int[][] t_boxesPosition, int[][] t_wallPosition) {
@@ -398,6 +401,7 @@ public class BoxGame{
         checkGameOver = false;
         calFinish = true;
         calSuccess = false;
+        checkAI = false;
         playerImageStage = 0;
         boxImageStage = 0;
         // 初始化计时器
