@@ -126,6 +126,7 @@ public class Play {
     private boolean dies = true;
     private boolean succes = true;
     private int checkTime = 0;
+    private int turningStep = 0;
 
     double bkgvol;
     public static double playervol;
@@ -244,7 +245,7 @@ public class Play {
                 gc.drawImage(getShadowImage(0),getPixelPosition(t_playerPosition,shadowInterval[0],shadowInterval[1])[0], getPixelPosition(t_playerPosition,shadowInterval[0],shadowInterval[1])[1]);
                 //gc.drawImage(playerImage, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
                 gc.drawImage(player.image, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
-
+                drawBalls(gc, (int)getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], (int)getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1],GRID_SIZE/10,2*Math.PI*(turningStep++)%24000/240.00);
 
                 if(checkRedo){
                     lastTime = System.nanoTime();
@@ -449,6 +450,30 @@ public class Play {
         };
         // 创建一个定时器，每???毫秒执行一次任务
         timer3.scheduleAtFixedRate(task1, 0, 600);
+    }
+
+    private void drawBalls(GraphicsContext gc, int dx, int dy, int ballRadius, double angle) {
+        // 绘制蓝色球（中心球）
+        gc.setFill(Color.BLUE);
+        gc.fillOval(dx - ballRadius, dy - ballRadius, 2 * ballRadius, 2 * ballRadius);
+
+        // 计算红色球的位置
+        int redX = dx + (int) (Math.cos(angle) * ballRadius * 3);
+        int redY = dy + (int) (Math.sin(angle) * ballRadius * 3);
+
+        // 绘制红色球（绕着蓝色球转）
+        gc.setFill(Color.RED);
+        gc.fillOval(redX - ballRadius, redY - ballRadius, 2 * ballRadius, 2 * ballRadius);
+
+        // 绘制拖尾效果
+        gc.setFill(new Color(1, 0, 0, 0.7)); // 半透明红色
+        for (int i = 1; i <= 20; i++) {
+            double oldAngle = angle - (Math.PI / 10) * i;
+            int oldRedX = dx + (int) (Math.cos(oldAngle) * ballRadius * 3);
+            int oldRedY = dy + (int) (Math.sin(oldAngle) * ballRadius * 3);
+            gc.fillRect(oldRedX - 1, oldRedY - 1, 3, 3); // 绘制小方块作为拖尾
+        }
+
     }
 
     public double[] getPixelPosition(int[] tempPosition, double x, double y){

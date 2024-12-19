@@ -1,245 +1,223 @@
 package com.example.boxgame;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static SokobanSolver.SokobanSolver.checkPossibility;
 
 public class SokobanGenerator {
-
-    private static final int MAX_SIZE = 10;
-    private static final char WALL = '#';
-    private static final char EMPTY = '.';
-    private static final char PLAYER = 'P';
-    private static final char BOX = 'B';
-    private static final char TARGET = 'T';
-    private static final char PLAYER_ON_TARGET = '?';
-    private static final char BOX_ON_TARGET = '@';
-
-    private char[][] map;
-    private int size;
-    private static Random random = new Random();
-
-    public SokobanGenerator(int size) {
-        this.size = size;
-        this.map = new char[size][size];
-        random = new Random();
+    public int row;
+    public int col;
+    public int numberOfBoxes;
+    public char[][] map;
+    public boolean[][] visited;
+    public boolean[][] visited2;
+    private int[][] list0 = new int[][]{{-1,0},{0,-1},{1,0},{0,1}};
+    private final Random rand = new Random();
+    private final int MAX_SIZE = 10;
+    public SokobanGenerator(){
+        row = rand.nextInt(MAX_SIZE/2)+MAX_SIZE/2;
+        col = rand.nextInt(MAX_SIZE/2)+MAX_SIZE/2;
+        numberOfBoxes = rand.nextInt(3)+1;
+        map = new char[row][col];
+        visited = new boolean[row][col];
+        visited2 = new boolean[row][col];
     }
-
-    public SokobanGenerator() {
-        this(5+random.nextInt(MAX_SIZE-5));
-        int numberOfBoxes = random.nextInt(3) + 1; // Randomly choose 1, 2, or 3 boxes
-        this.generateMap(numberOfBoxes);
-        this.printMap();
+    public SokobanGenerator(int row, int col, int numberOfBoxes){
+        this.row = row;
+        this.col = col;
+        this.numberOfBoxes = numberOfBoxes;
+        map = new char[row][col];
+        visited = new boolean[row][col];
+        visited2 = new boolean[row][col];
     }
-
-    public char[][] getMap() {
-        return map;
-    }
-
-    private void initializeMap() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                map[i][j] = EMPTY;
+    public void initMap(){
+        for(int i=0; i<row; i++){
+            for(int j=0; j<col; j++){
+                map[i][j] = '.';
             }
         }
     }
-
-    private void placeWalls() {
-        // Place walls around the map
-        for (int i = 0; i < size; i++) {
-            map[0][i] = map[size - 1][i] = WALL;
-            map[i][0] = map[i][size - 1] = WALL;
+    public void initVisited(boolean tf){
+        for(int i=0; i<row; i++){
+            for(int j=0; j<col; j++){
+                if(tf){
+                    visited[i][j] = false;
+                }else {
+                    visited2[i][j] = false;
+                }
+            }
         }
     }
+    public void buildWall(){
+        for (int i=0; i<row; i++){
+            map[i][0]=map[i][col-1]='#';
+        }
+        for (int j=0; j<col; j++){
+            map[0][j]=map[row-1][j]='#';
+        }
+    }
+    public void buildObject(){
+        int playerX = 2;
+        int playerY = 2;
+        int n = row*col;
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i=0; i<n; i++){
+            list.add(i);
+        }
+        while(!list.isEmpty()){
+            int index = rand.nextInt(list.size());
+            int x = list.get(index)/col;
+            int y = list.get(index)/row;
+            if(!((x==0||x==row-1)||(y==0||y==col-1))&&map[x][y]=='.'){
+                playerX = x;
+                playerY = y;
+                map[playerX][playerY] = 'P';
+                break;
+            }else {
+                list.remove(index);
+            }
+        }
+        visited[playerX][playerY] = true;
+        System.out.println("Player: "+playerX+" "+playerY);
+        int boxX = 1;
+        int boxY = 1;
+        for(int i=1; i<=numberOfBoxes; i++){
+            list = new ArrayList<>();
+            for (int j=0; j<n; j++){
+                list.add(j);
+            }
+            while (!list.isEmpty()){
+                int index = rand.nextInt(list.size());
+                int x = list.get(index)/col;
+                int y = list.get(index)/row;
+                if(!((x<=1||x>=row-2)&&(y<=1||y>=col-2))&&map[x][y]=='.'){
+                    map[x][y] = 'B';
+                    boxX = x;
+                    boxY = y;
+                    System.out.println("Box "+i+" : "+x+" "+y);
+                    break;
+                }else {
+                    list.remove(index);
+                }
+            }
+            visited[boxX][boxY] = true;
+            int len = rand.nextInt((row+col)/2-2)+1;
+            while(len-->0){
+                ArrayList<int[]> list2 = new ArrayList<>();
+                for(int[] l: list0){
+                    list2.add(l);
+                }
+                while (!list2.isEmpty()){
+                    int index = rand.nextInt(list2.size());
+                    int[] l = list2.get(index);
+                    int tx1 = boxX+l[0];
+                    int ty1 = boxY+l[1];
+                    int tx2 = boxX-l[0];
+                    int ty2 = boxY-l[1];
+                    if(map[tx1][ty1]=='.'&&map[tx2][ty2]=='.'&& !visited[tx1][ty1]){
+                        initVisited(false);
+                        if(playerGetHere(playerX,playerY,tx2,ty2)){
+                            visited[tx1][ty1] = true;
+                            boxX = tx1;
+                            boxY = ty1;
+                            playerX = tx2;
+                            playerY = ty2;
+                            break;
+                        }else {
+                            list2.remove(index);
+                        }
+                    }else{
+                        list2.remove(index);
+                    }
+                }
+                if (list2.isEmpty()){
+                    break;
+                }
+            }
+            if(map[boxX][boxY]=='.'){
+                map[boxX][boxY] = 'T';
+            }else if(map[boxX][boxY]=='B'){
+                map[boxX][boxY] = '@';
+            }else if(map[boxX][boxY]=='P'){
+                map[boxX][boxY] = '?';
+            }else {
+                System.out.println("Error: "+map[boxX][boxY]);
+            }
 
-    private boolean checkBoxesPosition(){
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if(map[i][j]==BOX){
+        }
+    }
+    public boolean playerGetHere(int x1,int y1,int x2,int y2){
+        visited2[x1][y1] = true;
+        if(x1==x2&&y1==y2){
+            visited[x1][y1] = true;
+            return true;
+        }
+        for(int[] l: list0){
+            int tx = x1+l[0];
+            int ty = y1+l[1];
+            if(map[tx][ty]=='.'&& !visited2[tx][ty]){
+                if(playerGetHere(tx,ty,x2,y2)){
+                    visited[x1][y1] = true;
                     return true;
                 }
             }
         }
+        visited2[x1][y1] = false;
         return false;
     }
-
-    private boolean placeObjects(int numberOfBoxes) {
-        int attempts = 0;
-        while (attempts < 100) { // Limit attempts to avoid infinite loop
-            int playerX = random.nextInt(size - 2) + 1;
-            int playerY = random.nextInt(size - 2) + 1;
-
-            if (map[playerX][playerY] == EMPTY) {
-                map[playerX][playerY] = PLAYER;
-
-                for (int i = 0; i < numberOfBoxes; i++){
-                    int num=0;
-                    int targetX;
-                    int targetY;
-                     do{
-                        targetX = random.nextInt(size - 2) + 1;
-                        targetY = random.nextInt(size - 2) + 1;
-                        if(++num>=100){
-                            return false;
-                        }
-                    }while (map[targetX][targetY] != EMPTY && map[targetX][targetY] != PLAYER);
-
-                    if (map[targetX][targetY] == EMPTY) {
-                        map[targetX][targetY] = TARGET;
-                    }
-                    if(map[targetX][targetY]==PLAYER){
-                        map[targetX][targetY] = PLAYER_ON_TARGET;
-                    }
-                    int boxX;
-                    int boxY;
-                    num=0;
-                    do{
-                        boxX = random.nextInt(size - 2) + 1;
-                        boxY = random.nextInt(size - 2) + 1;
-                        if(++num>=10){
-                            return false;
-                        }
-                    }while (map[boxX][boxY] != EMPTY && (checkBoxesPosition()?(map[boxX][boxY] != TARGET):true));
-                    if(!checkPossibility(new Map(map).getMap())){
-                        num=0;
-                        do{
-                            boxX = random.nextInt(size - 4) + 2;
-                            boxY = random.nextInt(size - 4) + 2;
-                            if(++num>=10){
-                                return false;
-                            }
-                        }while (map[boxX][boxY] != EMPTY);
-                    }
-                    if (map[boxX][boxY] == EMPTY) {
-                        map[boxX][boxY] = BOX;
-                    }
-                    if (map[boxX][boxY] == TARGET) {
-                        map[boxX][boxY] = BOX_ON_TARGET;
-                    }
-                }
-                return true;
-            }
-            attempts++;
-        }
-        return false;
-    }
-
-    private boolean placeOrNot(int dx,int dy){
-        if(map[dx][dy]!=EMPTY){
-            return false;
-        }
-        if(map[dx+1][dy]==WALL&&map[dx][dy+1]==WALL||map[dx-1][dy]==WALL&&map[dx][dy-1]==WALL||map[dx-1][dy]==WALL&&map[dx][dy+1]==WALL||map[dx+1][dy]==WALL&&map[dx][dy-1]==WALL){
-            return false;
-        }
-        if(dx==1||dx==size-2||dy==1||dy==size-2){
-            return false;
-        }
-        return true;
-    }
-
-
-    public void generateMap(int numberOfBoxes) {
-        initializeMap();
-        placeWalls();
-        if (!placeObjects(numberOfBoxes)) {
-            System.out.println("Failed to place player and target and boxes.");
-            generateMap(1);
-            return;
-        }
-        generateWalls();
-        if(!checkPossibility(new Map(map).getMap())){
-            initializeMap();
-            placeWalls();
-            generateWalls();
-            placeObjects(1);
-        }
-        if(!checkPossibility(new Map(map).getMap())){
-            map = new SokobanGenerator(random.nextInt(3)+5).getMap();
-        }
-    }
-
-    public void generateWalls() {
-        int n = random.nextInt(8) + 3;
-        int x,y;
-
-        here:
-        for (int i = 0; i < n; i++) {
-            do{
-                x=random.nextInt(size - 2) + 1;
-                y=random.nextInt(size - 2) + 1;
-            }while (map[x][y]!=EMPTY);
-            if(map[x][y]==EMPTY){
-                map[x][y] = WALL;
-            }else {
-                i--;
-            }
-            int tf = random.nextInt(4);
-            int oldX = x;
-            int oldY = y;
-            switch (tf){
-                case 0:
-                    x++;
-                    break;
-                case 1:
-                    x--;
-                    break;
-                case 2:
-                    y++;
-                    break;
-                case 3:
-                    y--;
-                    break;
-            }
-            if(map[x][y]==EMPTY){
-                map[x][y] = WALL;
-            }else {
-                x = oldX;
-                y = oldY;
-                for(int k=1;k<4;k++){
-                    int tf2 = (tf+k)%4;
-                    switch (tf2){
-                        case 0:
-                            x++;
-                            break;
-                        case 1:
-                            x--;
-                            break;
-                        case 2:
-                            y++;
-                            break;
-                        case 3:
-                            y--;
-                            break;
-                    }
-                    if(map[x][y]==EMPTY){
-                        map[x][y] = WALL;
-                        continue;
-                    }else {
-                        x = oldX;
-                        y = oldY;
-                        break here;
+    public void generateWalls(){
+        for (int i=0; i<row; i++){
+            for(int j=0; j<col; j++){
+                if(map[i][j]=='.'&&!visited[i][j]){
+                    int tf = rand.nextInt(100);
+                    if(tf>rand.nextInt(50)+40){
+                        map[i][j] = '#';
                     }
                 }
             }
-            if(!checkPossibility(new Map(map).getMap())){
-                map[x][y] = EMPTY;
-            }
         }
     }
-
-    public void printMap() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                System.out.print(map[i][j] + " ");
+    public void printMap(){
+        for(int i=0; i<row; i++){
+            for(int j=0; j<col; j++){
+                System.out.print(map[i][j]);
             }
             System.out.println();
         }
     }
-
-    public void mainGenerator() {
-        SokobanGenerator generator = new SokobanGenerator(5+random.nextInt(MAX_SIZE-5));
-        int numberOfBoxes = random.nextInt(3) + 1; // Randomly choose 1, 2, or 3 boxes
-        generator.generateMap(numberOfBoxes);
-        generator.printMap();
+    public char[][] getMap(){
+        return map;
+    }
+    public void printVisited(){
+        for(int i=0; i<row; i++){
+            for(int j=0; j<col; j++){
+                if(visited[i][j]){
+                    System.out.print("1");
+                }else {
+                    System.out.print("0");
+                }
+            }
+            System.out.println();
+        }
+    }
+    public void generate(){
+        initMap();
+        initVisited(true);
+        initVisited(false);
+        buildWall();
+        buildObject();
+        generateWalls();
+        printMap();
+        printVisited();
+    }
+    public void mainGenerator(){
+        int attempt = 0;
+        do{
+            generate();
+        }while (!checkPossibility(map)&&attempt++<50);
+        if(attempt>=20){
+            System.out.println("Error: can't generate a valid map");
+        }
     }
 }

@@ -804,6 +804,12 @@ public class BoxGame{
                     task.cancel();
                 }
             }
+            if(!checkWinCondition()){
+                args[0] = "-b";
+                SokobanSolver.parseArguments(args);
+                calSuccess = false;
+            }
+            calSuccess = true;
             calFinish = true;
             return null;
         }
