@@ -194,6 +194,7 @@ public class Login {
         init.put("times",times);
         init.put("laststep",last_step);
         init.put("currentstep",currentstep);
+        init.put("currenttime",currenttime);
         init.put("last",last);
         init.put("current",current);
         init.put("isfinished",isfinished);

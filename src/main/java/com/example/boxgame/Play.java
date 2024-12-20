@@ -3,7 +3,6 @@ package com.example.boxgame;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -20,12 +19,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -34,7 +30,6 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.*;
-import java.net.URL;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -124,7 +119,7 @@ public class Play {
     public String Label1;
     private boolean continueOrNot = true;
     private boolean dies = true;
-    private boolean succes = true;
+    private boolean success = true;
     private int checkTime = 0;
     private int turningStep = 0;
 
@@ -282,9 +277,9 @@ public class Play {
                         }
                     }
                     MusicManager.stopBGM2();
-                    if(succes){
+                    if(success){
                         MusicManager.playSuccessSound(envvol);
-                        succes = false;
+                        success = false;
                     }
                     successhintpane.setVisible(true);
                     defeathintpane.setVisible(false);
@@ -319,7 +314,7 @@ public class Play {
                     checkTime = 0;
                 }
                 timer = currentNanoTime;
-                elapsedTime = (long) ((currentNanoTime - lastTime) / 1_000_000.0);
+                elapsedTime = (long) ((currentNanoTime - lastTime) / 1_000_000.0) + currenttime;
                 String timeString = String.format("Time: %02d:%02d", elapsedTime / 1000 %3600 / 60, (elapsedTime / 1000) % 60);
                 String scoreString = String.format("Score: %02d.%02d%%", score/100, score%100);
                 String stepString = String.format("Step: %d", step);
@@ -524,6 +519,7 @@ public class Play {
         MusicManager.stopBGM2();
         currentmap = _map;
         currentstep = step;
+        currenttime = elapsedTime;
         if(islogin==1){
             save();
         }
@@ -542,7 +538,7 @@ public class Play {
         //timer2.cancel();
         MusicManager.playSound02(bkgvol);
         dies = true;
-        succes = true;
+        success = true;
         MusicManager.playBGM2(bkgvol);
         defeathintpane.setVisible(false);
         initializeGame();
@@ -551,6 +547,7 @@ public class Play {
         continueOrNot = true;
         checkTime = 0;
         checkRedo = true;
+        currenttime = 0;
     }
     @FXML
     public void move(KeyEvent keyEvent) throws IOException, InterruptedException {
@@ -588,6 +585,7 @@ public class Play {
         init.put("times",times);
         init.put("laststep",last_step);
         init.put("currentstep",currentstep);
+        init.put("currenttime",currenttime);
         init.put("last",last);
         init.put("current",current);
         init.put("isfinished",isfinished);
