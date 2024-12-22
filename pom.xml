@@ -168,7 +168,7 @@
     <repository>
       <id>github</id>
       <name>BoxGame</name>
-      <url>https://maven.pkg.github.com/LiaoZiqi-GZFLS/BoxGame.git</url>
+      <url>https://maven.pkg.github.com/LiaoZiqi-GZFLS/BoxGame</url>
     </repository>
   </distributionManagement>
 </project>
