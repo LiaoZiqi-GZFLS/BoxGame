@@ -86,6 +86,7 @@ public class BoxGame{
     public static boolean calFinish = true;
     public static boolean calSuccess = false;
     public static boolean checkAI = false;
+    public static boolean iceAndFire = true;
 
     public static ExecutorService executorService = Executors.newFixedThreadPool(8); // 创建固定大小的线程池
     static List<MyTask> tasks = new ArrayList<>();
@@ -247,6 +248,12 @@ public class BoxGame{
                 checkUndo = true;
                 break;
             default:
+                if(iceAndFire){
+                    playsound(playervol);
+                    movePlayer(0, 0, M);
+                    Backup();
+                    checkUndo = true;
+                }
                 break;
         }
         //检测条件
@@ -623,6 +630,36 @@ public class BoxGame{
     }
 
     public static void movePlayer(int dx, int dy, int method) {
+        int p_step = step;
+        if(iceAndFire){
+            double angleNum = ((turningStep) / 240.00) % 1;
+            dx=0;
+            dy=0;
+            System.out.println(angleNum);
+            double[] nums = new double[4];
+            double min = 1.0;
+            for (int i = 0; i < 4; i++){
+                nums[i] = Math.abs(angleNum-0.25*i);
+                min = Math.min(min, nums[i]);
+            }
+            if(min<0.2){
+                if(nums[0]==min){
+                    dx=1;
+                    dy=0;
+                }else if(nums[1]==min){
+                    dx=0;
+                    dy=1;
+                }else if (nums[2]==min){
+                    dx=-1;
+                    dy=0;
+                }else if (nums[3]==min){
+                    dx=0;
+                    dy=-1;
+                }else {
+                    return;
+                }
+            }
+        }
         step++;
         playerImageStage=6;
         if(method==0){//正常推动
@@ -653,6 +690,10 @@ public class BoxGame{
             }else{
                 step--;
             }
+        }
+        if(p_step+1 == step){
+            turnBall=!turnBall;
+            turningStep+=120;
         }
         //刷新界面
         Refresh();

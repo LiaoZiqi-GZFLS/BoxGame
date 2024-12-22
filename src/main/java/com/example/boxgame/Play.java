@@ -112,6 +112,7 @@ public class Play {
     public final double[] boxInterval = {0.50,0.50};
     public final double[] wallInterval = {0.38,0.38};
     public final double[] shadowInterval = {0.50,0.40};
+    public final double[] ballInterval = {1.00,1.00};
 
     public GridPane gridPane0 = new GridPane();
     public GridPane gridPane = new GridPane();
@@ -121,7 +122,8 @@ public class Play {
     private boolean dies = true;
     private boolean success = true;
     private int checkTime = 0;
-    private int turningStep = 0;
+    public static int turningStep = 0;
+    public static boolean turnBall = true;
 
     double bkgvol;
     public static double playervol;
@@ -219,29 +221,35 @@ public class Play {
                         gc.drawImage(CharacterImages.getGroundImage(i,j),getPixelPosition(new int[]{i,j},groundInterval[0],groundInterval[1])[0],getPixelPosition(new int[]{i,j},groundInterval[0],groundInterval[1])[1]);
                     }
                 }
-                for (int[] t_targets : t_Position) {
+                /*for (int[] t_targets : t_Position) {
                     gc.drawImage(targetImage, getPixelPosition(t_targets,targetInterval[0],targetInterval[1])[0],getPixelPosition(t_targets,targetInterval[0],targetInterval[1])[1]);
-                }
+                }*/
                 for (Target t_target : targets){
                     gc.drawImage(t_target.image,getPixelPosition(new int[]{t_target.getX(),t_target.getY()},targetInterval[0],targetInterval[1])[0],getPixelPosition(new int[]{t_target.getX(),t_target.getY()},targetInterval[0],targetInterval[1])[1]);
                 }
-                for(int[] t_boxes : t_boxesPosition) {
+                /*for(int[] t_boxes : t_boxesPosition) {
                     gc.drawImage(boxImage, getPixelPosition(t_boxes,boxInterval[0],boxInterval[1])[0], getPixelPosition(t_boxes,boxInterval[0],boxInterval[1])[1]);
-                }
+                }*/
                 for (Box t_box : boxes){
                     gc.drawImage(t_box.image, getPixelPosition(new int[]{t_box.getX(),t_box.getY()},boxInterval[0],boxInterval[1])[0], getPixelPosition(new int[]{t_box.getX(),t_box.getY()},boxInterval[0],boxInterval[1])[1]);
                 }
-                for(int[] t_walls : t_wallPosition) {
+                /*for(int[] t_walls : t_wallPosition) {
                     gc.drawImage(wallImage, getPixelPosition(t_walls,wallInterval[0],wallInterval[1])[0], getPixelPosition(t_walls,wallInterval[0],wallInterval[1])[1]);
-                }
+                }*/
                 for (Wall t_wall : walls){
                     gc.drawImage(t_wall.image, getPixelPosition(new int[]{t_wall.getX(),t_wall.getY()},wallInterval[0],wallInterval[1])[0], getPixelPosition(new int[]{t_wall.getX(),t_wall.getY()},wallInterval[0],wallInterval[1])[1]);
                 }
                 gc.drawImage(getShadowImage(0),getPixelPosition(t_playerPosition,shadowInterval[0],shadowInterval[1])[0], getPixelPosition(t_playerPosition,shadowInterval[0],shadowInterval[1])[1]);
                 //gc.drawImage(playerImage, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
-                gc.drawImage(player.image, getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1]);
-                if(checkAI){
-                    drawBalls(gc, (int)getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], (int)getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1],GRID_SIZE/10,2*Math.PI*(turningStep++)%24000/240.00);
+
+                if(iceAndFire){
+                    drawBalls(gc, (int)getPixelPosition(t_playerPosition,ballInterval[0],ballInterval[1])[0], (int)getPixelPosition(t_playerPosition,ballInterval[0],ballInterval[1])[1],GRID_SIZE/3,2*Math.PI*((turningStep++)/240.00%2));
+                    turningStep+=2;
+                }else {
+                    gc.drawImage(player.image, getPixelPosition(t_playerPosition, playerInterval[0], playerInterval[1])[0], getPixelPosition(t_playerPosition, playerInterval[0], playerInterval[1])[1]);
+                }
+                if(checkAI&&!iceAndFire){
+                    drawBalls(gc, (int)getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[0], (int)getPixelPosition(t_playerPosition,playerInterval[0],playerInterval[1])[1],GRID_SIZE/10,2*Math.PI*((turningStep++)/240.00%2));
                 }
 
                 if(checkRedo){
@@ -451,11 +459,19 @@ public class Play {
 
     private void drawBalls(GraphicsContext gc, int dx, int dy, int ballRadius, double angle) {
         // 绘制蓝色球（中心球）
-        gc.setFill(new Color(0, 0, 1, 0.5));
+        if(turnBall){
+            gc.setFill(new Color(0, 0, 1, 0.5));
+        }else{
+            gc.setFill(new Color(1, 0, 0, 0.5));
+        }
         gc.fillOval(dx - 1.5*ballRadius, dy - 1.5*ballRadius, 2 * ballRadius, 2 * ballRadius);
         for (int i = 1; i <= 20; i++){
             gc.fillOval(dx - 1.5*ballRadius, dy - 1.5*ballRadius, 2 * ballRadius * (1+ (double) i /20), 2 * ballRadius * (1+ (double) i /20));
-            gc.setFill(new Color(0, 0, 1, 0.1*(1- (double) i /20)));
+            if(turnBall){
+                gc.setFill(new Color(0, 0, 1, 0.1*(1- (double) i /20)));
+            }else {
+                gc.setFill(new Color(1, 0, 0, 0.1*(1- (double) i /20)));
+            }
         }
 
         // 计算红色球的位置
@@ -463,20 +479,31 @@ public class Play {
         int redY = dy + (int) (Math.sin(angle) * ballRadius * 3);
 
         // 绘制红色球（绕着蓝色球转）
-        gc.setFill(Color.RED);
+        if(turnBall){
+            gc.setFill(Color.RED);
+        }else {
+            gc.setFill(Color.BLUE);
+        }
         gc.fillOval(redX - ballRadius, redY - ballRadius, 2 * ballRadius, 2 * ballRadius);
 
         // 绘制拖尾效果
-        gc.setFill(new Color(1, 0, 0, 0.5)); // 半透明红色
+        if(turnBall){
+            gc.setFill(new Color(1, 0, 0, 0.5)); // 半透明红色
+        }else {
+            gc.setFill(new Color(0, 0, 1, 0.5));
+        }
         for (int i = 1; i <= 40; i++) {
             double oldAngle = angle - (Math.PI / 20) * i;
             int oldRedX = dx + (int) (Math.cos(oldAngle) * ballRadius * 3);
             int oldRedY = dy + (int) (Math.sin(oldAngle) * ballRadius * 3);
             //gc.fillRect(oldRedX - ballRadius, oldRedY - ballRadius, 2*ballRadius*(1- (double) i /40), 2*ballRadius*(1- (double) i /40)); // 绘制小方块作为拖尾
             gc.fillOval(oldRedX - ballRadius, oldRedY - ballRadius, 2*ballRadius*(1- (double) i /40), 2*ballRadius*(1- (double) i /40)); // 绘制小圆圈作为拖尾
-            gc.setFill(new Color(1, 0, 0, 0.5*(1- (double) i /40)));
+            if(turnBall){
+                gc.setFill(new Color(1, 0, 0, 0.5*(1- (double) i /40)));
+            }else {
+                gc.setFill(new Color(0, 0, 1, 0.5*(1- (double) i /40)));
+            }
         }
-
     }
 
     public double[] getPixelPosition(int[] tempPosition, double x, double y){
