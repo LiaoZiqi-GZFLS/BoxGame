@@ -3,7 +3,6 @@ package com.example.boxgame;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
-import java.awt.*;
 import java.util.Arrays;
 
 import static com.example.boxgame.BoxGameApplication.*;
