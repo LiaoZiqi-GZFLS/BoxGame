@@ -86,7 +86,7 @@ public class BoxGame{
     public static boolean calFinish = true;
     public static boolean calSuccess = false;
     public static boolean checkAI = false;
-    public static boolean iceAndFire = true;
+    public static boolean iceAndFire = false;
 
     public static ExecutorService executorService = Executors.newFixedThreadPool(8); // 创建固定大小的线程池
     static List<MyTask> tasks = new ArrayList<>();
@@ -631,11 +631,11 @@ public class BoxGame{
 
     public static void movePlayer(int dx, int dy, int method) {
         int p_step = step;
-        if(iceAndFire){
+        if(iceAndFire&&method!=-1){
             double angleNum = ((turningStep) / 240.00) % 1;
             dx=0;
             dy=0;
-            System.out.println(angleNum);
+            //System.out.println(angleNum);
             double[] nums = new double[4];
             double min = 1.0;
             for (int i = 0; i < 4; i++){
@@ -659,6 +659,9 @@ public class BoxGame{
                     return;
                 }
             }
+        }
+        if(method==-1){
+            method=0;
         }
         step++;
         playerImageStage=6;
@@ -699,6 +702,27 @@ public class BoxGame{
         Refresh();
         //刷新分数
         setScore();
+    }
+
+    public static void movePlayer(int dx, int dy, int method, char c){
+        if(iceAndFire){
+            if(c=='r'){
+                dx=1;
+                dy=0;
+            }else if(c=='d'){
+                dx=0;
+                dy=1;
+            }else if (c=='l'){
+                dx=-1;
+                dy=0;
+            }else if (c=='u'){
+                dx=0;
+                dy=-1;
+            }else {
+                return;
+            }
+        }
+        movePlayer(dx, dy, -1);
     }
 
     private static void checkCondition(){

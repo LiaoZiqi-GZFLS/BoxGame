@@ -28,6 +28,7 @@ import java.util.Objects;
 
 import static com.example.boxgame.BoxGame.N;
 import static com.example.boxgame.BoxGame.M;
+import static com.example.boxgame.BoxGame.iceAndFire;
 import static com.example.boxgame.Welcome.*;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
@@ -104,6 +105,7 @@ public class Select {
     }
 
     public void start0(MouseEvent mouseEvent) throws IOException {
+        iceAndFire = true;
         N=0;
         M=0;
         currentstep=0;

@@ -122,6 +122,7 @@ public class Play {
     private boolean dies = true;
     private boolean success = true;
     private int checkTime = 0;
+    private int AI_times = 10;
     public static int turningStep = 0;
     public static boolean turnBall = true;
 
@@ -148,6 +149,7 @@ public class Play {
         MusicManager.playBGM2(bkgvol);
         step = currentstep;
         initElement(N);
+        AI_times = 10;
         defeathintpane.setVisible(false);
         successhintpane.setVisible(false);
         stoppane.setVisible(false);
@@ -244,7 +246,10 @@ public class Play {
 
                 if(iceAndFire){
                     drawBalls(gc, (int)getPixelPosition(t_playerPosition,ballInterval[0],ballInterval[1])[0], (int)getPixelPosition(t_playerPosition,ballInterval[0],ballInterval[1])[1],GRID_SIZE/3,2*Math.PI*((turningStep++)/240.00%2));
-                    turningStep+=2;
+                    turningStep+=1;
+                    if(!calFinish){
+                        turningStep+=1;
+                    }
                 }else {
                     gc.drawImage(player.image, getPixelPosition(t_playerPosition, playerInterval[0], playerInterval[1])[0], getPixelPosition(t_playerPosition, playerInterval[0], playerInterval[1])[1]);
                 }
@@ -417,26 +422,38 @@ public class Play {
                 if(calSuccess){
                     switch (solverPath.charAt(0)){
                         case 'u':
+                            if(iceAndFire&&getDirection()!='u'){
+                                return;
+                            }
                             playsound(playervol);
-                            movePlayer(0, -1, M);
+                            movePlayer(0, -1, M, 'u');
                             Backup();
                             checkUndo = false;
                             break;
                         case 'd':
+                            if(iceAndFire&&getDirection()!='d'){
+                                return;
+                            }
                             playsound(playervol);
-                            movePlayer(0, 1, M);
+                            movePlayer(0, 1, M, 'd');
                             Backup();
                             checkUndo = false;
                             break;
                         case 'l':
+                            if(iceAndFire&&getDirection()!='l'){
+                                return;
+                            }
                             playsound(playervol);
-                            movePlayer(-1, 0, M);
+                            movePlayer(-1, 0, M, 'l');
                             Backup();
                             checkUndo = false;
                             break;
                         case 'r':
+                            if(iceAndFire&&getDirection()!='r'){
+                                return;
+                            }
                             playsound(playervol);
-                            movePlayer(1, 0, M);
+                            movePlayer(1, 0, M, 'r');
                             Backup();
                             checkUndo = false;
                             break;
@@ -446,15 +463,27 @@ public class Play {
                     if(solverPath.length()>1){
                         solverPath = solverPath.substring(3);
                     }else {
+                        if(checkWinCondition()){
                             calSuccess = false;
                             calFinish = true;
                             solverPath = "";
+                        }else{
+                            calFinish = false;
+                            checkAI = true;
+                            if(AI_times-->0){
+                                submitTask();
+                            }
+                        }
                     }
                 }
             }
         };
         // 创建一个定时器，每???毫秒执行一次任务
-        timer3.scheduleAtFixedRate(task1, 0, 600);
+        if(iceAndFire){
+            timer3.scheduleAtFixedRate(task1, 0, 10);
+        }else {
+            timer3.scheduleAtFixedRate(task1, 0, 600);
+        }
     }
 
     private void drawBalls(GraphicsContext gc, int dx, int dy, int ballRadius, double angle) {
@@ -504,6 +533,29 @@ public class Play {
                 gc.setFill(new Color(0, 0, 1, 0.5*(1- (double) i /40)));
             }
         }
+    }
+
+    public char getDirection(){
+        double angleNum = ((turningStep) / 240.00) % 1;
+        //System.out.println(angleNum);
+        double[] nums = new double[4];
+        double min = 1.0;
+        for (int i = 0; i < 4; i++){
+            nums[i] = Math.abs(angleNum-0.25*i);
+            min = Math.min(min, nums[i]);
+        }
+        if(min<0.1){
+            if(nums[0]==min){
+                return 'r';
+            }else if(nums[1]==min){
+                return 'd';
+            }else if (nums[2]==min){
+                return 'l';
+            }else if (nums[3]==min){
+                return 'u';
+            }
+        }
+        return '\0';
     }
 
     public double[] getPixelPosition(int[] tempPosition, double x, double y){
