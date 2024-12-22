@@ -144,7 +144,7 @@
       <plugin>
         <groupId>com.akathist.maven.plugins.launch4j</groupId>
         <artifactId>launch4j-maven-plugin</artifactId>
-        <version>最新版本</version> <!-- 请替换为最新版本号 -->
+        <version>2.5.2</version> <!-- 请替换为最新版本号 -->
         <executions>
           <execution>
             <id>launch4j</id>
@@ -153,21 +153,27 @@
               <goal>launch4j</goal>
             </goals>
             <configuration>
-              <headerType>gui</headerType>
+              <headerType>console</headerType>
               <outfile>${project.build.directory}/${project.artifactId}.exe</outfile>
               <jar>${project.build.directory}/${project.build.finalName}.jar</jar>
               <errTitle>Error</errTitle>
-              <cmdLine></cmdLine>
+              <cmdLine> </cmdLine>
               <chdir>.</chdir>
               <priority>normal</priority>
               <downloadUrl>http://java.com/download</downloadUrl>
               <supportUrl>http://www.example.com/support</supportUrl>
               <stayAlive>false</stayAlive>
               <jre>
-                <minVersion>1.8.0</minVersion>
-                <maxVersion>1.8.0</maxVersion>
+                <minVersion>17.0.0</minVersion>
+                <maxVersion>23.0.0</maxVersion>
                 <jdkPreference>preferJre</jdkPreference>
               </jre>
+              <classPath>
+                <!--换成自己的主类-->
+                <mainClass>com.example.boxgame.Launcher</mainClass>
+                <addDependencies>true</addDependencies>
+                <preCp>anything</preCp>
+              </classPath>
               <versionInfo>
                 <fileVersion>1.0.0.0</fileVersion>
                 <txtFileVersion>1.0.0.0</txtFileVersion>
@@ -201,8 +207,12 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.example.boxgame/Launcher.main</mainClass>
+              <mainClass>com.example.boxgame.Launcher</mainClass>
               <launcher>app</launcher>
+              <bundleArguments>
+                <launcher>launcherName=MyApp</launcher>
+              </bundleArguments>
+              <vendor>MyCompany</vendor>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
               <noManPages>true</noManPages>
