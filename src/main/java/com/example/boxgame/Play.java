@@ -102,7 +102,7 @@ public class Play {
     public static int playerImageStage;
     public static int boxImageStage;
 
-    public AnimationTimer timer;
+    public AnimationTimer timer1;
     public Timer timer2 = new Timer();
     public Timer timer3 = new Timer();
 
@@ -125,6 +125,7 @@ public class Play {
     private int AI_times = 10;
     public static int turningStep = 0;
     public static boolean turnBall = true;
+    public static double trailLength = 1.0;
 
     double bkgvol;
     public static double playervol;
@@ -190,7 +191,7 @@ public class Play {
         }
         initializeGame();
         // 创建并启动AnimationTimer
-        timer = new AnimationTimer() {
+        timer1 = new AnimationTimer() {
             private static long lastTime = System.nanoTime();
             private static long timer = System.nanoTime();
             @Override
@@ -248,7 +249,7 @@ public class Play {
                     drawBalls(gc, (int)getPixelPosition(t_playerPosition,ballInterval[0],ballInterval[1])[0], (int)getPixelPosition(t_playerPosition,ballInterval[0],ballInterval[1])[1],GRID_SIZE/3,2*Math.PI*((turningStep++)/240.00%2));
                     turningStep+=1;
                     if(!calFinish){
-                        turningStep+=1;
+                        turningStep+=4;
                     }
                 }else {
                     gc.drawImage(player.image, getPixelPosition(t_playerPosition, playerInterval[0], playerInterval[1])[0], getPixelPosition(t_playerPosition, playerInterval[0], playerInterval[1])[1]);
@@ -345,7 +346,7 @@ public class Play {
                 //gc.fillText(Label1, 140, 48);
             }
         };
-        timer.start(); // 启动定时器
+        timer1.start(); // 启动定时器
         // 创建一个定时任务
         TimerTask task = new TimerTask() {
             @Override
@@ -474,6 +475,7 @@ public class Play {
                                 submitTask();
                             }
                         }
+                        checkCondition();
                     }
                 }
             }
@@ -521,8 +523,13 @@ public class Play {
         }else {
             gc.setFill(new Color(0, 0, 1, 0.5));
         }
+        if(trailLength<1){
+            trailLength+=0.01;
+        }else {
+            trailLength=1.0;
+        }
         for (int i = 1; i <= 40; i++) {
-            double oldAngle = angle - (Math.PI / 20) * i;
+            double oldAngle = angle - (Math.PI / 20) * trailLength * i;
             int oldRedX = dx + (int) (Math.cos(oldAngle) * ballRadius * 3);
             int oldRedY = dy + (int) (Math.sin(oldAngle) * ballRadius * 3);
             //gc.fillRect(oldRedX - ballRadius, oldRedY - ballRadius, 2*ballRadius*(1- (double) i /40), 2*ballRadius*(1- (double) i /40)); // 绘制小方块作为拖尾
@@ -598,7 +605,7 @@ public class Play {
     }
     @FXML
     public void exit(MouseEvent Event) throws IOException {
-        timer.stop();
+        timer1.stop();
         timer2.cancel();
         timer3.cancel();
         MusicManager.stopBGM2();
@@ -682,7 +689,7 @@ public class Play {
     }
 
     public void XiaYiGuan(MouseEvent Event) throws IOException {//通关
-        timer.stop();
+        timer1.stop();
         timer2.cancel();
         timer3.cancel();
         last = current;

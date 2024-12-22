@@ -697,6 +697,7 @@ public class BoxGame{
         if(p_step+1 == step){
             turnBall=!turnBall;
             turningStep+=120;
+            trailLength=0;
         }
         //刷新界面
         Refresh();
@@ -725,7 +726,7 @@ public class BoxGame{
         movePlayer(dx, dy, -1);
     }
 
-    private static void checkCondition(){
+    public static void checkCondition(){
         //完成
         if(checkWinCondition()){
             for(Box box : boxes) {
