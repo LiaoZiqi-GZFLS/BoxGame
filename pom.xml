@@ -135,6 +135,56 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.akathist.maven.plugins.launch4j</groupId>
+        <artifactId>launch4j-maven-plugin</artifactId>
+        <version>最新版本</version> <!-- 请替换为最新版本号 -->
+        <executions>
+          <execution>
+            <id>launch4j</id>
+            <phase>package</phase>
+            <goals>
+              <goal>launch4j</goal>
+            </goals>
+            <configuration>
+              <headerType>gui</headerType>
+              <outfile>${project.build.directory}/${project.artifactId}.exe</outfile>
+              <jar>${project.build.directory}/${project.build.finalName}.jar</jar>
+              <errTitle>Error</errTitle>
+              <cmdLine></cmdLine>
+              <chdir>.</chdir>
+              <priority>normal</priority>
+              <downloadUrl>http://java.com/download</downloadUrl>
+              <supportUrl>http://www.example.com/support</supportUrl>
+              <stayAlive>false</stayAlive>
+              <jre>
+                <minVersion>1.8.0</minVersion>
+                <maxVersion>1.8.0</maxVersion>
+                <jdkPreference>preferJre</jdkPreference>
+              </jre>
+              <versionInfo>
+                <fileVersion>1.0.0.0</fileVersion>
+                <txtFileVersion>1.0.0.0</txtFileVersion>
+                <fileDescription>My Application</fileDescription>
+                <copyright>Copyright (C) 2024</copyright>
+                <productVersion>1.0.0.0</productVersion>
+                <txtProductVersion>1.0.0.0</txtProductVersion>
+                <productName>My Application</productName>
+                <internalName>myapp</internalName>
+                <originalFilename>myapp.exe</originalFilename>
+              </versionInfo>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
         <configuration>
@@ -168,7 +218,8 @@
     <repository>
       <id>github</id>
       <name>BoxGame</name>
-      <url>https://maven.pkg.github.com/LiaoZiqi-GZFLS/BoxGame</url>
+      <url>file://${project.basedir}/repo</url>
+      <!--><url>https://maven.pkg.github.com/LiaoZiqi-GZFLS/BoxGame</url><!-->
     </repository>
   </distributionManagement>
 </project>
