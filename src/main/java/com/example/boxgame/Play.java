@@ -451,8 +451,12 @@ public class Play {
 
     private void drawBalls(GraphicsContext gc, int dx, int dy, int ballRadius, double angle) {
         // 绘制蓝色球（中心球）
-        gc.setFill(Color.BLUE);
-        gc.fillOval(dx - ballRadius, dy - ballRadius, 2 * ballRadius, 2 * ballRadius);
+        gc.setFill(new Color(0, 0, 1, 0.5));
+        gc.fillOval(dx - 1.5*ballRadius, dy - 1.5*ballRadius, 2 * ballRadius, 2 * ballRadius);
+        for (int i = 1; i <= 20; i++){
+            gc.fillOval(dx - 1.5*ballRadius, dy - 1.5*ballRadius, 2 * ballRadius * (1+ (double) i /20), 2 * ballRadius * (1+ (double) i /20));
+            gc.setFill(new Color(0, 0, 1, 0.1*(1- (double) i /20)));
+        }
 
         // 计算红色球的位置
         int redX = dx + (int) (Math.cos(angle) * ballRadius * 3);
@@ -463,12 +467,14 @@ public class Play {
         gc.fillOval(redX - ballRadius, redY - ballRadius, 2 * ballRadius, 2 * ballRadius);
 
         // 绘制拖尾效果
-        gc.setFill(new Color(1, 0, 0, 0.7)); // 半透明红色
-        for (int i = 1; i <= 20; i++) {
-            double oldAngle = angle - (Math.PI / 10) * i;
+        gc.setFill(new Color(1, 0, 0, 0.5)); // 半透明红色
+        for (int i = 1; i <= 40; i++) {
+            double oldAngle = angle - (Math.PI / 20) * i;
             int oldRedX = dx + (int) (Math.cos(oldAngle) * ballRadius * 3);
             int oldRedY = dy + (int) (Math.sin(oldAngle) * ballRadius * 3);
-            gc.fillRect(oldRedX - 1, oldRedY - 1, 3, 3); // 绘制小方块作为拖尾
+            //gc.fillRect(oldRedX - ballRadius, oldRedY - ballRadius, 2*ballRadius*(1- (double) i /40), 2*ballRadius*(1- (double) i /40)); // 绘制小方块作为拖尾
+            gc.fillOval(oldRedX - ballRadius, oldRedY - ballRadius, 2*ballRadius*(1- (double) i /40), 2*ballRadius*(1- (double) i /40)); // 绘制小圆圈作为拖尾
+            gc.setFill(new Color(1, 0, 0, 0.5*(1- (double) i /40)));
         }
 
     }
