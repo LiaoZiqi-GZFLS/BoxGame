@@ -3,21 +3,21 @@
   <groupId>com.example</groupId>
   <artifactId>BoxGame</artifactId>
   <versioning>
-    <lastUpdated>20241223021522</lastUpdated>
+    <lastUpdated>20241223042400</lastUpdated>
     <snapshot>
-      <timestamp>20241223.021522</timestamp>
-      <buildNumber>33</buildNumber>
+      <timestamp>20241223.042400</timestamp>
+      <buildNumber>37</buildNumber>
     </snapshot>
     <snapshotVersions>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>1.0-20241223.021522-33</value>
-        <updated>20241223021522</updated>
+        <value>1.0-20241223.042400-37</value>
+        <updated>20241223042400</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>1.0-20241223.021522-33</value>
-        <updated>20241223021522</updated>
+        <value>1.0-20241223.042400-37</value>
+        <updated>20241223042400</updated>
       </snapshotVersion>
       <snapshotVersion>
         <classifier>shaded</classifier>

@@ -59,6 +59,8 @@ public class CharacterImages {
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/ground2.png"))),
     };
     public static Image[] shadowImages = {
+            //new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/ground1.png"))),
+            //new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/ground2.png"))),
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/shadow1.png"))),
             new Image(Objects.requireNonNull(Play.class.getResourceAsStream("img/shadow2.png"))),
     };

@@ -101,7 +101,7 @@ public class Welcome {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0.2), event -> {
                     if(avatarpath.isEmpty()){
-                        touxiang.setImage(new Image(Welcome.class.getResourceAsStream("img/1.png")));
+                        touxiang.setImage(new Image(Objects.requireNonNull(Welcome.class.getResourceAsStream("img/1.png"))));
                     }else{
                         File imgfile = new File(avatarpath);
                         touxiang.setImage(new Image(imgfile.toURI().toString()));

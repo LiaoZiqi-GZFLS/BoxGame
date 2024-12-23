@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Created-By: 1.8.0_231 (Oracle Corporation)
+Main-Class: com.example.boxgame.Launch
+Class-Path: lib/log4j-1.2.17.jar lib/commons-lang3-3.8.1.jar
+
+Name: /
+  Implementation-Title: Your Application
+  Implementation-Version: 1.0
+  Implementation-Vendor: Your Company
+  Implementation-URL: http://www.yourcompany.com
+   Specification-Title: Your Application API
+   Specification-Version: 1.0
+   Specification-Vendor: Your Company
+
