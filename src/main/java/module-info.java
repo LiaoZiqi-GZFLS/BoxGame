@@ -20,6 +20,8 @@ module com.example.boxgame {
 
     opens com.example.boxgame to javafx.fxml;
     exports com.example.boxgame;
+    opens com.example.mapeditor to javafx.fxml;
+    exports com.example.mapeditor;
     exports main;
     opens main to javafx.fxml;
 }

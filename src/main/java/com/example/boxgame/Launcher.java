@@ -1,6 +1,6 @@
 package com.example.boxgame;
 
-import main.HelloApplication;
+import com.example.mapeditor.HelloApplication;
 import main.Test;
 
 import java.io.IOException;
@@ -10,6 +10,7 @@ public class Launcher {
         Test.main(args);
         //HelloApplication.main(args);
         //BoxGameApplication.main(args);
+        //HelloApplication.main(args);
         Main.main(args);
     }
 }

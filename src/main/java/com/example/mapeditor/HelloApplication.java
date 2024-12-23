@@ -15,7 +15,7 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("mapeditor.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("MapEditor");
-        stage.getIcons().add(new Image(Mapeditor.class.getResourceAsStream("/img/1.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(Mapeditor.class.getResourceAsStream("img/1.png"))));
         stage.setScene(scene);
         stage.show();
     }

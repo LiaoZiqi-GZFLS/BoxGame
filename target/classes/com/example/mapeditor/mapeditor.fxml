@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.leewyatt.rxcontrols.controls.RXTextField?>
+<?import com.leewyatt.rxcontrols.controls.RXToggleButton?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" styleClass="bkg" stylesheets="@mapeditor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mapeditor.Mapeditor">
+   <children>
+      <AnchorPane layoutX="-10.0">
+         <children>
+            <AnchorPane layoutX="10.0">
+               <children>
+                  <Canvas fx:id="canvas" height="439.0" layoutX="-12.0" onMouseClicked="#mouseevent" onMouseMoved="#setmap1" onMousePressed="#setmap" styleClass="canvas" translateX="2.0" translateY="2.0" width="569.0">
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis>
+                  </Canvas>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </AnchorPane>
+            <HBox layoutX="150.0" layoutY="14.0" prefHeight="56.0" prefWidth="227.0">
+               <children>
+                  <Label prefHeight="59.0" prefWidth="23.0" text="X" textFill="WHITE">
+                     <font>
+                        <Font name="Minecraft Pixel" size="20.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="linebar" max="10.0" min="2.0" onMouseDragged="#bindlinevolume" prefHeight="56.0" prefWidth="179.0" value="10.0" />
+                  <Pane prefHeight="56.0" prefWidth="9.0" />
+                  <Label fx:id="linevolume" alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="39.0" text="10" textFill="WHITE">
+                     <font>
+                        <Font name="Minecraft Pixel" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="407.0" layoutY="14.0" prefHeight="56.0" prefWidth="227.0">
+               <children>
+                  <Label prefHeight="59.0" prefWidth="23.0" text="Y" textFill="WHITE">
+                     <font>
+                        <Font name="Minecraft Pixel" size="20.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="columnbar" max="10.0" min="2.0" onMouseDragged="#bindcolumnvolume" prefHeight="56.0" prefWidth="179.0" value="10.0" />
+                  <Pane prefHeight="56.0" prefWidth="9.0" />
+                  <Label fx:id="columnvolume" alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="39.0" text="10" textFill="WHITE">
+                     <font>
+                        <Font name="Minecraft Pixel" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox layoutX="932.0" layoutY="208.0">
+               <children>
+                  <RXToggleButton fx:id="paint1" onAction="#p1" prefHeight="40.0" prefWidth="80.0" selected="true" styleClass="btn" text="地面">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="w" />
+                     </toggleGroup>
+                     <font>
+                        <Font name="Minecraft Pixel" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </RXToggleButton>
+                  <RXToggleButton fx:id="paint2" onAction="#p1" prefHeight="40.0" prefWidth="80.0" styleClass="btn" text="墙" toggleGroup="$w">
+                     <font>
+                        <Font name="Minecraft Pixel" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </RXToggleButton>
+                  <RXToggleButton fx:id="paint3" onAction="#p1" prefHeight="40.0" prefWidth="80.0" styleClass="btn" text="玩家" toggleGroup="$w">
+                     <font>
+                        <Font name="Minecraft Pixel" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </RXToggleButton>
+                  <RXToggleButton fx:id="paint4" onAction="#p1" prefHeight="40.0" prefWidth="80.0" styleClass="btn" text="箱子" toggleGroup="$w">
+                     <font>
+                        <Font name="Minecraft Pixel" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </RXToggleButton>
+                  <RXToggleButton fx:id="paint5" onAction="#p1" prefHeight="40.0" prefWidth="80.0" styleClass="btn" text="目标点" toggleGroup="$w">
+                     <font>
+                        <Font name="Minecraft Pixel" size="17.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </RXToggleButton>
+               </children>
+            </VBox>
+            <StackPane layoutX="967.0" layoutY="165.0" styleClass="btn">
+               <children>
+                  <ImageView fx:id="crview" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+            <Label fx:id="label1" alignment="CENTER" layoutX="280.0" layoutY="660.0" prefHeight="34.0" prefWidth="481.0" text="右键地图开启连续放置" textFill="GREEN">
+               <font>
+                  <Font name="Minecraft Pixel" size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="951.0" layoutY="635.0" mnemonicParsing="false" onAction="#showexportpage" prefHeight="49.0" prefWidth="100.0" styleClass="btn" text="导出" textFill="WHITE">
+               <font>
+                  <Font name="Minecraft Pixel" size="22.0" />
+               </font>
+            </Button>
+            <Button layoutX="681.0" layoutY="22.0" mnemonicParsing="false" onAction="#changesize" prefHeight="40.0" prefWidth="80.0" styleClass="btn" text="重置" textFill="WHITE">
+               <font>
+                  <Font name="Minecraft Pixel" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="daochupane" prefHeight="720.0" prefWidth="1080.0" styleClass="bkg" visible="false">
+         <children>
+            <AnchorPane prefHeight="280.0" prefWidth="1080.0">
+               <children>
+                  <AnchorPane layoutX="55.0" layoutY="45.0">
+                     <children>
+                        <Label layoutY="7.0" text="关卡名称" textFill="#fbfbfb">
+                           <font>
+                              <Font name="Minecraft Pixel" size="22.0" />
+                           </font>
+                        </Label>
+                        <RXTextField fx:id="guanqiaminchen" buttonDisplayMode="HIDE" layoutX="106.0" prefHeight="40.0" prefWidth="321.0" styleClass="textfield">
+                           <font>
+                              <Font name="Minecraft Pixel" size="18.0" />
+                           </font>
+                        </RXTextField>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="540.0" layoutY="45.0">
+                     <children>
+                        <Label layoutY="7.0" text="作者" textFill="#fbfbfb">
+                           <font>
+                              <Font name="Minecraft Pixel" size="22.0" />
+                           </font>
+                        </Label>
+                        <RXTextField fx:id="zuozhe" buttonDisplayMode="HIDE" layoutX="53.0" prefHeight="40.0" prefWidth="321.0" styleClass="textfield">
+                           <font>
+                              <Font name="Minecraft Pixel" size="18.0" />
+                           </font>
+                        </RXTextField>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="55.0" layoutY="134.0">
+                     <children>
+                        <Label layoutY="7.0" text="关卡说明" textFill="#fbfbfb">
+                           <font>
+                              <Font name="Minecraft Pixel" size="22.0" />
+                           </font>
+                        </Label>
+                        <RXTextField fx:id="introductionlabel" buttonDisplayMode="HIDE" layoutX="106.0" prefHeight="191.0" prefWidth="755.0">
+                           <font>
+                              <Font name="Minecraft Pixel" size="18.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="textfieldplus" />
+                              <String fx:value="textfield" />
+                           </styleClass>
+                        </RXTextField>
+                     </children>
+                  </AnchorPane>
+                  <StackPane layoutX="-70.0" layoutY="202.0" onMouseReleased="#exit" prefHeight="25.0" prefWidth="25.0" styleClass="btn-exit" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="59.0" layoutY="361.0">
+               <children>
+                  <Label layoutY="7.0" text="关卡模式" textFill="#fbfbfb">
+                     <font>
+                        <Font name="Minecraft Pixel" size="22.0" />
+                     </font>
+                  </Label>
+                  <HBox layoutX="102.0" layoutY="6.0">
+                     <children>
+                        <RXToggleButton fx:id="w1" onAction="#changemode" prefHeight="40.0" prefWidth="80.0" selected="true" styleClass="btn" text="0普通" textFill="WHITE">
+                           <font>
+                              <Font name="Minecraft Pixel" size="18.0" />
+                           </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="g" />
+                           </toggleGroup>
+                        </RXToggleButton>
+                        <RXToggleButton fx:id="w2" onAction="#changemode" prefHeight="40.0" prefWidth="98.0" styleClass="btn" text="1拉箱子" textFill="WHITE" toggleGroup="$g">
+                           <font>
+                              <Font name="Minecraft Pixel" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </RXToggleButton>
+                        <RXToggleButton fx:id="w3" onAction="#changemode" prefHeight="40.0" prefWidth="80.0" styleClass="btn" text="2交换" textFill="WHITE" toggleGroup="$g">
+                           <font>
+                              <Font name="Minecraft Pixel" size="18.0" />
+                           </font>
+                        </RXToggleButton>
+                        <RXToggleButton fx:id="w4" onAction="#changemode" prefHeight="40.0" prefWidth="80.0" styleClass="btn" text="3磁吸" textFill="WHITE" toggleGroup="$g">
+                           <font>
+                              <Font name="Minecraft Pixel" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </RXToggleButton>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <Button layoutX="924.0" layoutY="614.0" mnemonicParsing="false" onAction="#export" prefHeight="60.0" prefWidth="100.0" styleClass="btn" text="导出" textFill="WHITE" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="50.0">
+               <font>
+                  <Font name="Minecraft Pixel" size="25.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Label fx:id="success" alignment="CENTER" layoutX="447.0" layoutY="641.0" prefHeight="49.0" prefWidth="137.0" text="导出成功" textFill="GREEN">
+         <font>
+            <Font name="Minecraft Pixel" size="26.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

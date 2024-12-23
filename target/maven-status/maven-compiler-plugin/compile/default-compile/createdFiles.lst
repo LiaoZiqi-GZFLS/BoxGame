@@ -8,6 +8,7 @@ com\example\boxgame\MusicManager.class
 SokobanSolver\AbstractSolver.class
 com\example\boxgame\BoxGameApplication$1.class
 SokobanSolver\ManhattanHeuristic.class
+com\example\mapeditor\HelloApplication.class
 SokobanSolver\BoardState.class
 com\example\boxgame\CharacterImages.class
 com\example\boxgame\Login.class
@@ -21,6 +22,7 @@ module-info.class
 com\example\boxgame\node.class
 com\example\boxgame\Map.class
 com\example\boxgame\Play.class
+com\example\mapeditor\Mapeditor$1.class
 com\example\boxgame\TestHelper.class
 com\example\boxgame\Assistant.class
 com\example\boxgame\BoxGame$MyTask.class
@@ -29,6 +31,7 @@ com\example\boxgame\BoxGameApplication$CSVReaderService.class
 com\example\boxgame\BoxGame$2.class
 com\example\boxgame\Welcome$1.class
 Network\getOnline.class
+com\example\mapeditor\Mapeditor.class
 com\example\boxgame\Main.class
 com\example\boxgame\Launcher.class
 com\example\boxgame\Play$1.class
@@ -37,6 +40,7 @@ com\example\boxgame\BoxGameApplication.class
 com\example\boxgame\Userinfo.class
 SokobanSolver\SokobanSolver.class
 SokobanSolver\DFSSolver.class
+com\example\mapeditor\Map.class
 SokobanSolver\NoSolutionException.class
 com\example\boxgame\Settings$1.class
 com\example\boxgame\BoxGameApplication$CSVReaderService$1.class
