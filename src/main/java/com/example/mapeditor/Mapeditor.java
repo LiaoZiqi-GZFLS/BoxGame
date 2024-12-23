@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
+
 import com.example.mapeditor.Map;
 
 public class Mapeditor {
@@ -31,7 +33,7 @@ public class Mapeditor {
     public RXToggleButton paint3;
     public RXToggleButton paint4;
     public RXToggleButton paint5;
-    static Image ground1 = new Image(Mapeditor.class.getResourceAsStream("/img/ground1.png"));
+    static Image ground1 = new Image(Objects.requireNonNull(Mapeditor.class.getResourceAsStream("img/ground1.png")));
     public ImageView crview;
     public Label label1;
     public RXTextField introductionlabel;
@@ -43,11 +45,11 @@ public class Mapeditor {
     public RXTextField zuozhe;
     public RXTextField guanqiaminchen;
     public Label success;
-    Image ground2 = new Image(getClass().getResourceAsStream("/img/ground2.png"));
-    Image wall1 = new Image(getClass().getResourceAsStream("/img/wall.png"));
-    Image box = new Image(getClass().getResourceAsStream("/img/box.png"));
-    Image player = new Image(getClass().getResourceAsStream("/img/player.png"));
-    Image target = new Image(getClass().getResourceAsStream("/img/target.png"));
+    Image ground2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/ground2.png")));
+    Image wall1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/wall.png")));
+    Image box = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/box.png")));
+    Image player = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/player.png")));
+    Image target = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/target.png")));
     char[][] map = new char[10][10];
     public static int ishold = 0;
     public static int x0 = 10;
