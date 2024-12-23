@@ -192,7 +192,7 @@
               <goal>launch4j</goal>
             </goals>
             <configuration>
-              <headerType>console</headerType>
+              <headerType>gui</headerType>
               <outfile>${project.build.directory}/${project.artifactId}.exe</outfile>
               <jar>${project.build.directory}/${project.build.finalName}.jar</jar>
               <errTitle>Error</errTitle>
@@ -202,6 +202,7 @@
               <downloadUrl>http://java.com/download</downloadUrl>
               <supportUrl>http://www.example.com/support</supportUrl>
               <stayAlive>false</stayAlive>
+              <icon>src/main/resources/com/example/boxgame/img/favicon.ico</icon>
               <jre>
                 <minVersion>1.8.0</minVersion>
                 <maxVersion>23.0.0</maxVersion>

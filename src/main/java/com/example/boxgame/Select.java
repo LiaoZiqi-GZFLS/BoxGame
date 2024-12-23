@@ -105,7 +105,6 @@ public class Select {
     }
 
     public void start0(MouseEvent mouseEvent) throws IOException {
-        iceAndFire = true;
         N=0;
         M=0;
         currentstep=0;

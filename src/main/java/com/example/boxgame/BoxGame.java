@@ -198,6 +198,9 @@ public class BoxGame{
                         checkUndo = false;
                     }
                     break;
+                case KeyCode.P:
+                    iceAndFire = !iceAndFire;
+                    break;
                 case KeyCode.H:
                     if(calFinish){
                         calFinish = false;
